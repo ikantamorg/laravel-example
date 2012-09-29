@@ -29,7 +29,7 @@ class Locator
 		else
 		{
 			$class = Config::get('uploader::settings.drivers.'.$slug.'.class');
-			$this->_upload_driver = $class($slug);
+			$this->_upload_driver = new $class($slug);
 		}
 	}
 
