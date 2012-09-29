@@ -29,7 +29,7 @@ class Song extends Abstracts\MediaModel
 		if($this->get_attribute('provider') === 'soundcloud')
 			return $this->get_attribute('stream_url');
 		else
-			return (new Locator('aws'))->locate($this->get_attribute('stream_url'))->url();
+			return Locator::aws()->locate($this->get_attribute('stream_url'))->url();
 	}
 
 	public function type()

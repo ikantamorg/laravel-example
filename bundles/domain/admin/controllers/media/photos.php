@@ -13,6 +13,8 @@ class Admin_Media_Photos_Controller extends Crud_Base_Controller
 	public $view_base = 'admin::media.photos.';
 	public $base_uri = 'admin/media/photos/';
 
+	protected $_upload_driver = 'aws';
+	
 	public $uploaded_fields = [
 		'photo' => ['image', 'resource']
 	];

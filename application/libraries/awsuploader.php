@@ -4,7 +4,7 @@ class AwsUploader
 {
 	protected static $s3 = null;
 
-	protected static $aws_url = 'http://s3.amazonaws.com/';
+	protected static $_aws_url = 'http://s3.amazonaws.com/';
 
 	protected static function s3()
 	{
@@ -18,7 +18,7 @@ class AwsUploader
 
 	public static function aws_url()
 	{
-		return static::$aws_url;
+		return static::$_aws_url;
 	}
 
 	public static function upload_to($container, $file, $name = null, $unlink = true)

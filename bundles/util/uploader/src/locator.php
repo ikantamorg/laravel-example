@@ -13,9 +13,14 @@ class Locator
 	protected $_prefix = null;
 	protected $_resource = null;
 
-	public static function resource($name)
+	protected static $_drivers = [];
+
+	public static function driver($slug)
 	{
-		return (new static)->locate($name);
+		if(@static::$_drivers[$slug])
+			return @static::$_drivers[$slug];
+
+		return static::$_drivers[$slug] = new static($slug);
 	}
 
 	public function __construct($slug = null)
@@ -62,5 +67,11 @@ class Locator
 		$file = $this->_prefix === null ? $this->_resource : $this->_prefix.'-'.$this->_resource;
 
 		return $base_url . $file;
+	}
+
+	public static function __callStatic($func, $args)
+	{
+		if( in_array($func, array_keys(Config::get('uploader::settings.drivers'))) )
+			return static::driver($func);
 	}
 }

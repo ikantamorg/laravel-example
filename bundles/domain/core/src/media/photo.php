@@ -40,6 +40,6 @@ class Photo extends Abstracts\MediaModel
 
 	public function get_url($format = null)
 	{
-		return (new Locator('aws'))->resource($this->resource)->format($format)->url();
+		return Locator::aws()->locate($this->resource)->format($format)->url();
 	}
 }

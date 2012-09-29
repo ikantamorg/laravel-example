@@ -122,9 +122,7 @@ abstract class ActiveEloquent extends Eloquent
 			{
 				$this->invoke_callback('before_update');
 
-				$query = $this->query()->where(static::$key, '=', $this->get_key());
-
-				$result = $query->update($this->get_dirty()) === 1;
+				$result = parent::save();
 
 				$this->invoke_callback('after_update');
 			}
@@ -136,11 +134,7 @@ abstract class ActiveEloquent extends Eloquent
 			{
 				$this->invoke_callback('before_insert');
 
-				$id = $this->query()->insert_get_id($this->attributes, $this->sequence());
-
-				$this->set_key($id);
-
-				$this->exists = $result = is_numeric($this->get_key());
+				$result = parent::save();
 
 				$this->invoke_callback('after_insert');
 			}
