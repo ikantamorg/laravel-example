@@ -88,13 +88,13 @@ class Admin_Events_Controller extends Crud_Base_Controller
 
 		if($field = $this->get_searched_field()) {
 			
-			$q = Event::with(['venues', 'type'])->left_join('core_event_venue', 'core_events.id', '=', 'core_event_venue.event_id');
+			$q = Event::with(['venues', 'venues.city', 'type'])->left_join('core_event_venue', 'core_events.id', '=', 'core_event_venue.event_id');
 			$q->left_join('core_event_types', 'core_events.type_id', '=', 'core_event_types.id');
 			$q->left_join('core_venues', 'core_venues.id', '=', 'core_event_venue.venue_id')->select('core_events.*');
 
 			$this->prepare_search_query($q, $field, Input::get($field));
 		} else {
-			$q = Event::with(['venues', 'type']);
+			$q = Event::with(['venues', 'venues.city', 'type']);
 		}
 
 		return $this->_listing = $q->order_by('start_time', 'desc')->paginate(50);
