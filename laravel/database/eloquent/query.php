@@ -176,9 +176,17 @@ class Query {
 		// Constraints may be specified in-line for the eager load by passing
 		// a Closure as the value portion of the eager load. We can use the
 		// query builder's nested query support to add the constraints.
-		if ( ! is_null($constraints))
+		if ($constraints instanceof \Closure)
 		{
 			$query->table->where_nested($constraints);
+		}
+		elseif(is_array($constraints))
+		{
+			if( ($where = array_get($constraints, 'where')) instanceof \Closure )
+				$query->table->where_nested($where);
+
+			if( ($aggregator = array_get($constraints, 'aggregate')) instanceof \Closure )
+				$aggregator($query);
 		}
 
 		$query->initialize($results, $relationship);
@@ -253,6 +261,11 @@ class Query {
 	public function connection()
 	{
 		return Database::connection($this->model->connection());
+	}
+
+	public function column($name)
+	{
+		return $this->model->table().'.'.$name;
 	}
 
 	/**

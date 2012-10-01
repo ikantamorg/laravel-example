@@ -15,8 +15,8 @@ return array(
 		),
 		
 		'facebook' => array(
-			'id'     => '',
-			'secret' => '',
+			'id'     => '441982485848561',
+			'secret' => '1aa341c9a97505cf227f1721958967d3',
 			'scope'  => 'email,offline_access',
 		),
 

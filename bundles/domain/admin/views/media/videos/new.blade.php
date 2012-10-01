@@ -62,7 +62,7 @@ Media - Videos - New
 
 			console.log(videoData);
 
-			var videoFrameParams = { id: 'ytplayer', type: 'text/html', width: 300, height: 200 };
+			var videoFrameParams = { id: 'ytplayer', type: 'text/html', width: 450, height: 300 };
 			var streamingUrl = 'http://www.youtube.com/embed/'+videoData.data.id;
 
 			videoFrameParams.src = streamingUrl +'?autoplay=1';

@@ -45,7 +45,10 @@ return array(
 	'laraveless' => array('auto' => true, 'location' => 'util/laraveless'),
 	'hybrid' => array('auto' => true, 'location' => 'util/hybrid'),
 	'uploader' => array('auto' => true, 'location' => 'util/uploader'),
+	'recaptcha' => array('auto' => true, 'location' => 'util/recaptcha'),
+	'oneauth'  => array('auto' => true, 'location' => 'util/oneauth'),
 
 	'core' => array('auto' => true, 'location' => 'domain/core'),
 	'admin' => array('auto' => true, 'handles' => 'admin', 'location' => 'domain/admin'),
+	'artistsignup' => array('auto' => true, 'location' => 'domain/artistsignup')
 );
