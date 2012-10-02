@@ -92,7 +92,7 @@ class Admin_Media_Videos_Controller extends Crud_Base_Controller
 				});
 
 				$fs->control('select', 'Artists', function ($c) {
-					$c->name = 'aritsts';
+					$c->name = 'aritsts[]';
 					$c->attr = ['multiple' => 'multiple'];
 					$options = [];
 					foreach(Artist::all() as $a)
@@ -102,7 +102,7 @@ class Admin_Media_Videos_Controller extends Crud_Base_Controller
 				});
 
 				$fs->control('select', 'genres', function ($c) {
-					$c->name = 'genres';
+					$c->name = 'genres[]';
 					$c->attr = ['multiple' => 'multiple'];
 					$options = [];
 					foreach(Genre::all() as $g)
@@ -112,7 +112,7 @@ class Admin_Media_Videos_Controller extends Crud_Base_Controller
 				});
 
 				$fs->control('select', 'Events', function ($c) {
-					$c->name = 'events';
+					$c->name = 'events[]';
 					$c->attr = ['multiple' => 'multiple'];
 					$options = [];
 					foreach(Event::all() as $e)
@@ -161,6 +161,12 @@ class Admin_Media_Videos_Controller extends Crud_Base_Controller
 			$t->column('owner', function ($c) {
 				$c->value = function ($r) {
 					return @$r->owner->name;
+				};
+			});
+
+			$t->column('artists', function ($c) {
+				$c->value = function ($r) {
+					return implode(', ', array_map(function ($a) { return $a->name; }, (array) $r->artists));
 				};
 			});
 

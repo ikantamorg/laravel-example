@@ -55,7 +55,7 @@ class Admin_Media_Songs_Controller extends Crud_Base_Controller
 				});
 
 				$fs->control('select', 'Artists', function ($c) {
-					$c->name = 'aritsts';
+					$c->name = 'aritsts[]';
 					$c->attr = ['multiple' => 'multiple'];
 					$options = [];
 					foreach(Artist::all() as $a)
@@ -65,7 +65,7 @@ class Admin_Media_Songs_Controller extends Crud_Base_Controller
 				});
 
 				$fs->control('select', 'genres', function ($c) {
-					$c->name = 'genres';
+					$c->name = 'genres[]';
 					$c->attr = ['multiple' => 'multiple'];
 					$options = [];
 					foreach(Genre::all() as $g)
@@ -75,7 +75,7 @@ class Admin_Media_Songs_Controller extends Crud_Base_Controller
 				});
 
 				$fs->control('select', 'Events', function ($c) {
-					$c->name = 'events';
+					$c->name = 'events[]';
 					$c->attr = ['multiple' => 'multiple'];
 					$options = [];
 					foreach(Event::all() as $e)
