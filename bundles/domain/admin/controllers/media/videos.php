@@ -41,8 +41,8 @@ class Admin_Media_Videos_Controller extends Crud_Base_Controller
 	public function post_youtube_data()
 	{
 		Config::set('application.profiler', false);
-		//if( ! Request::ajax() )
-			//return Response::error(404);
+		if( ! Request::ajax() )
+			return Response::error(404);
 		
 		$data = $this->make_curl($this->youtube_api_url($this->extract_video_id(Input::get('youtube_url'))));
 
@@ -123,7 +123,6 @@ class Admin_Media_Videos_Controller extends Crud_Base_Controller
 
 				$fs->control('select', 'Type', function ($c) {
 					$c->name = 'type';
-					$c->attr = ['multiple' => 'multiple'];
 					$options = [];
 					foreach(Video\Type::all() as $t)
 						$options[$t->id] = $t->name;
@@ -156,6 +155,18 @@ class Admin_Media_Videos_Controller extends Crud_Base_Controller
 			$t->column('duration', function ($c) {
 				$c->value = function ($r) {
 					return @$r->duration . ' seconds';
+				};
+			});
+
+			$t->column('owner', function ($c) {
+				$c->value = function ($r) {
+					return @$r->owner->name;
+				};
+			});
+
+			$t->column('type', function ($c) {
+				$c->value = function ($r) {
+					return @$r->type->name;
 				};
 			});
 

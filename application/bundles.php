@@ -35,7 +35,7 @@
 
 return array(
 
-	'docs' => array('handles' => 'docs'),
+	'docs' => array('handles' => 'docs', 'location' => 'util/docs'),
 	
 	'rouilder' => array('auto' => true, 'location' => 'util/rouilder'),
 	'crud' => array('auto' => true, 'location' => 'util/crud'),
@@ -50,5 +50,4 @@ return array(
 
 	'core' => array('auto' => true, 'location' => 'domain/core'),
 	'admin' => array('auto' => true, 'handles' => 'admin', 'location' => 'domain/admin'),
-	'artistsignup' => array('auto' => true, 'location' => 'domain/artistsignup')
 );

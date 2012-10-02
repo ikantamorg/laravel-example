@@ -12,7 +12,7 @@
 				<hr>
 				{{ Form::select('artist_id', $artist_options, Input::old('artist_id'), ['class' => 'chzn span8']) }}
 				<hr>
-				{{ Form::password('password', ['placeholder' => 'Secret Password', 'class' => 'password span8']) }}
+				{{ Form::password('password', ['placeholder' => 'Secret Password', 'class' => 'large span8']) }}
 				<hr>
 				{{ Form::submit('Submit', ['class' => 'btn btn-large btn-primary span4 offset2']) }}
 			{{ Form::close() }}

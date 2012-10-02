@@ -22,6 +22,6 @@ View::composer('artistsignup::layout', function ($view) {
 	;
 });
 
-if(Session::has('artistsignup.running')) {
+if(Session::started() and Session::has('artistsignup.running')) {
 	ArtistSignup\App::setup();
 }

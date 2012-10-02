@@ -1,10 +1,9 @@
 @layout('artistsignup::layout')
 
 @section('header')
-
+	<h1>STUFF THAT WORKS</h1>
 @endsection
 
 @section('content')
 
-<h3>AGREEMENT</h3>
 @endsection

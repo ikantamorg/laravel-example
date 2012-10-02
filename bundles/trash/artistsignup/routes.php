@@ -15,11 +15,14 @@ Route::get('artistsignup/auth/register', function () {
 
 	if( $user = User::where_email(Session::get('oneauth.info.email'))->first() ) {
 		Auth::login($user->id);
-		return Redirect::to_action('auth@merge_accounts');
+		$client->user_id = $user->id;
+		$client->save();
+		return Redirect::to('artistsignup/selection');
 	}
 
 	$user = ArtistSignup\App::register_user_via_oauth();
 	$client->user_id = $user->id;
+	$client->save();
 
 	Auth::login($user->id);
 

@@ -42,7 +42,7 @@ class Controller extends App_Controller
 			return Response::error(404);
 
 		$agreed_artist_ids = array_map(function ($r) { return $r->artist_id; }, $this->q()->get());
-		$relevant_artists = $agreed_artist_ids ? Artist::where_not_in('id', $areed_artist_ids)->get() : Artist::get();
+		$relevant_artists = $agreed_artist_ids ? Artist::where_not_in('id', $agreed_artist_ids)->get() : Artist::get();
 
 		$artist_options = [];
 		foreach($relevant_artists as $a)
@@ -58,8 +58,10 @@ class Controller extends App_Controller
 		if(! Auth::check() )
 			return Response::error(404);
 
-		if($errors = $this->selection_validation(Input::get()))
+		if($errors = $this->selection_validation(Input::get())) {
+			Input::flash();
 			return Redirect::to($this->base_uri.'selection')->with_errors($errors);
+		}
 		else{
 			Session::put('artist_id', Input::get('artist_id'));
 			return Redirect::to($this->base_uri.'agreement');
@@ -76,10 +78,7 @@ class Controller extends App_Controller
 
 	public function post_agreement()
 	{
-		if(! Auth::check or ! $artist = Artist::find(Session::get('artist_id')))
-			return Response::error(404);
-
-		if(Config::get('artistsignup::settings.flags.confirmation') !== Input::get('confirmation'))
+		if(! Auth::check() or ! $artist = Artist::find(Session::get('artist_id')))
 			return Response::error(404);
 
 		$this->make_artist_selected($artist);
@@ -97,12 +96,9 @@ class Controller extends App_Controller
 		if(! Auth::check() or ! $artist = Artist::find(Session::get('artist_id')))
 			return Response::error(404);
 
-		if(Config::get('artistsignup::settings.flags.confirmation') !== Input::get('confirmation'))
-			return Response::error(404);
-
 		$msg = 'You have NOT ACCEPTED the agreement for artist "'. $artist->name .'". Thank you for considering it :)';
 
-		Session::flash('atistsugnup.finished', true);
+		Session::flash('atistsignup.finished', true);
 		Session::flash('artistsignup.message', $msg);
 
 		return Redirect::to($this->base_uri.'finished');
@@ -133,7 +129,12 @@ class Controller extends App_Controller
 
 	protected function make_artist_selected($artist)
 	{
-		$this->q()->insert(['artist_id' => $artist->id, 'created_at' => new DateTime, 'updated_at' => new DateTime]);
+		$this->q()->insert([
+			'artist_id' => $artist->id,
+			'created_at' => new DateTime,
+			'updated_at' => new DateTime,
+			'user_id' => Auth::user()->id
+		]);
 	}
 
 	protected function selection_validation($data)
