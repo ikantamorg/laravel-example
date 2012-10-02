@@ -68,6 +68,8 @@ class Admin_Media_Videos_Controller extends Crud_Base_Controller
 		return $this->_listing = Video::with('industry_register_entry')->get();
 	}
 
+
+
 	public function form()
 	{
 		$form = Hybrid\Form::make(function ($f) {
@@ -92,7 +94,7 @@ class Admin_Media_Videos_Controller extends Crud_Base_Controller
 				});
 
 				$fs->control('select', 'Artists', function ($c) {
-					$c->name = 'aritsts[]';
+					$c->name = 'artists[]';
 					$c->attr = ['multiple' => 'multiple'];
 					$options = [];
 					foreach(Artist::all() as $a)
@@ -166,7 +168,7 @@ class Admin_Media_Videos_Controller extends Crud_Base_Controller
 
 			$t->column('artists', function ($c) {
 				$c->value = function ($r) {
-					return implode(', ', array_map(function ($a) { return $a->name; }, (array) $r->artists));
+					return implode(', ', array_map(function ($a) { return $a->name; }, (array) @$r->artists));
 				};
 			});
 
