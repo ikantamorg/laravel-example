@@ -18,14 +18,7 @@ Event::listen('500', function()
 Route::controller(Controller::detect());
 
 View::composer('layouts.app', function ($view) {
-	Asset::container('common')
-			->add('bs-css', 'css/bootstrap.min.css')
-			->add('fonts', 'css/fonts.css', 'bs-css')
-			->add('jquery', 'js/jquery-1.7.2.min.js', 'fonts')
-			->add('bs-js', 'js/bootstrap.min.js', 'jquery')
-			->add('json2', 'js/json2.js', 'bs-js')
-			->add('us', 'js/underscore.js', 'json2')
-			->add('bb', 'js/backbone.js', 'us');
+	IoC::resolve('common-assets');
 });
 
 Route::filter('before', function()

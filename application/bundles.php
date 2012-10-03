@@ -18,10 +18,10 @@
 | that you want to handle requests with URIs that begin with "admin",
 | simply add it to the array like this:
 |
-|		'admin' => array(
+|		'admin' => [
 |			'location' => 'admin',
 |			'handles'  => 'admin',
-|		),
+|		],
 |
 | Note that the "location" is relative to the "bundles" directory.
 | Now the bundle will be recognized by Laravel and will be able
@@ -33,21 +33,23 @@
 |
 */
 
-return array(
+return [
 
-	'docs' => array('handles' => 'docs', 'location' => 'util/docs'),
+	'docs' => ['handles' => 'docs', 'location' => 'util/docs'],
 	
-	'rouilder' => array('auto' => true, 'location' => 'util/rouilder'),
-	'crud' => array('auto' => true, 'location' => 'util/crud'),
-	'gatekeeper' => array('auto' => true, 'location' => 'util/gatekeeper'),
-	'bouncer'  => array('auto' => true, 'location' => 'util/bouncer'),
-	'actionfilter' => array('auto' => true, 'location' => 'util/actionfilter'),
-	'laraveless' => array('auto' => true, 'location' => 'util/laraveless'),
-	'hybrid' => array('auto' => true, 'location' => 'util/hybrid'),
-	'uploader' => array('auto' => true, 'location' => 'util/uploader'),
-	'recaptcha' => array('auto' => true, 'location' => 'util/recaptcha'),
-	'oneauth'  => array('auto' => true, 'location' => 'util/oneauth'),
+	'rouilder' => ['auto' => true, 'location' => 'util/rouilder'],
+	'crud' => ['auto' => true, 'location' => 'util/crud'],
+	'gatekeeper' => ['auto' => true, 'location' => 'util/gatekeeper'],
+	'bouncer'  => ['auto' => true, 'location' => 'util/bouncer'],
+	'actionfilter' => ['auto' => true, 'location' => 'util/actionfilter'],
+	'laraveless' => ['auto' => true, 'location' => 'util/laraveless'],
+	'hybrid' => ['auto' => true, 'location' => 'util/hybrid'],
+	'uploader' => ['auto' => true, 'location' => 'util/uploader'],
+	'recaptcha' => ['auto' => true, 'location' => 'util/recaptcha'],
+	'oneauth'  => ['auto' => true, 'location' => 'util/oneauth'],
 
-	'core' => array('auto' => true, 'location' => 'domain/core'),
-	'admin' => array('auto' => true, 'handles' => 'admin', 'location' => 'domain/admin'),
-);
+	'core' => ['auto' => true, 'location' => 'domain/core'],
+	'admin' => ['auto' => true, 'handles' => 'admin', 'location' => 'domain/admin'],
+	'repositories' => ['auto' => true, 'location' => 'domain/repositories'],
+	'dashboard' => ['auto' => true, 'location' => 'domain/dashboard', 'handles' => 'dashboard']
+];

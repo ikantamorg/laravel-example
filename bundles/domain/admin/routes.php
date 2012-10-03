@@ -17,7 +17,7 @@ View::composer('admin::layout', function ($view) {
 			->add('bs-css', 'css/bootstrap.min.css')
 			->add('fonts', 'css/fonts.css', 'bs-css')
 			->add('chosen-css', 'css/chosen.css')
-			->add('jquery', 'js/jquery-1.7.2.min.js', 'fonts')
+			->add('jquery', 'js/jquery.min.js', 'fonts')
 			->add('chosen-js', 'js/chosen.jquery.min.js', 'chosen-css')
 			->add('bs-js', 'js/bootstrap.min.js', 'jquery')
 			->add('json2', 'js/json2.js', 'bs-js')

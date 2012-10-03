@@ -55,7 +55,7 @@ class Admin_Media_Songs_Controller extends Crud_Base_Controller
 				});
 
 				$fs->control('select', 'Artists', function ($c) {
-					$c->name = 'aritsts[]';
+					$c->name = 'artists[]';
 					$c->attr = ['multiple' => 'multiple'];
 					$options = [];
 					foreach(Artist::all() as $a)

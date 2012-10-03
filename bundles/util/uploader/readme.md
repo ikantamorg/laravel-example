@@ -47,3 +47,7 @@ stores the processed files in 'storage/temp', and returns the array of all the f
 
 This array of files is then provided to the upload driver, which uses it to store the files in its corresponding
 storage system.
+
+Locator usage:
+
+Locator::aws()->locate($resource)->format($whatever)->url();
