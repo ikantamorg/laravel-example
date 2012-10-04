@@ -49,37 +49,42 @@ class Model extends Abstracts\IndustryPlayerModel
 
 	public function type()
 	{
-		return $this->belongs_to('\\Core\\Artist\\Type', 'type_id');
+		return $this->belongs_to('Core\\Artist\\Type', 'type_id');
 	}
 
 	public function current_city()
 	{
-		return $this->belongs_to('\\Core\\Geo\\City', 'current_city_id');
+		return $this->belongs_to('Core\\Geo\\City', 'current_city_id');
 	}
 
 	public function home_city()
 	{
-		return $this->belongs_to('\\Core\\Geo\\City', 'home_city_id');
+		return $this->belongs_to('Core\\Geo\\City', 'home_city_id');
 	}
 
 	public function songs()
 	{
-		return $this->has_many_and_belongs_to('\\Core\\Media\\Song', 'core_artist_song', 'artist_id', 'song_id');
+		return $this->has_many_and_belongs_to('Core\\Media\\Song', 'core_artist_song', 'artist_id', 'song_id');
+	}
+
+	public function featured_songs()
+	{
+		return $this->has_many_and_belongs_to('Core\\Media\\Song', 'core_artist_featured_songs', 'artist_id', 'song_id');
 	}
 
 	public function videos()
 	{
-		return $this->has_many_and_belongs_to('\\Core\\Media\\Video', 'core_artist_video', 'artist_id', 'video_id');
+		return $this->has_many_and_belongs_to('Core\\Media\\Video', 'core_artist_video', 'artist_id', 'video_id');
 	}
 
 	public function events()
 	{
-		return $this->has_many_and_belongs_to('\\Core\\Event\\Model','core_event_artist','artist_id','event_id');
+		return $this->has_many_and_belongs_to('Core\\Event\\Model','core_event_artist','artist_id','event_id');
 	}
 
 	public function genres()
 	{
-		return $this->has_many_and_belongs_to('\\Core\\Classification\\Genre','core_artist_genre','artist_id','genre_id');
+		return $this->has_many_and_belongs_to('Core\\Classification\\Genre','core_artist_genre','artist_id','genre_id');
 	}
 
 	public function photos()

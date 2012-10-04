@@ -24,7 +24,8 @@ class Admin_Artists_Controller extends Crud_Base_Controller
 		'current_city',
 		'home_city',
 		'genres',
-		'profile_photo'
+		'profile_photo',
+		'featured_songs'
 	];
 
 	public $view_base = 'admin::artists.';
@@ -67,7 +68,7 @@ class Admin_Artists_Controller extends Crud_Base_Controller
 	{
 		if($this->_resource)
 			return $this->_resource;
-		return $this->_resource = $id === null ? new Artist : Artist::with(['type', 'current_city', 'home_city', 'genres'])->find($id);
+		return $this->_resource = $id === null ? new Artist : Artist::with(['type', 'current_city', 'home_city', 'genres', 'featured_songs'])->find($id);
 	}
 
 	public function listing()
@@ -161,6 +162,22 @@ class Admin_Artists_Controller extends Crud_Base_Controller
 					$c->value = Input::old('genres', array_map(function ($g) { return $g->id; }, (array)@$this->resource()->genres));
 				});
 			});
+			if(@$this->resource()->exists) {
+				$f->fieldset('Featured', function ($fs) {
+					if(@$this->resource()->songs) {
+						$fs->control('select', 'Songs', function ($c) {
+							$c->name = 'featured_songs[]';
+							$options = [];
+							foreach(@$this->resource()->songs as $s)
+								$options[$s->id] = $s->name;
+							$c->options = $options;
+							$c->attr = ['multiple' => 'multiple'];
+							$c->value = Input::old('featured_songs', array_map(function ($s) { return $s->id; }, (array) @$this->resource()->featured_songs));
+						});
+					}
+				});
+			}
+		
 			if($this->resource()->exists) {
 				$f->fieldset('Profile Photo', function ($fs) {
 					$photos = [];

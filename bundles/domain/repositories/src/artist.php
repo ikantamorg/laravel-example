@@ -2,10 +2,17 @@
 
 namespace Repository;
 
+use Core\Artist\Model;
+
 class Artist
 {
-	public function get_listing()
+	public static function get_listing($params = [])
 	{
-		$artists = 
+		$q = Model::with([
+			'featured_songs' => ['aggregate' => function ($q) { $q->take(2); }],
+			'profile_photo'
+		]);
+
+		return $q->paginate();
 	}
 }
