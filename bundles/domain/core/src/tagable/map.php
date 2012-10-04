@@ -39,7 +39,7 @@ class Map
 
 	public static function class_to_slug($class)
 	{
-		$class = '\\' . ltrim($class, '\\');
+		$class = ltrim($class, '\\');
 		return array_get(static::reverse_mappings(), $class);
 	}	
 }
