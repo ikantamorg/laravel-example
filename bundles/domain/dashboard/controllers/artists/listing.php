@@ -8,6 +8,9 @@ class Dashboard_Artists_Listing_Controller extends Dashboard_Base_Controller
 	{
 		$listing = Repository\Artist::get_listing();
 
-		return $this->layout->nest('body', 'dashboard::listings.artists', ['listing' => $listing]);
+		return $this->layout->nest('body', 'dashboard::listings.artists', [
+					'listing' => $listing,
+					'num_artists' => Repository\Artist::get_artists_count()
+				]);
 	}
 }

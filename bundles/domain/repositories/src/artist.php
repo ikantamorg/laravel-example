@@ -15,4 +15,9 @@ class Artist
 
 		return $q->paginate();
 	}
+
+	public static function get_artists_count($params = [])
+	{
+		return Model::count();
+	}
 }
