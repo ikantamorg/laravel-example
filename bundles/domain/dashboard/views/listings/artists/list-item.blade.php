@@ -18,14 +18,14 @@
 		</div-->
 		*/ ?>
 
-		@foreach($artist->featured_songs as $song)
+		@foreach($artist->songs as $song)
 			<div class="row artist-song">
 				<div class="span1 offset1">
 					<div class="play-button"></div>
 				</div>
 				<div class="span3">
 					<p class="song-name">{{ $song->name }}</p>
-					<p class="time">{{ $song->duration }}</p>
+					<p class="time">{{ @$song->duration }}</p>
 				</div>
 				<div class="span2"><a href="{{ URL::to('artist-profile/songs') }}" class="more">view more songs</a></div>
 			</div>
