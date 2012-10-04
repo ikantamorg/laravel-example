@@ -13,6 +13,7 @@ class Genre extends Abstracts\TagableModel
 
 	public function before_delete()
 	{
+		parent::before_delete();
 		$this->artists()->sync([]);
 		$this->songs()->sync([]);
 		$this->videos()->sync([]);

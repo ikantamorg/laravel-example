@@ -22,6 +22,8 @@ class Tag extends Abstracts\Model
 			$this->$t()->sync([]);
 		}
 
+		$this->types()->sync([]);
+
 		DB::table('core_tag_map')->where_tag_a_id($this->id)->or_where('tag_b_id', '=', $this->id)->delete();
 	}
 
@@ -32,9 +34,9 @@ class Tag extends Abstracts\Model
 
 	/**Relations and Setters/Getters**/
 
-	public function type()
+	public function types()
 	{
-		return $this->belongs_to('\\Core\\Classification\\Tag\\Type', 'type_id');
+		return $this->has_many_and_belongs_to('Core\\Classification\\Tag\\Type', 'core_tag_tag_type', 'tag_id', 'tag_type_id');
 	}
 
 	protected function content_map($slug)
@@ -131,7 +133,7 @@ class Tag extends Abstracts\Model
 	{
 		foreach(Tagable::all() as $t)
 		{
-			$this->_tag_maps[$t->slug] = Tag::with('type')->join('core_tag_map', 'core_tag_map.tag_b_id', '=', 'core_tags.id')
+			$this->_tag_maps[$t->slug] = Tag::with('types')->join('core_tag_map', 'core_tag_map.tag_b_id', '=', 'core_tags.id')
 									 ->where('core_tag_map.tagable_id', '=', $t->id)
 									 ->where('core_tag_map.tag_a_id', '=', $this->id)
 									 ->get('core_tags.*');

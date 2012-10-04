@@ -108,7 +108,7 @@ class Admin_Classification_Maps_Controller extends App_Controller
 		if($this->_listing)
 			return $this->_listing;
 
-		return $this->_listing = Tag::with('type')->get();
+		return $this->_listing = Tag::all();
 	}
 
 	/**************/
@@ -121,7 +121,7 @@ class Admin_Classification_Maps_Controller extends App_Controller
 			$t->column('id');
 			$t->column('name');
 			$t->column('type', function ($c) {
-				$c->value = function ($r) { return @$r->type->name; };
+				$c->value = function ($r) { return implode(', ', array_map(function ($t) { return $t->name; }, (array) @$r->types)); };
 			});
 			$t->column('', function ($c) {
 				$c->value = function ($r) { return HTML::link(URL::to($this->base_uri.'content_maps/'.$r->id), 'Content Maps'); };

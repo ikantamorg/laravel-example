@@ -11,6 +11,7 @@ class Photo extends Abstracts\MediaModel
 
 	public function before_delete()
 	{
+		parent::before_delete();
 		$this->artists()->sync([]);
 		$this->venues()->sync([]);
 		$this->events()->sync([]);

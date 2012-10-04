@@ -13,7 +13,7 @@ Classification - Tag Maps
 
 @section('content')
 
-<h2>{{ $tag->name }} (Type: {{ $tag->type->name }})</h2>
+<h2>{{ $tag->name }} (Types: {{ implode(', ', array_map(function($t) { return $t->name; }, $tag->types)) }})</h2>
 
 {{ Form::open($base_url.'tag_maps/'.$tag->id, 'PUT') }}
 

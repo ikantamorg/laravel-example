@@ -19,19 +19,20 @@ abstract class IndustryPlayerModel extends ContactableModel
 
 	/**Hooks**/
 
-	protected function after_insert()
+	public function after_insert()
 	{
 		$this->registrar()->make_entry();
 	}
 
-	protected function after_update()
+	public function after_update()
 	{
 		$this->registrar()->update_entry();
 	}
 
-	protected function before_delete()
+	public function before_delete()
 	{
 		$this->registrar()->remove_entry();
+		parent::before_delete();
 	}
 
 	public function get_register_entry_type()

@@ -2,7 +2,7 @@
 
 <html>
 	<head>
-		<title></title>
+		<title>Musejam</title>
 
 		
 		{{ HTML::style('css/bootstrap.min.css') }}
@@ -63,11 +63,9 @@
 
 		<div id="matter">	
 			<div class="container">
-				<div class="row">
-					<div class="span22 offset1">
-						@yield('content')
-					</div>
-				</div>
+
+				@yield('content')
+				
 			</div>
 		</div>	
 
@@ -94,7 +92,7 @@
 						
 		</div>
 
-		
+	@include('dashboard::temp.scripts')
 
 	</body>
 </html>

@@ -20,6 +20,7 @@ class Video extends Abstracts\MediaModel
 
 	public function before_delete()
 	{
+		parent::before_delete();
 		$this->events()->sync([]);
 		$this->artists()->sync([]);
 		$this->genres()->sync([]);

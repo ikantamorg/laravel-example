@@ -53,7 +53,7 @@
 		<li<?=admin_nav_header_attr('classification')?>>CLASSIFICATION</li>
 		<ul class="nav nav-list">
 			<li<?=admin_nav_attr('classification/tag')?>>
-				<a href="{{ URL::to('admin/classification/tags') }}"><i class="icon-tags"></i>TAGS &amp; TAGABLES</a>
+				<a href="{{ URL::to('admin/classification/tag/tagables') }}"><i class="icon-tags"></i>TAGS &amp; TAGABLES</a>
 			</li>
 			<li<?=admin_nav_attr('classification/map')?>>
 				<a href="{{ URL::to('admin/classification/maps') }}"><i class="icon-random"></i>TAG MAPS</a>

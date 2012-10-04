@@ -4,7 +4,7 @@ Autoloader::map([
 	'Dashboard_Base_Controller' => Bundle::path('dashboard') . 'controllers/base.php'
 ]);
 
-View::composer('dashboard::layout', function ($view) {
+View::composer('dashboard::layouts.base', function ($view) {
 	IoC::resolve('common-assets');
 
 	Asset::container('dashboard')

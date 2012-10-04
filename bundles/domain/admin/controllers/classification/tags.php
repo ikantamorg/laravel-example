@@ -5,7 +5,6 @@ use Core\Classification\Tag;
 class Admin_Classification_Tags_Controller extends Crud_Base_Controller
 {
 	public $fields = ['name'];
-	public $relations = ['type'];
 	public $view_base = 'admin::classification.tags.';
 	public $base_uri = 'admin/classification/tags/';
 
@@ -14,7 +13,7 @@ class Admin_Classification_Tags_Controller extends Crud_Base_Controller
 		if($this->_resource !== null)
 			return $this->_resource;
 
-		return $this->_resource = $id === null ? new Tag : Tag::with(['type'])->find($id);
+		return $this->_resource = $id === null ? new Tag : Tag::find($id);
 	}
 
 	public function form()
@@ -27,15 +26,6 @@ class Admin_Classification_Tags_Controller extends Crud_Base_Controller
 					$c->name = 'name';
 					$c->value = Input::old('name', @$tag->name);
 				});
-
-				$fs->control('select', 'Type', function ($c) use ($tag) {
-					$c->name = 'type';
-					$options = [0 => 'None'];
-					foreach(Tag\Type::all() as $t)
-						$options[$t->id] = $t->name;
-					$c->options = $options;
-					$c->value = Input::old('type', @$tag->type_id);
-				});
 			});
 		});
 
@@ -44,7 +34,7 @@ class Admin_Classification_Tags_Controller extends Crud_Base_Controller
 
 	public function listing()
 	{
-		return Tag::with('type')->get();
+		return Tag::all();
 	}
 
 	public function listing_table()
@@ -54,11 +44,7 @@ class Admin_Classification_Tags_Controller extends Crud_Base_Controller
 		$table = Hybrid\Table::make(function ($t) use($listing) {
 			$t->column('id');
 			$t->column('name');
-			$t->column('type', function ($c) {
-				$c->value = function ($r) { return @$r->type->name; };
-			});
 			
-
 			$t->rows($listing);
 		});
 

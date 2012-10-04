@@ -32,6 +32,7 @@ class Model extends Abstracts\ContactableModel
 
 	public function before_delete()
 	{
+		parent::before_delete();
 		foreach(['artists', 'songs', 'videos', 'venues', 'photos'] as $r)
 			$this->$r()->sync([]);
 	}

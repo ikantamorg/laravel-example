@@ -4,7 +4,7 @@ namespace Core\Venue;
 
 use Core\Abstracts;
 
-class Tag extends Abstracts\Model
+class Tag extends Abstracts\TagableModel
 {
 	public static $table = 'core_venue_tags';
 
@@ -12,6 +12,7 @@ class Tag extends Abstracts\Model
 
 	public function before_delete()
 	{
+		parent::before_delete();
 		$this->venues()->sync([]);
 	}
 

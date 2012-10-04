@@ -179,28 +179,27 @@ abstract class Crud_Base_Controller extends App_Controller
 
 					if($relation_class === 'Has_Many_And_Belongs_To')
 					{
-						if(isset($data[$r]))
-						{
-							$ids = (array) $data[$r];
+						$ids = (array) @$data[$r];
+						if($ids)
 							$real_ids = array_map(function ($m) { return $m->id; }, $attachment::where_in('id', $ids)->get());
-							
-							$model->$r()->sync($real_ids);
-						}
+						else
+							$real_ids = [];
+						
+						$model->$r()->sync($real_ids);
 					}
 					elseif($relation_class === 'Belongs_To')
 					{
-						if(isset($data[$r])) {
-							$id = $data[$r];
-							if($attached_model = $attachment::find($id))
-							{
-								$model->{$relation->foreign_key()} = $attached_model->id;
-								$model->save();
-							}
-							else
-							{
-								$model->{$relation->foreign_key()} = 0;
-								$model->save();
-							}
+						$id = (int) @$data[$r];
+
+						if($attached_model = $attachment::find($id))
+						{
+							$model->{$relation->foreign_key()} = $attached_model->id;
+							$model->save();
+						}
+						else
+						{
+							$model->{$relation->foreign_key()} = 0;
+							$model->save();
 						}
 					}
 					elseif($relation_class === 'Has_Many')

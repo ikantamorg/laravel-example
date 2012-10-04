@@ -10,6 +10,7 @@ class Album extends Abstracts\MediaModel
 
 	public function before_delete()
 	{
+		parent::before_delete();
 		foreach(['photos', 'artists', 'venues', 'events', 'companies'] as $r)
 			$this->$r()->sync([]);
 	}
