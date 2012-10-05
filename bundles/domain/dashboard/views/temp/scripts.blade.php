@@ -12,4 +12,17 @@ $(function (){
 	$('.left-pane').affix();
 
 });
+
+
+$(function (){
+	$('.socials .icon.share').hover(
+		function (){
+			$(this).children(':eq(1)').stop().fadeIn(150);
+		},
+		function(){
+			$(this).children(':eq(1)').stop().fadeOut(150);
+		}
+	);
+
+});
 </script>
