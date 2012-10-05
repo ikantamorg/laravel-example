@@ -4,9 +4,9 @@ namespace Repository;
 
 use Core\Artist\Model;
 
-class Artist
+class Artists
 {
-	public static function get_listing($params = [])
+	public function get_listing($params = [])
 	{
 		$q = Model::with([
 			'songs' => ['aggregate' => function ($q) { $q->take(2); }],
@@ -16,8 +16,8 @@ class Artist
 		return $q->paginate();
 	}
 
-	public static function get_artists_count($params = [])
+	public function get_count($params = [])
 	{
-		return Model::count();
+		return Model::count('id');
 	}
 }

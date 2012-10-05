@@ -6,11 +6,13 @@ class Dashboard_Artists_Listing_Controller extends Dashboard_Base_Controller
 
 	public function get_index()
 	{
-		$listing = Repository\Artist::get_listing();
+		$listing = $this->repo('artists')->get_listing();
 
 		return $this->layout->nest('body', 'dashboard::listings.artists', [
-					'listing' => $listing,
-					'num_artists' => Repository\Artist::get_artists_count()
+					'artists' => $listing->results,
+					'num_artists' => $this->repo('artists')->get_count(),
+					'prev_link' => $listing->previous(null, true, ['class' => 'pull-left']),
+					'next_link' => $listing->next(null, true, ['class' => 'pull-right'])
 				]);
 	}
 }

@@ -51,7 +51,7 @@ class Admin_Industryplayers_Membership_Tagconnections_Controller extends Crud_Ba
 			$f->fieldset('Membership Tag Connection', function ($fs) {
 				$fs->control('select', 'Connected Industry Player', function ($c) {
 					$c->name = 'connected_industry_player';
-					$options = [];
+					$options = [0 => 'None'];
 					foreach(IndustryRegisterEntry::all() as $e) {
 						$options[$e->type][$e->id] = $e->name;
 					}
@@ -83,7 +83,9 @@ class Admin_Industryplayers_Membership_Tagconnections_Controller extends Crud_Ba
 
 			$t->column('Connected_Industry_Player', function ($c) {
 				$c->value = function ($r) {
-					return @$r->connected_industry_player->name . ', ' . 'Company';
+					return @$r->connected_industry_player ? 
+							@$r->connected_industry_player->name . ', ' . @$r->connected_industry_player->type 
+						  : '';
 				};
 			});
 

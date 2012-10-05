@@ -1,11 +1,10 @@
-<div class="row title"></div>
-
 <div class="row left-pane" data-spy="affix" data-offset-top="-100">
 	<div class="span4">
+		<div class="row title"></div>
 
 		<div class="row artist-tag left-item">
 			<div class="span4">
-				<a class="heading" href="{{ URL::to_action('dashboard::listings.artists') }}">ARTISTS</a>
+				<a class="heading" href="{{ URL::to_action('dashboard::artists.listing') }}">ARTISTS</a>
 				<a class="clear">clear x</a>
 
 				<div class="tag-list">
@@ -25,7 +24,7 @@
 		</div>
 		<div class="row event-tag left-item">
 			<div class="span4">
-				<a class="heading" href="{{ URL::to_action('dashboard::listings.events') }}">EVENTS</a>
+				<a class="heading" href="{{ URL::to_action('dashboard::events.listing') }}">EVENTS</a>
 				<a class="clear">clear x</a>
 
 				<div class="tag-list">
@@ -45,7 +44,7 @@
 		</div>
 		<div class="row song-tag left-item">
 			<div class="span4">
-				<a class="heading" href="{{ URL::to_action('dashboard::listings.songs') }}">SONGS</a>
+				<a class="heading" href="{{ URL::to_action('dashboard::songs.listing') }}">SONGS</a>
 				<a class="clear">clear x</a>
 
 				<div class="tag-list">
@@ -66,7 +65,7 @@
 		
 		<div class="row video-tag left-item">
 			<div class="span4">
-				<a class="heading" href="{{ URL::to_action('dashboard::listings.videos') }}">VIDEOS</a>
+				<a class="heading" href="{{ URL::to_action('dashboard::videos.listing') }}">VIDEOS</a>
 				<a class="clear">clear x</a>
 
 				<div class="tag-list">

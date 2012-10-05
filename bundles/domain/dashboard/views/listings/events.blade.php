@@ -1,12 +1,12 @@
-@include('dashboard::listings.artists.title')
+@include('dashboard::listings.events.title')
 				
 <div class="row station">
 	<div class="span12">
 		<div class="row artists-list">
 			<div class="span12">
 				
-				@foreach($artists as $artist)
-					{{ render('dashboard::listings.artists.list-item', ['artist' => $artist]) }}
+				@foreach($events as $event)
+					{{ render('dashboard::listings.events.list-item', ['event' => $event])}}
 				@endforeach				
 				
 				<div class="row list-item">
