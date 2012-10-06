@@ -30,19 +30,8 @@ class Admin_Classification_Maps_Controller extends App_Controller
 						'content_options' => function ($slug) {
 							$class = Map::slug_to_class($slug);
 							$options = [];
-
-							if(in_array($slug, ['artists', 'videos', 'songs'])) {
-								$contents = $class::with('genres')->get();
-							} else {
-								$contents = $class::all();
-							}
-
-							foreach($contents as $c) {
-								if(in_array($slug, ['artists', 'videos', 'songs']))
-									$options[$c->id] = $c->name . ' | ' . implode(', ', array_map(function ($g) { return $g->name; }, $c->genres));
-								else
-									$options[$c->id] = $c->name ;
-							}
+							foreach($class::all() as $c)
+								$options[$c->id] = $c->name;
 							return $options;
 						},
 						'content_value' => function ($contents) {

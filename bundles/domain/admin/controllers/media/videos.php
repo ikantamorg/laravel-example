@@ -65,7 +65,7 @@ class Admin_Media_Videos_Controller extends Crud_Base_Controller
 		if($this->_listing)
 			return $this->_listing;
 
-		return $this->_listing = Video::with('industry_register_entry')->get();
+		return $this->_listing = Video::with(['genres', 'industry_register_entry'])->get();
 	}
 
 
@@ -163,6 +163,12 @@ class Admin_Media_Videos_Controller extends Crud_Base_Controller
 			$t->column('owner', function ($c) {
 				$c->value = function ($r) {
 					return @$r->owner->name;
+				};
+			});
+
+			$t->column('genres', function ($c) {
+				$c->value = function ($r) {
+					return implode(', ', array_map(function ($g) { return $g->name; }, (array) @$r->genres));
 				};
 			});
 
