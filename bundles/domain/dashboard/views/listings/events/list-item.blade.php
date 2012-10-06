@@ -16,7 +16,7 @@
 						<div class="artist-name">
 							<a href="#">{{ $artist->name }}</a>
 							<div class="popup">
-								{{ HTML::image('img/arrow.png', 'arrow', [ 'class' => 'arrow']) }}
+								<img src="{{ URL::to_asset('img/arrow.png') }}" alt="arrow" class="arrow"/>
 								<img src="{{ $artist->profile_photo ? $artist->profile_photo->get_url('thumb') : '' }}" alt="{{ $artist->name }}"/>
 								<div class="popup-detail">
 									<div class="popup-name">
@@ -90,7 +90,7 @@
 				<a href="#"></a>
 				<div class="popup2">
 					<p>Share:</p>
-					{{ HTML::image('img/arrow-mirror.png', 'arrow', [ 'class' => 'arrow']) }}
+					<img src="{{ URL::to_asset('img/arrow-mirror.png') }}" alt="arrow" class="arrow"/>
 					<div class="icon facebook"><a></a></div>
 					<div class="icon twitter"><a></a></div>
 				</div>

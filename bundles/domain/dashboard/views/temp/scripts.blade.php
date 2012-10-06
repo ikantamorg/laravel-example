@@ -25,4 +25,26 @@ $(function (){
 	);
 
 });
+
+$(function (){
+	$('.artist-name, .agent-name').hover(
+		function (){
+			$(this).children(':eq(1)').stop().fadeIn(150);
+		},
+		function(){
+			$(this).children(':eq(1)').stop().fadeOut(150);
+		}
+	);
+})
+
+$(function (){
+	$('.artist-detail .more').hover(
+		function (){
+			$(this).children('ul').stop().fadeIn(150);
+		},
+		function(){
+			$(this).children('ul').stop().fadeOut(150);
+		}
+	);
+})
 </script>

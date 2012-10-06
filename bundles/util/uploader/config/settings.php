@@ -22,7 +22,7 @@ return [
 				'icon' 	  => [50,50, 'crop'],
 				'thumb'   => [200, 200, 'crop'],
 				'display' => [400, 250, 'auto'],
-				'std'     => [720, 450, 'auto'],
+				'std'     => [850, 540, 'auto'],
 			],
 
 			'default_format' => 'std',
