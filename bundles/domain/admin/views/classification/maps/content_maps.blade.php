@@ -13,6 +13,8 @@ Classification - Content Maps
 
 @section('content')
 
+<h2>{{ $tag->name }} (Types: {{ implode(', ', array_map(function($t) { return $t->name; }, $tag->types)) }})</h2>
+
 {{ Form::open($base_url.'content_maps/'.$tag->id, 'PUT') }}
 
 @foreach($tag->content_maps as $slug => $map)
