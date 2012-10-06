@@ -76,7 +76,12 @@
 				<div class="span7">{{ $event->venue->name }}, {{ $event->venue->city->name }}</div>
 			@elseif(count($event->venues) > 0)
 				<div class="span7">
-					{{ implode(' | ', array_map($venue_name_maker, $event->venues)) }}
+					@foreach($event->venues as $i => $v)
+						{{ $v->name }}, {{ $v->city->name }}
+						@if(@$event->venues[$i+1])
+							|
+						@endif
+					@endforeach
 				</div>
 			@endif
 		</div>
