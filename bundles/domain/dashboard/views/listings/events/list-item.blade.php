@@ -41,12 +41,12 @@
 					@endif
 				@endforeach
 
-				@if(count($event->artists) > 3 and ($remaining = (count($event->artists) - 3)) > 0)
+				@if(($remaining = (count($event->artists) - 3)) > 0)
 					
 					<div class="more">
 						<a>+{{ $remaining }} more</a>
 						<ul class="unstyled">
-						@foreach(range(2, count($event->artists) - 1) as $r)
+						@foreach(range(3, count($event->artists) - 1) as $r)
 							@if($artist = @$artists[$r])
 								<li>
 									<img src="{{ $artist->profile_photo ? $artist->profile_photo->get_url('icon') : '' }}" alt="{{ $artist->name }}"/>

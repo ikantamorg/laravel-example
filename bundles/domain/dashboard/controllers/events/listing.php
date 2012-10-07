@@ -6,7 +6,7 @@ class Dashboard_Events_Listing_Controller extends Dashboard_Base_Controller
 
 	public function get_index()
 	{
-		$listing = $this->repo('events')->get_listing();
+		$listing = $this->repo('events')->get_upcoming();
 
 		return $this->layout->nest('body', 'dashboard::listings.events', [
 					'events' => $listing->results,

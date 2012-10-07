@@ -973,18 +973,21 @@ h5 { font-size:15px; }
   float:left;
 }
 .songs-list .list-item .artist-detail .artist-name {
-  font-size:14px;
-  position:relative;
-  float:left;
+  font-size:12px;
   cursor:pointer;
+  position:relative;
 }
-.songs-list .list-item .artist-detail .artist-name:hover>a { color:#484848; }
-.songs-list .list-item .artist-detail .artist-name a {
+.songs-list .list-item .artist-detail .artist-name>a {
   text-decoration:none;
+  font-size:14px;
   color:#660066;
-  margin-right:10px;
   display:block;
+  text-overflow:ellipsis;
+  max-width:100px;
+  white-space:nowrap;
+  overflow:hidden;
 }
+.songs-list .list-item .artist-detail .artist-name>a:hover { color:#484848; }
 .songs-list .list-item .artist-detail .popup {
   background:#222222;
   border-radius:5px;
@@ -992,7 +995,7 @@ h5 { font-size:15px; }
   min-width:350px;
   position:absolute;
   top:25px;
-  z-index:100;
+  z-index:300;
   box-shadow:0px 0px 10px #999999;
   display:none;
   cursor:default;
@@ -1095,21 +1098,22 @@ h5 { font-size:15px; }
 .songs-list .list-item .artist-detail .more {
   position:relative;
   float:left;
+  left:10px;
 }
 .songs-list .list-item .artist-detail .more a {
   text-decoration:none;
-  color:#660066;
+  color:#999999;
   cursor:pointer;
   margin-right:10px;
 }
-.songs-list .list-item .artist-detail .more a:hover { color:#484848; }
+.songs-list .list-item .artist-detail .more a:hover { color:#ffffff; }
 .songs-list .list-item .artist-detail .more ul {
   background:#222222;
   border-radius:5px;
   min-width:250px;
   position:absolute;
   top:25px;
-  z-index:100;
+  z-index:300;
   box-shadow:0px 0px 5px #999999;
   display:none;
 }

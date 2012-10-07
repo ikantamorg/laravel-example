@@ -41,9 +41,11 @@ class Gatekeeper
 
 	public function is_restricted()
 	{
-		foreach(Rules::restricted_paths() as $p)
-			if(starts_with($this->_uri, $p))
+		foreach(Rules::restricted_paths() as $p) {
+			if(starts_with($this->_uri, $p)) {
 				return true;
+			}
+		}
 		
 		return false;
 	}

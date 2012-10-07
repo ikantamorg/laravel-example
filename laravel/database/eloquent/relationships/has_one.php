@@ -41,12 +41,12 @@ class Has_One extends Has_One_Or_Many {
 		$children_hash = array();
 		foreach($children as $child)
 		{
-			if (array_key_exists($child->pivot->$foreign, $children_hash)
+			if (array_key_exists($child->$foreign, $children_hash)
 			{
 				continue;
 			}
 
-			$children_hash[$child->pivot->$foreign] = $child;
+			$children_hash[$child->$foreign] = $child;
 		}
 		
 		foreach($parents as $parent)
