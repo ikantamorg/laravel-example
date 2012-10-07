@@ -50,7 +50,7 @@ class Events
 
 	public function get_upcoming_count()
 	{
-		return Model::where('start_time', '>', $this->today_daetime())->count();
+		return Model::where('start_time', '>', $this->today_datetime())->count();
 	}
 
 	public function count()
