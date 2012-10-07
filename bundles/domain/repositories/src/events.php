@@ -30,13 +30,18 @@ class Events
 		]);
 	}
 
-	public function get_upcoming()
+	public function upcoming_q()
 	{
-		$q = $this->q()->join('core_event_venue', 'core_event_venue.event_id', '=', 'core_events.id')
+		return $this->q()->join('core_event_venue', 'core_event_venue.event_id', '=', 'core_events.id')
 					   ->join('core_venues', 'core_venues.id', '=', 'core_event_venue.venue_id')
 					   ->where('core_venues.city_id', '=', 1)
 					   ->select('core_events.*')
-					   ->where('core_events.start_time', '>', $this->today_datetime())->order_by('core_events.start_time');
+					   ->where('core_events.start_time', '>', $this->today_datetime())->order_by('core_events.start_time');	
+	}
+
+	public function get_upcoming()
+	{
+		$q = $this->upcoming_q();
 
 		return $q->paginate();
 	}
@@ -54,7 +59,7 @@ class Events
 
 	public function get_upcoming_count()
 	{
-		return Model::where('start_time', '>', $this->today_datetime())->count();
+		return $this->upcoming_q()->count();
 	}
 
 	public function count()
