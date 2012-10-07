@@ -48,6 +48,11 @@ class Events
 		return $q->paginate();
 	}
 
+	public function get_upcoming_count()
+	{
+		return Model::where('start_time', '>', $this->today_daetime())->count();
+	}
+
 	public function count()
 	{
 		return Model::count('id');

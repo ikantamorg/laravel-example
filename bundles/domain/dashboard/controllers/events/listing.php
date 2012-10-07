@@ -10,7 +10,7 @@ class Dashboard_Events_Listing_Controller extends Dashboard_Base_Controller
 
 		return $this->layout->nest('body', 'dashboard::listings.events', [
 					'events' => $listing->results,
-					'num_events' => $this->repo('events')->count(),
+					'num_events' => $this->repo('events')->get_upcoming_count(),
 					'prev_link' => $listing->previous(null, true, ['class' => 'pull-left']),
 					'next_link' => $listing->next(null, true, ['class' => 'pull-right']),
 				]);
