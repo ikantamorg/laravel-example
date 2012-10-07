@@ -32,7 +32,11 @@ class Events
 
 	public function get_upcoming()
 	{
-		$q = $this->q()->where('start_time', '>', $this->today_datetime())->order_by('start_time');
+		$q = $this->q()->join('core_event_venue', 'core_event_venue.event_id', '=', 'core_events.id')
+					   ->join('core_venues', 'core_venues.id', '=', 'core_event_venue.venue_id')
+					   ->where('core_venues.city_id', '=', 1)
+					   ->select('core_events.*')
+					   ->where('core_events.start_time', '>', $this->today_datetime())->order_by('core_events.start_time');
 
 		return $q->paginate();
 	}
