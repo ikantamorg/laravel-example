@@ -87,6 +87,8 @@ class Admin_Artists_Controller extends Crud_Base_Controller
 			$q = Artist::with(['type', 'current_city']);
 		}
 
+		$q->order_by('active', 'desc');
+
 		return $this->_listing = $q->paginate(50);
 	}
 

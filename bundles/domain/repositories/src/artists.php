@@ -11,7 +11,7 @@ class Artists extends Base
 		$q = Model::with([
 			'songs' => ['aggregate' => function ($q) { $q->take(2); }],
 			'profile_photo'
-		]);
+		])->where_active(1);
 
 		return $q->paginate();
 	}

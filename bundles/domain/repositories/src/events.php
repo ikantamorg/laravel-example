@@ -35,13 +35,12 @@ class Events extends Base
 
 	/*******/
 
-	protected function add_city_constraints($q, $constraints)
+	protected function add_city_constraints($q, $slugs)
 	{
 		$q = $q->join('core_event_venue', 'core_event_venue.event_id', '=', 'core_events.id')
 		  	   ->join('core_venues', 'core_venues.id', '=', 'core_event_venue.venue_id')
 		  	   ->join('core_cities', 'core_cities.id', '=', 'core_venues.city_id');
-		
-		$q = $this->add_constraints($q, $constraints);
+
 		return $q;
 	}
 

@@ -9,10 +9,20 @@ abstract class Base
 	public function add_constraints($q, $constraints)
 	{
 		foreach($constraints as $k => $c) {
+			if(array_key_exists('where', $c) or array_key_exists('or_where', $c))
+			{
+				$constraint = head(array_values($c));
+				list($field, $operator, $value) = $constraint;
+				$condition = head(array_keys($c));
+
+				$q = $q->$constraint($field, $operator, $value);
+			}
+
+
 			if(is_int($k))
 			{
 				list($field, $operator, $value) = $c;
-				$q = $q->where($field, $operator, $constraints);
+				$q = $q->where($field, $operator, $value);
 			}
 			elseif(in_array($k, ['where', 'or_where']))
 			{
@@ -30,7 +40,18 @@ abstract class Base
 		return $q;
 	}
 
-	public function add_tag_constraints($q, $constraints)
+	protected function prefixed_constraints($constraints, $table)
+	{
+		foreach($constraints as $k => $v)
+		{
+			$field = @$v[0];
+
+			if(strpos('.', $field) === false)
+				$field = $table . '.';
+		}
+	}
+
+	public function add_tag_constraints($q, $slugs)
 	{
 		if(! $slug = $q->model->tagable_slug )
 			return;
@@ -42,7 +63,10 @@ abstract class Base
 		$q = $q->join($junction, $junction.".{$singular}_id", '=', $q->model->table().'.id')
 			   ->join('core_tags', $junction.'.tag_id', '=', 'core_tags.id');
 
-		$q = $this->add_constraints($q, $constraints);
+		if($slugs)
+		{
+			$q = $q->where_in('core_tags.slug', $slugs);
+		}
 
 		return $q;
 	}
