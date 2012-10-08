@@ -32,7 +32,7 @@ $(function (){
 			$(this).children(':eq(1)').stop().fadeIn(150);
 		},
 		function(){
-			$(this).children(':eq(1)').stop().fadeOut(150);
+			$(this).children(':eq(1)').stop().fadeOut(50);
 		}
 	);
 })

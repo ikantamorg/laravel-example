@@ -4,7 +4,7 @@ namespace Repository;
 
 use Core\Artist\Model;
 
-class Artists
+class Artists extends Base
 {
 	public function get_listing($params = [])
 	{

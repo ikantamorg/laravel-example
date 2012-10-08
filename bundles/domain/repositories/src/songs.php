@@ -4,11 +4,11 @@ namespace Repository;
 
 use Core\Media\Song as Model;
 
-class Songs
+class Songs extends Base
 {
 	public function get_listing()
 	{
-		$q = Model::with(['artists', 'artists.videos', 'artists.songs']);
+		$q = Model::with(['artists', 'artists.profile_photo', 'artists.videos', 'artists.songs']);
 
 		return $q->paginate();
 	}

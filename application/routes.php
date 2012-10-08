@@ -51,6 +51,35 @@ Route::get('important-artists', function () {
 	}
 });
 
+Route::get('important-cities', function () {
+
+	$cities = Core\Geo\City::with([
+				'venues',
+				'venues.events' => function ($q) { $q->where('start_time', '>', new DateTime); }
+			])->get();
+
+	$get_city_events = function ($c) {
+		if(! $c->venues )
+			return [];
+		$events = [];
+
+		foreach($c->venues as $v)
+		{
+			$events = array_merge($events, $v->events);
+		}
+
+		return $events;
+	};
+
+	foreach($cities as $i => $c)
+	{
+		$events = $get_city_events($c);
+		if(count($events) >= 1)
+			echo $c->name . " ---- " . count($events) . '<br/>';
+	}
+
+});
+
 Route::filter('test', function () {
 	
 });
