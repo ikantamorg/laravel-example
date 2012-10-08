@@ -18,6 +18,6 @@ class Artists extends Base
 
 	public function get_count($params = [])
 	{
-		return Model::count('id');
+		return Model::where_active(1)->count('id');
 	}
 }
