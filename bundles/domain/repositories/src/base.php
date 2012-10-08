@@ -30,7 +30,7 @@ abstract class Base
 		return $q;
 	}
 
-	public function add_tag_constraints($q, $constraints);
+	public function add_tag_constraints($q, $constraints)
 	{
 		if(! $slug = $q->model->tagable_slug )
 			return;
@@ -42,7 +42,7 @@ abstract class Base
 		$q = $q->join($junction, $junction.".{$singular}_id", '=', $q->model->table().'.id')
 			   ->join('core_tags', $junction.'.tag_id', '=', 'core_tags.id');
 
-		
+
 
 		return $q;
 	}
