@@ -10,3 +10,8 @@ View::composer('dashboard::layouts.base', function ($view) {
 	Asset::container('dashboard')
 		 ->add('style', 'css/style.css');
 });
+
+function dashboard_nav_attr($slug)
+{
+
+}

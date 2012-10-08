@@ -10,7 +10,7 @@
 		<div class="row artist-detail">
 			<div class="span7">
 
-				@foreach(range(0,2) as $r)
+				@foreach(range(0,3) as $r)
 					@if($artist = @$event->artists[$r])
 
 						<div class="artist-name">
@@ -41,13 +41,13 @@
 					@endif
 				@endforeach
 
-				@if(($remaining = (count($event->artists) - 3)) > 0)
+				@if(($remaining = (count($event->artists) - 4)) > 0)
 					
 					<div class="more">
 						<a>+{{ $remaining }} more</a>
 						<ul class="unstyled">
-						@foreach(range(3, count($event->artists) - 1) as $r)
-							@if($artist = @$artists[$r])
+						@foreach(range(4, count($event->artists) - 1) as $r)
+							@if($artist = @$event->artists[$r])
 								<li>
 									<img src="{{ $artist->profile_photo ? $artist->profile_photo->get_url('icon') : '' }}" alt="{{ $artist->name }}"/>
 									<a href="#">{{ $artist->name }}</a>

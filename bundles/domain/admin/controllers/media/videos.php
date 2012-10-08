@@ -9,7 +9,7 @@ use Core\Classification\Genre as Genre;
 class Admin_Media_Videos_Controller extends Crud_Base_Controller
 {
 	public $fields = ['name', 'duration', 'youtube_id', 'youtube_url', 'provider', 'owner_id'];
-	public $relations = ['events', 'artists', 'genres', 'type'];
+	public $relations = ['events', 'artists', 'genres', 'type', 'classification_tags'];
 	public $view_base = 'admin::media.videos.';
 	public $base_uri = 'admin/media/videos/';
 
@@ -143,6 +143,18 @@ class Admin_Media_Videos_Controller extends Crud_Base_Controller
 						$c->value = Input::old($field, @$this->resource()->{$field});
 					});
 				}
+			});
+
+			$f->fieldset('Classification Tags', function ($fs) {
+				$fs->control('select', '', function ($c) {
+					$c->name = 'classification_tags[]';
+					$options = [];
+					foreach($this->resource()->classifiable_tags() as $t)
+						$options[$t->id] = $t->name;
+					$c->options = $options;
+					$c->attr = ['multiple' => 'multiple'];
+					$c->value = Input::old('genres', array_map(function ($g) { return $g->id; }, (array) @$this->resource()->classification_tags));
+				});
 			});
 		});
 

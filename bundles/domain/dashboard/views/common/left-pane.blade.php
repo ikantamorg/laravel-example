@@ -1,4 +1,4 @@
-<div class="row left-pane" data-spy="affix" data-offset-top="-100">
+<div class="row left-pane">
 	<div class="span4">
 		<div class="row title"></div>
 

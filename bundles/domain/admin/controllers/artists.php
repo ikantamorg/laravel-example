@@ -4,6 +4,7 @@ use Core\Artist\Model as Artist;
 use Core\Artist\Type as ArtistType;
 use Core\Classification\Genre as Genre;
 use Core\Geo\City;
+use Core\Classification\Tag;
 
 class Admin_Artists_Controller extends Crud_Base_Controller
 {
@@ -25,7 +26,8 @@ class Admin_Artists_Controller extends Crud_Base_Controller
 		'home_city',
 		'genres',
 		'profile_photo',
-		'featured_songs'
+		'featured_songs',
+		'classification_tags'
 	];
 
 	public $view_base = 'admin::artists.';
@@ -162,6 +164,19 @@ class Admin_Artists_Controller extends Crud_Base_Controller
 					$c->value = Input::old('genres', array_map(function ($g) { return $g->id; }, (array)@$this->resource()->genres));
 				});
 			});
+	
+			$f->fieldset('Classification Tags', function ($fs) {
+				$fs->control('select', '', function ($c) {
+					$c->name = 'classification_tags[]';
+					$options = [];
+					foreach($this->resource()->classifiable_tags() as $t)
+						$options[$t->id] = $t->name;
+					$c->options = $options;
+					$c->attr = ['multiple' => 'multiple'];
+					$c->value = Input::old('genres', array_map(function ($g) { return $g->id; }, (array) @$this->resource()->classification_tags));
+				});
+			});
+
 			if(@$this->resource()->exists) {
 				$f->fieldset('Featured', function ($fs) {
 					if(@$this->resource()->songs) {

@@ -20,7 +20,8 @@ class Admin_Events_Controller extends Crud_Base_Controller
 		'soundcloud_url',
 		'source',
 		'contact_numbers',
-		'contact_emails'
+		'contact_emails',
+		'is_timed'
 	];
 
 	public $relations = [
@@ -29,7 +30,8 @@ class Admin_Events_Controller extends Crud_Base_Controller
 		'videos',
 		'venues',
 		'profile_photo',
-		'type'
+		'type',
+		'classification_tags'
 	];
 
 	public $view_base = 'admin::events.';
@@ -116,6 +118,12 @@ class Admin_Events_Controller extends Crud_Base_Controller
 						$options[$et->id] = $et->name;
 					$c->options = $options;
 					$c->value = Input::old('type', @$this->resource()->type->id);
+				});
+
+				$fs->control('input:checkbox', 'Is Timed', function ($c) {
+					$c->name = 'is_timed';
+					$c->value = 1;
+					$c->attr = (int) $this->resource()->is_timed === 1 ? ['checked' => 'checked'] : [];
 				});
 
 				$fs->control('text', 'Start Date', function ($c) {
@@ -239,6 +247,18 @@ class Admin_Events_Controller extends Crud_Base_Controller
 					$c->value = Input::old('videos', array_map(function ($v) { return $v->id; }, (array) @$this->resource()->videos));
 				});
 				
+			});
+
+			$f->fieldset('Classification Tags', function ($fs) {
+				$fs->control('select', '', function ($c) {
+					$c->name = 'classification_tags[]';
+					$options = [];
+					foreach($this->resource()->classifiable_tags() as $t)
+						$options[$t->id] = $t->name;
+					$c->options = $options;
+					$c->attr = ['multiple' => 'multiple'];
+					$c->value = Input::old('genres', array_map(function ($g) { return $g->id; }, (array) @$this->resource()->classification_tags));
+				});
 			});
 
 			if($this->resource()->exists) {

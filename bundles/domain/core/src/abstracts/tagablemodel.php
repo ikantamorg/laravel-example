@@ -8,6 +8,8 @@ use Core\Tagable\Model as Tagable;
 
 abstract class TagableModel extends Model
 {
+	protected $_classifiable_tags = [];
+
 	public function get_tagable_slug()
 	{
 		$slug = Map::class_to_slug(get_called_class());
@@ -19,7 +21,7 @@ abstract class TagableModel extends Model
 		$this->tags()->sync([]);
 	}
 
-	public function tags()
+	public function classification_tags()
 	{
 		$slug = Map::class_to_slug(get_called_class());
 
@@ -29,5 +31,20 @@ abstract class TagableModel extends Model
 			Str::singular($slug) . '_id',
 			'tag_id'
 		);
+	}
+
+	public function classifiable_tags()
+	{
+		$tags = [];
+
+		foreach($this->tagable_slug->tag_types as $tt)
+		{
+			foreach($tt->tags as $t)
+			{
+				$tags[$t->id] = $t;
+			}
+		}
+
+		return $this->_classifiable_tags = array_values($tags);
 	}
 }

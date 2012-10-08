@@ -9,7 +9,7 @@ use Core\Event\Model as Event;
 class Admin_Media_Songs_Controller extends Crud_Base_Controller
 {
 	public $fields = ['name', 'stream_url', 'soundcloud_url', 'owner_id', 'provider'];
-	public $relations = ['artists', 'genres', 'events'];
+	public $relations = ['artists', 'genres', 'events', 'classification_tags'];
 	public $view_base = 'admin::media.songs.';
 	public $base_uri = 'admin/media/songs/';
 
@@ -92,6 +92,18 @@ class Admin_Media_Songs_Controller extends Crud_Base_Controller
 
 				$fs->control('input:file', 'Audio File', function ($c) {
 					$c->name = 'audio';
+				});
+			});
+
+			$f->fieldset('Classification Tags', function ($fs) {
+				$fs->control('select', '', function ($c) {
+					$c->name = 'classification_tags[]';
+					$options = [];
+					foreach($this->resource()->classifiable_tags() as $t)
+						$options[$t->id] = $t->name;
+					$c->options = $options;
+					$c->attr = ['multiple' => 'multiple'];
+					$c->value = Input::old('genres', array_map(function ($g) { return $g->id; }, (array) @$this->resource()->classification_tags));
 				});
 			});
 		});

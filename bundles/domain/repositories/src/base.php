@@ -42,7 +42,7 @@ abstract class Base
 		$q = $q->join($junction, $junction.".{$singular}_id", '=', $q->model->table().'.id')
 			   ->join('core_tags', $junction.'.tag_id', '=', 'core_tags.id');
 
-
+		$q = $this->add_constraints($q, $constraints);
 
 		return $q;
 	}
