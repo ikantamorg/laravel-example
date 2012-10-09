@@ -8,7 +8,7 @@ use Core\Classification\Genre as Genre;
 
 class Admin_Media_Videos_Controller extends Crud_Base_Controller
 {
-	public $fields = ['name', 'duration', 'youtube_id', 'youtube_url', 'provider', 'owner_id'];
+	public $fields = ['name', 'duration', 'youtube_id', 'youtube_url', 'provider', 'owner_id', 'thumb'];
 	public $relations = ['events', 'artists', 'genres', 'type', 'classification_tags'];
 	public $view_base = 'admin::media.videos.';
 	public $base_uri = 'admin/media/videos/';
@@ -21,7 +21,7 @@ class Admin_Media_Videos_Controller extends Crud_Base_Controller
 		if( ! Request::ajax() )
 			return Response::error(404);
 		
-		$data = Youtube\Video::make_from_url(Input::get('youtube_url'))->data();
+		$data = Youtube\Video::make_from_url(Input::get('youtube_url'))->info();
 
 		return Response::json($data);
 	}

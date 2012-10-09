@@ -61,6 +61,8 @@ Media - Videos - Edit
 		vent.on('video:fetched', function (videoData) {
 
 			console.log(videoData);
+			if($('iframe').length > 0)
+				$('iframe').remove();
 
 			var videoFrameParams = { id: 'ytplayer', type: 'text/html', width: 450, height: 300 };
 			var streamingUrl = 'http://www.youtube.com/embed/'+videoData.data.id;
