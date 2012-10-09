@@ -2,7 +2,7 @@
 
 	<div class="video-thumb">
 		<div class="video-image">
-			{{ HTML::image('img/video-thumb.jpg', 'video') }}
+			<img src="{{ $video->thumb }}" alt="video"/>
 		</div>
 		<div class="shadow"></div>
 			
@@ -10,49 +10,52 @@
 		<div class="add-q-btn"></div>
 		
 		<div class="video-detail">
-			<div class="video-name">KandisaKandisaKandisaKandisa</div>		
-				
-			<div class="artist-detail">
-				<div class="artist-name pull-left">	
-					<a href="{{ URL::to('artist-profile/info') }}">Indian OceanIndian OceanIndian OceanIndian Ocean</a>
-					<div class="popup">
-						{{ HTML::image('img/arrow.png', 'arrow', [ 'class' => 'arrow']) }}
-						{{ HTML::image('img/artist-thumb.jpg', 'artist') }}
-						<div class="popup-detail">
-							<div class="popup-name"><a href="{{ URL::to('artist-profile/info') }}">Indian OceanIndian OceanIndian 		OceanIndian OceanIndian Ocean</a>
-							</div>
+			<div class="video-name">{{ $video->name }}</div>
 
-							<div class="popup-facts">
-								<a class="pull-left" href="{{ URL::to('artist-profile/songs') }}">22 Songs</a>
-								<a class="pull-left" href="{{ URL::to('artist-profile/songs') }}">22 Songs</a>
-							</div>
+			@if($video->artists and $artist = @$video->artists[0])
+				<div class="artist-detail">
+					<div class="artist-name pull-left">
+						<a href="#">{{ $artist->name }}</a>
+						<div class="popup">
+							<img src="{{ URL::to_asset('img/arrow.png') }}" alt="arrow" class="arrow"/>
+							<img src="{{ $artist->profile_photo ? $artist->profile_photo->get_url('thumb') : '' }}" alt="{{ $artist->name }}"/>
+							
+							<div class="popup-detail">
+								<div class="popup-name">
+									<a href="#">{{ $artist->name }}</a>
+								</div>
 
-							<div class="socials">
-								<div class="icon pull-left fav"><a href="#" rel="tooltip" title="Add to favorites"></a></div>
-								<div class="icon facebook"><a href="#" rel="tooltip" title="Share on Facebook"></a></div>
-								<div class="icon twitter"><a href="#" rel="tooltip" title="Share on Twitter"></a></div>
-							</div>
-						</div>	
+								<div class="popup-facts">
+									<a class="pull-left" href="#">{{ count($artist->songs) }} Songs</a>
+									<a class="pull-left" href="#">{{ count($artist->videos) }} Videos</a>
+								</div>
+
+								<div class="socials">
+									<div class="icon pull-left fav"><a href="#" rel="tooltip" title="Add to favorites"></a></div>
+									<div class="icon facebook"><a href="#" rel="tooltip" title="Share on Facebook"></a></div>
+									<div class="icon twitter"><a href="#" rel="tooltip" title="Share on Twitter"></a></div>
+								</div>
+							</div>	
+						</div>
 					</div>
-				</div>
 
-				<div class="more pull-right">
-					<a>+2 more</a>
-					<ul class="unstyled">
-						{{ HTML::image('img/arrow.png', 'arrow', [ 'class' => 'arrow'])}}
-						<li>
-							{{ HTML::image('img/artist-thumb.jpg', 'artist') }}
-							<a href="{{ URL::to('artist-profile/info') }}">Indian Ocean</a>
-						</li>
-
-						<li>
-							{{ HTML::image('img/artist-thumb.jpg', 'artist') }}
-							<a href="{{ URL::to('artist-profile/info') }}">Indian OceanOceanOceanOcean</a>
-						</li>
-					</ul>	
-				</div>
-			</div>	
-		</div>
+					@if(($remaining = count($video->artists) - 1) > 0)
+						<div class="more pull-right">
+							<a>{{ $remaining }} more</a>
+							<ul class="unstyled">
+								<img src="{{ URL::to_asset('img/arrow.png') }}" alt="arrow" class="arrow"/>
+								@foreach($video->artists as $a)
+									<li>
+										<img src="{{ $a->profile_photo ? $a->profile_photo->get_url('thumb') : '' }}" alt="{{ $a->name }}"/>
+										<a href="#">{{ $a->name }}</a>
+									</li>
+								@endforeach
+							</ul>	
+						</div>
+					@endif
+				</div>	
+			@endif
+		</div>		
 
 		<div class="socials">
 			<div class="icon fav"><a href="#" rel="tooltip" title="Add to favorites"></a></div>
