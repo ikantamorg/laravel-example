@@ -27,7 +27,8 @@ class Core_Videothumbs_Task
 	{
 		foreach($this->get_videos() as $v)
 		{
-			$this->add_thumb_to_video($v);
+			if(! $v->thumb or strlen($v->thumb) === 0)
+				$this->add_thumb_to_video($v);
 		}
 
 		echo '!!! SUCESS !!!' . "\n\n";
