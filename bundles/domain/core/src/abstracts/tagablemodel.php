@@ -18,7 +18,7 @@ abstract class TagableModel extends Model
 
 	public function before_delete()
 	{
-		$this->tags()->sync([]);
+		$this->classification_tags()->sync([]);
 	}
 
 	public function classification_tags()

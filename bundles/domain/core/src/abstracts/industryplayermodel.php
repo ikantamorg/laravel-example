@@ -29,10 +29,9 @@ abstract class IndustryPlayerModel extends ContactableModel
 		$this->registrar()->update_entry();
 	}
 
-	public function before_delete()
+	public function after_delete()
 	{
 		$this->registrar()->remove_entry();
-		parent::before_delete();
 	}
 
 	public function get_register_entry_type()

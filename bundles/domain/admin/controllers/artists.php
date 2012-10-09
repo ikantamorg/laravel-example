@@ -87,7 +87,7 @@ class Admin_Artists_Controller extends Crud_Base_Controller
 			$q = Artist::with(['type', 'current_city']);
 		}
 
-		$q = $q->order_by('active', 'desc');
+		$q = $q->order_by('name');
 
 		return $this->_listing = $q->paginate(50);
 	}
@@ -130,7 +130,7 @@ class Admin_Artists_Controller extends Crud_Base_Controller
 				});
 				$fs->control('text', 'Reverbnation Url', function ($c) {
 					$c->name = 'reverbnation_url';
-					$c->value = Input::old('reverbnation_url');
+					$c->value = Input::old('reverbnation_url'. @$this->resource()->reverbnation_url);
 				});
 				$fs->control('select', 'Type', function ($c) {
 					$c->name = 'type';
