@@ -2,7 +2,7 @@
 				
 <div class="row station">
 	<div class="span12">
-		<div class="row songs-list">
+		<div class="row videos-list">
 			<div class="span12">
 				
 				@foreach($videos as $video)

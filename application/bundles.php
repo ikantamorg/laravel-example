@@ -47,6 +47,7 @@ return [
 	'uploader' => ['auto' => true, 'location' => 'util/uploader'],
 	'recaptcha' => ['auto' => true, 'location' => 'util/recaptcha'],
 	'oneauth'  => ['auto' => true, 'location' => 'util/oneauth'],
+	'youtube' => ['auto' => true, 'location' => 'util/youtube'],
 
 	'core' => ['auto' => true, 'location' => 'domain/core'],
 	'admin' => ['auto' => true, 'handles' => 'admin', 'location' => 'domain/admin'],

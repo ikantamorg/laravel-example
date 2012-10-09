@@ -15,39 +15,15 @@ class Admin_Media_Videos_Controller extends Crud_Base_Controller
 
 	/**Youtube Data Fetcher**/
 
-	protected function youtube_api_url($v_id)
-	{
-		return 'http://gdata.youtube.com/feeds/api/videos/'.$v_id.'?v=2&alt=jsonc';
-	}
-
-	protected function make_curl($url)
-	{
-		$ch = curl_init($url);
-		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-		$res = curl_exec($ch);
-		curl_close($ch);
-
-		return $res;
-	}
-
-	protected function extract_video_id($youtube_url)
-	{
-		$regex = '/v=([^&]+)/';
-		preg_match($regex, $youtube_url, $matches);
-
-		return $matches[1];
-	}
-
 	public function post_youtube_data()
 	{
 		Config::set('application.profiler', false);
 		if( ! Request::ajax() )
 			return Response::error(404);
 		
-		$data = $this->make_curl($this->youtube_api_url($this->extract_video_id(Input::get('youtube_url'))));
+		$data = Youtube\Video::make_from_url(Input::get('youtube_url'))->data();
 
-		$headers['Content-Type'] = 'application/json; charset=utf-8';
-		return Response::make($data, 200, $headers);
+		return Response::json($data);
 	}
 
 	/************************/
