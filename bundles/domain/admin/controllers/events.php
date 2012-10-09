@@ -264,9 +264,10 @@ class Admin_Events_Controller extends Crud_Base_Controller
 			if($this->resource()->exists) {
 				$f->fieldset('Profile Photo', function ($fs) {
 					$photos = [];
-					if($this->resource()->photos)
-						$photos = array_merge($photos, $this->resource()->photos);
 					
+					foreach($this->resource()->photos as $p)
+						$photos[$p->id] = $p;
+										
 					foreach($photos as $p)
 					{
 						$fs->control('input:radio', '', function ($c) use ($p) {

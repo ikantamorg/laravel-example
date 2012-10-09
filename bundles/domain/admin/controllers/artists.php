@@ -87,7 +87,7 @@ class Admin_Artists_Controller extends Crud_Base_Controller
 			$q = Artist::with(['type', 'current_city']);
 		}
 
-		$q->order_by('active', 'desc');
+		$q = $q->order_by('active', 'desc');
 
 		return $this->_listing = $q->paginate(50);
 	}
@@ -198,11 +198,12 @@ class Admin_Artists_Controller extends Crud_Base_Controller
 			if($this->resource()->exists) {
 				$f->fieldset('Profile Photo', function ($fs) {
 					$photos = [];
-					if($this->resource()->photos)
-						$photos = array_merge($photos, $this->resource()->photos);
-					if($this->resource()->owned_photos)
-						$photos = array_merge($photos, $this->resource()->owned_photos);
+					foreach($this->resource()->photos as $p)
+						$photos[$p->id] = $p;
 
+					foreach($this->resource()->owned_photos as $p)
+						$photos[$p->id] = $p;
+					
 					foreach($photos as $p)
 					{
 						$fs->control('input:radio', '', function ($c) use ($p) {

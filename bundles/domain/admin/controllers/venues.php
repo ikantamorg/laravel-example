@@ -100,10 +100,11 @@ class Admin_Venues_Controller extends Crud_Base_Controller
 			if($this->resource()->exists) {
 				$f->fieldset('Profile Photo', function ($fs) {
 					$photos = [];
-					if($this->resource()->photos)
-						$photos = array_merge($photos, (array) @$this->resource()->photos);
-					if($this->resource()->owned_photos)
-						$photos = array_merge($photos, (array) @$this->resource()->owned_photos);
+					foreach($this->resource()->photos as $p)
+						$photos[$p->id] = $p;
+
+					foreach($this->resource()->owned_photos as $p)
+						$photos[$p->id] = $p;
 
 					$fs->control('input:radio', 'None', function ($c) {
 						$c->name = 'profile_photo';
