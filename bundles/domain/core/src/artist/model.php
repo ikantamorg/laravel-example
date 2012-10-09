@@ -9,16 +9,6 @@ class Model extends Abstracts\IndustryPlayerModel
 {
 	public static $table = 'core_artists';
 
-	public static $accessible = [
-		'name',
-		'bio',
-		'press_contact',
-		'profile_pic',
-		'facebook_url',
-		'soundcloud_url',
-		'reverbnation_url',
-	];
-
 	public function before_delete()
 	{
 		parent::before_delete();

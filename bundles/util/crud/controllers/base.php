@@ -163,7 +163,7 @@ abstract class Crud_Base_Controller extends App_Controller
 				if(null !== $val = @$data[$f])
 					$model->$f = @$data[$f];
 			}
-			
+
 			if($model->save())
 			{
 				foreach($this->relations as $r)
