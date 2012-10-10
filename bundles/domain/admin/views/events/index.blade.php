@@ -17,6 +17,7 @@ Events
 
 <p>Total : {{ $total_records }}</p>
 <p>Activated: {{ $activated_records }}</p>
+<p>Upcoming: {{ Repository::of('events')->count_upcoming() }}</p>
 
 {{ HTML::link($base_url.'new', '+ Add a new Event') }}
 
