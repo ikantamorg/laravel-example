@@ -13,6 +13,9 @@ Media - Videos
 
 @section('content')
 
+<p>Total : {{ $total_records }}</p>
+<p>Activated: {{ $activated_records }}</p>
+
 {{ HTML::link($base_url.'new', '+ Add a new Video') }}
 
 {{ $table->render() }}

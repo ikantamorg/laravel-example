@@ -15,6 +15,8 @@ abstract class Crud_Base_Controller extends App_Controller
 
 	protected $_resource = null;
 	protected $_listing = [];
+	protected $_total_records = null;
+	protected $_activated_records = null;
 	protected $_action = null;
 	protected $_response = null;
 
@@ -74,6 +76,16 @@ abstract class Crud_Base_Controller extends App_Controller
 	abstract public function form();
 	abstract public function resource($id);
 	abstract public function listing();
+	
+	public function total_records()
+	{
+		return null;
+	}
+
+	public function activated_records()
+	{
+		return null;
+	}
 
 	public function show_table()
 	{
@@ -277,7 +289,9 @@ abstract class Crud_Base_Controller extends App_Controller
 		$this->_response =  View::make($this->view_base.'index')
 									->with('table', $table)
 									->with('base_url', URL::to($this->base_uri))
-									->with('listing', $this->listing());
+									->with('listing', $this->listing())
+									->with('total_records', $this->total_records())
+									->with('activated_records', $this->activated_records());
 
 		$this->invoke_callback('after_index');
 		$this->invoke_callback('after_action');

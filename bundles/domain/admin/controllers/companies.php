@@ -65,6 +65,22 @@ class Admin_Companies_Controller extends Crud_Base_Controller
 		return $this->_listing = Company::with('tags')->all();
 	}
 
+	public function total_records()
+	{
+		if($this->_total_records)
+			return $this->_total_records;
+
+		return $this->_total_records = Company::count();
+	}
+
+	public function activated_records()
+	{
+		if($this->_activated_records)
+			return $this->_activated_records;
+
+		return $this->_activated_records = Company::where_active(1)->count();
+	}
+
 	public function listing_table()
 	{
 		$table = Hybrid\Table::make(function ($t) {

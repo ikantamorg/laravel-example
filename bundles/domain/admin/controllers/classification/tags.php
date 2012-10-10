@@ -37,6 +37,22 @@ class Admin_Classification_Tags_Controller extends Crud_Base_Controller
 		return Tag::all();
 	}
 
+	public function total_records()
+	{
+		if($this->_total_records)
+			return $this->_total_records;
+
+		return $this->_total_records = Tag::count();
+	}
+
+	public function activated_records()
+	{
+		if($this->_activated_records)
+			return $this->_activated_records;
+
+		return $this->_activated_records = Tag::where_active(1)->count();
+	}
+
 	public function listing_table()
 	{
 		$listing = $this->listing();

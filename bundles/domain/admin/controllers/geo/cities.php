@@ -52,6 +52,22 @@ class Admin_Geo_Cities_Controller extends Crud_Base_Controller
 		return $this->_listing = City::with('country')->get();
 	}
 
+	public function total_records()
+	{
+		if($this->_total_records)
+			return $this->_total_records;
+
+		return $this->_total_records = City::count();
+	}
+
+	public function activated_records()
+	{
+		if($this->_activated_records)
+			return $this->_activated_records;
+
+		return $this->_activated_records = City::where_active(1)->count();
+	}
+
 	public function listing_table()
 	{
 		$listing = $this->listing();

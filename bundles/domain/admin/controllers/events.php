@@ -102,6 +102,22 @@ class Admin_Events_Controller extends Crud_Base_Controller
 		return $this->_listing = $q->order_by('start_time', 'desc')->paginate(50);
 	}
 
+	public function total_records()
+	{
+		if($this->_total_records)
+			return $this->_total_records;
+
+		return $this->_total_records = Event::count();
+	}
+
+	public function activated_records()
+	{
+		if($this->_activated_records)
+			return $this->_activated_records;
+
+		return $this->_activated_records = Event::where_active(1)->count();
+	}
+
 	public function form()
 	{
 		$form = Hybrid\Form::make(function ($f) {

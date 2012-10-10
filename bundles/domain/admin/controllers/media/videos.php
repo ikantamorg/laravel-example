@@ -44,7 +44,21 @@ class Admin_Media_Videos_Controller extends Crud_Base_Controller
 		return $this->_listing = Video::with(['genres', 'industry_register_entry'])->get();
 	}
 
+	public function total_records()
+	{
+		if($this->_total_records)
+			return $this->_total_records;
 
+		return $this->_total_records = Video::count();
+	}
+
+	public function activated_records()
+	{
+		if($this->_activated_records)
+			return $this->_activated_records;
+
+		return $this->_activated_records = Video::where_active(1)->count();
+	}
 
 	public function form()
 	{

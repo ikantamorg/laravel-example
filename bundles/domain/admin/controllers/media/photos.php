@@ -35,6 +35,22 @@ class Admin_Media_Photos_Controller extends Crud_Base_Controller
 		return $this->_listing = Photo::with(['industry_register_entry'])->get();
 	}
 
+	public function total_records()
+	{
+		if($this->_total_records)
+			return $this->_total_records;
+
+		return $this->_total_records = Photo::count();
+	}
+
+	public function activated_records()
+	{
+		if($this->_activated_records)
+			return $this->_activated_records;
+
+		return $this->_activated_records = Photo::where_active(1)->count();
+	}
+
 	public function form()
 	{
 		$form = Hybrid\Form::make(function ($f) {

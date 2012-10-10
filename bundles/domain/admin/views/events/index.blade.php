@@ -15,6 +15,9 @@ Events
 
 <?php $searched_field = Session::get('searched_field'); Session::forget('searched_field'); ?>
 
+<p>Total : {{ $total_records }}</p>
+<p>Activated: {{ $activated_records }}</p>
+
 {{ HTML::link($base_url.'new', '+ Add a new Event') }}
 
 @if($searched_field)
