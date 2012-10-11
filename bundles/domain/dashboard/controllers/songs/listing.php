@@ -6,12 +6,12 @@ class Dashboard_Songs_Listing_Controller extends Dashboard_Base_Controller
 
 	public function get_index()
 	{
-		$q = $this->repo('songs')->filter(Input::get());
-		$listing = $q->paginate();
+		$listing = $this->repo('songs')->filter(Input::get())->paginate();
+		$count = $this->repo('songs')->filter(Input::get())->count('id');
 
 		return $this->layout->nest('body', 'dashboard::listings.songs', [
 					'songs' => $listing->results,
-					'num_songs' => $q->count(),
+					'num_songs' => $count,
 					'prev_link' => $listing->previous(null, true, ['class' => 'pull-left']),
 					'next_link' => $listing->next(null, true, ['class' => 'pull-right']),
 				]);
