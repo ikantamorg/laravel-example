@@ -7,7 +7,7 @@ class Dashboard_Events_Listing_Controller extends Dashboard_Base_Controller
 	public function get_index()
 	{
 		$listing = $this->repo('events')->filter(Input::get())->paginate();
-		$count = $this->repo('events')->filter(Input::get())->count('id');
+		$count = $this->repo('events')->filter(Input::get())->count();
 		
 		return $this->layout->nest('body', 'dashboard::listings.events', [
 					'events' => $listing->results,

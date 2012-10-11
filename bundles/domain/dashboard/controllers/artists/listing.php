@@ -7,7 +7,7 @@ class Dashboard_Artists_Listing_Controller extends Dashboard_Base_Controller
 	public function get_index()
 	{
 		$listing = $this->repo('artists')->filter(Input::get())->paginate();
-		$count = $this->repo('artists')->filter(Input::get())->count('id');
+		$count = $this->repo('artists')->filter(Input::get())->count();
 
 		return $this->layout->nest('body', 'dashboard::listings.artists', [
 					'artists' => $listing->results,

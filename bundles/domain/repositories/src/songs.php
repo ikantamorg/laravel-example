@@ -13,7 +13,7 @@ class Songs extends Base
 			'artists.profile_photo',
 			'artists.videos',
 			'artists.songs'
-		])->where(Model::$table.'.active', '=', 1);
+		])->where(Model::$table.'.active', '=', 1)->select(Model::$table.'.*');
 	}
 
 	public function filter($params = [])

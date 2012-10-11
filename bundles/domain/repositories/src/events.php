@@ -15,7 +15,7 @@ class Events extends Base
 			return $this->_today_datetime;
 
 		$dt = new DateTime;
-		return $this->_today_datetime = DateTime::createFromFormat('Y M d', $dt->format('Y M d'));
+		return $this->_today_datetime = DateTime::createFromFormat('Y M d H:i', $dt->format('Y M d') . '00:00');
 	}
 
 	protected function future_datetime($days_ahead)
@@ -37,7 +37,7 @@ class Events extends Base
 			'profile_photo',
 			'venues',
 			'venues.city'
-		])->where(Model::$table.'.active', '=', 1);
+		])->where(Model::$table.'.active', '=', 1)->select(Model::$table.'.*');
 	}
 
 	public function filter($params = [])
