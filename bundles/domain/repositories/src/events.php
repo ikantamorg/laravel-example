@@ -9,8 +9,6 @@ class Events extends Base
 {
 	protected $_today_datetime = null;
 
-	protected $_constraints_added = [];
-
 	protected function today_datetime()
 	{
 		if($this->_today_datetime)
@@ -19,6 +17,15 @@ class Events extends Base
 		$dt = new DateTime;
 		return $this->_today_datetime = DateTime::createFromFormat('Y M d', $dt->format('Y M d'));
 	}
+
+	protected function future_datetime($days_ahead)
+	{
+		$dt = new DateTime;
+		$dt->setTimestamp($this->today_datetime()->getTimestamp + 86400 * (int) $days_ahead);
+		return $dt;
+	}
+
+	/***************/
 
 	protected function q()
 	{
@@ -30,52 +37,50 @@ class Events extends Base
 			'profile_photo',
 			'venues',
 			'venues.city'
-		]);
+		])->where(Model::$table.'.active', '=', 1);
+	}
+
+	public function filter($params = [])
+	{
+		$q = $this->q();
+
+		if(! $params )
+			return $q->where('start_time', '>', $this->today_datetime())->order_by('start_time', 'asc');
+
+		if(@$params['city'])
+			$q = $this->add_city_constraints($q, @$params['city']);
+
+		if(@$params['tags'])
+			$q = $this->add_tag_constraints($q, (array) @$params['tags']);
+
+		if($ts = @$params['timespan'] and $ts === 'past')
+		{
+			$q = $q->where('start_time', '<', $this->today_datetime())->order_by('start_time', 'desc');
+		}
+		else
+		{
+			$q = $q->where('start_time', '>', $this->today_datetime())->order_by('start_time', 'asc');
+		}
+
+		return $q;
 	}
 
 	/*******/
 
-	protected function add_city_constraints($q, $slugs)
+	protected function add_city_constraints($q, $city)
 	{
 		$q = $q->join('core_event_venue', 'core_event_venue.event_id', '=', 'core_events.id')
 		  	   ->join('core_venues', 'core_venues.id', '=', 'core_event_venue.venue_id')
 		  	   ->join('core_cities', 'core_cities.id', '=', 'core_venues.city_id');
 
+		$q = $q->where('core_cities.slug', '=', $city);
+
 		return $q;
-	}
-
-	protected function add_upcoming_constraint($q)
-	{
-		return $q->where('core_events.start_time', '>', $this->today_datetime())->order_by('core_events.start_time', 'asc');
-	}
-
-	protected function upcoming_q()
-	{
-		return $this->add_upcoming_constraint($this->q());
-	}
-
-	/*******/
-	public function get_upcoming()
-	{
-		$q = $this->upcoming_q();
-
-		return $q->paginate();
 	}
 
 	public function count_upcoming()
 	{
-		return $this->upcoming_q()->count();
+		return Model::where('start_time', '>', $this->today_datetime())->count();
 	}
 	/*******/
-
-	public function get_listing()
-	{
-		$q = $this->q()->order_by('start_time', 'desc');
-		return $q->paginate();
-	}
-
-	public function count()
-	{
-		return Model::count('id');
-	}
 }

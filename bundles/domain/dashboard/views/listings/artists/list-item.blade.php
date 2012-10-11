@@ -18,7 +18,7 @@
 		</div-->
 		*/ ?>
 
-		@foreach($artist->songs as $song)
+		@foreach($artist->featured_songs as $song)
 			<div class="row artist-song">
 				<div class="span1 offset1">
 					<div class="play-button"></div>

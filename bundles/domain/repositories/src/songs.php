@@ -6,15 +6,21 @@ use Core\Media\Song as Model;
 
 class Songs extends Base
 {
-	public function get_listing()
+	protected function q()
 	{
-		$q = Model::with(['artists', 'artists.profile_photo', 'artists.videos', 'artists.songs']);
-
-		return $q->paginate();
+		return Model::with([
+			'artists',
+			'artists.profile_photo',
+			'artists.videos',
+			'artists.songs'
+		])->where(Model::$table.'.active', '=', 1);
 	}
 
-	public function get_count()
+	public function filter($params = [])
 	{
-		return Model::count('id');
+		if(array_key_exists('tags', $params))
+			return $this->add_tag_constraints($this->q(), (array) $params['tags']);
+		else
+			return $this->q();
 	}
 }
