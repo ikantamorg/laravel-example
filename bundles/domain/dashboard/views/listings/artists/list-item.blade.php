@@ -28,7 +28,6 @@
 				</div>
 				<div class="span3">
 					<p class="song-name">{{ $song->name }}</p>
-					<p class="time">{{ @$song->duration }}</p>
 				</div>
 				<div class="span2"><a href="{{ URL::to('artist-profile/songs') }}" class="more">view more songs</a></div>
 			</div>
