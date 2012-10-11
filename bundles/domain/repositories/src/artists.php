@@ -9,7 +9,8 @@ class Artists extends Base
 	public function q()
 	{
 		return Model::with([
-			'featured_songs' => ['aggregate' => function ($q) { $q->take(2); }]
+			'featured_songs',
+			'profile_photo',
 		])->where(Model::$table.'.active', '=', 1);
 	}
 

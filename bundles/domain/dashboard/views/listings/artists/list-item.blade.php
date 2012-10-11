@@ -5,7 +5,7 @@
 	<div class="span7">
 		<div class="row artist-name">
 			<div class="span7">
-				<a href="#">{{ $artist->name }}</a>
+				<a href="#">{{ count($artist->featured_songs) }} {{ $artist->name }}</a>
 			</div>
 		</div>
 		<?php /*
@@ -18,7 +18,10 @@
 		</div-->
 		*/ ?>
 
-		@foreach($artist->featured_songs as $song)
+		@foreach($artist->featured_songs as $i => $song)
+			@if($i === 2)
+				<?php break; ?>
+			@endif
 			<div class="row artist-song">
 				<div class="span1 offset1">
 					<div class="play-button"></div>
