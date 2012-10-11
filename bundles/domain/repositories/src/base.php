@@ -11,21 +11,17 @@ abstract class Base
 		if( ! $tags )
 			return $q;
 
-		if(! $slug = $q->model->tagable_slug )
+		if(! $tagable = $q->model->tagable )
 			return $q;
 
-		$singular = Str::singular($slug);
+		$singular = Str::singular($tagable->slug);
 
 		$junction = 'core_tag_'.$singular;
 
 		$q = $q->join($junction, $junction.".{$singular}_id", '=', $q->model->table().'.id')
-			   ->join('core_tags', $junction.'.tag_id', '=', 'core_tags.id');
-
-		if($tags)
-		{
-			$q = $q->where_in('core_tags.slug', $tags);
-		}
-
+			   ->join('core_tags', $junction.'.tag_id', '=', 'core_tags.id')
+			   ->where_in('core_tags.slug', $tags);
+		
 		return $q;
 	}
 }

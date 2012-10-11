@@ -10,7 +10,7 @@ abstract class TagableModel extends Model
 {
 	protected $_classifiable_tags = [];
 
-	public function get_tagable_slug()
+	public function get_tagable()
 	{
 		$slug = Map::class_to_slug(get_called_class());
 		return Tagable::where_slug($slug)->first();
@@ -37,7 +37,7 @@ abstract class TagableModel extends Model
 	{
 		$tags = [];
 
-		foreach($this->tagable_slug->tag_types as $tt)
+		foreach($this->tagable->tag_types as $tt)
 		{
 			foreach($tt->tags as $t)
 			{

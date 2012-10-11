@@ -13,5 +13,8 @@ View::composer('dashboard::layouts.base', function ($view) {
 
 function dashboard_nav_attr($slug)
 {
- 	
+ 	if(strpos(URI::current(), $slug))
+ 		return HTML::attributes(['class' => 'selected']);
+ 	else
+ 		return [];
 }

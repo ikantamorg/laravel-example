@@ -17,10 +17,9 @@ class Videos extends Base
 
 	public function filter($params = [])
 	{
-		if(! $params )
-			return $this->q();
-
 		if(array_key_exists('tags', $params))
 			return $this->add_tag_constraints($this->q(), (array) $params['tags']);
+		else
+			return $this->q();
 	}
 }

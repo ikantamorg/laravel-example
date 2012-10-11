@@ -6,8 +6,11 @@ class Dashboard_Videos_Listing_Controller extends Dashboard_Base_Controller
 
 	public function get_index()
 	{
-		$listing = $this->repo('videos')->filter(Input::get())->paginate();
+		$listing = $this->repo('videos')->filter(Input::get())->paginate($this->per_page);
 		$count = $this->repo('videos')->filter(Input::get())->count();
+
+		if($this->appendage())
+			$listing->appends($this->appendage());
 
 		return $this->layout->nest('body', 'dashboard::listings.videos', [
 					'videos' => $listing->results,

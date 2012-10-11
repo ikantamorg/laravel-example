@@ -14,28 +14,32 @@
 					@if($artist = @$event->artists[$r])
 
 						<div class="artist-name">
-							<a href="#">{{ $artist->name }}</a>
-							<div class="popup">
-								<img src="{{ URL::to_asset('img/arrow.png') }}" alt="arrow" class="arrow"/>
-								<img src="{{ $artist->profile_photo ? $artist->profile_photo->get_url('thumb') : '' }}" alt="{{ $artist->name }}"/>
-								<div class="popup-detail">
-									<div class="popup-name">
-										<a href="#">{{ $artist->name }}</a>
-									</div>
+							@if((int) $artist->active === 1)
+								<a href="#">{{ $artist->name }}</a>
+								<div class="popup">
+									<img src="{{ URL::to_asset('img/arrow.png') }}" alt="arrow" class="arrow"/>
+									<img src="{{ $artist->profile_photo ? $artist->profile_photo->get_url('thumb') : '' }}" 
+										alt="{{ $artist->name }}"/>
+									<div class="popup-detail">
+										<div class="popup-name">
+											<a href="#">{{ $artist->name }}</a>
+										</div>
 
-									<div class="popup-facts">
-										<a class="pull-left" href="#">{{ count($artist->songs) }} Songs</a>
-										<a class="pull-left" href="#">{{ count($artist->videos) }} Videos</a>
-									</div>
+										<div class="popup-facts">
+											<a class="pull-left" href="#">{{ count($artist->songs) }} Songs</a>
+											<a class="pull-left" href="#">{{ count($artist->videos) }} Videos</a>
+										</div>
 
-									<div class="socials">
-										<div class="icon pull-left fav"><a href="#" rel="tooltip" title="Add to favorites"></a></div>
-										<div class="icon facebook"><a href="#" rel="tooltip" title="Share on Facebook"></a></div>
-										<div class="icon twitter"><a href="#" rel="tooltip" title="Share on Twitter"></a></div>
-									</div>
-								</div>	
-
-							</div>
+										<div class="socials">
+											<div class="icon pull-left fav"><a href="#" rel="tooltip" title="Add to favorites"></a></div>
+											<div class="icon facebook"><a href="#" rel="tooltip" title="Share on Facebook"></a></div>
+											<div class="icon twitter"><a href="#" rel="tooltip" title="Share on Twitter"></a></div>
+										</div>
+									</div>	
+								</div>
+							@else
+								<a>{{ $artist->name }}</a>
+							@endif
 						</div>
 						
 					@endif
