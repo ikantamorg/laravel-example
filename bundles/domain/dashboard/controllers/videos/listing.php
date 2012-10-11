@@ -13,7 +13,7 @@ class Dashboard_Videos_Listing_Controller extends Dashboard_Base_Controller
 					'videos' => $listing->results,
 					'num_videos' => $count,
 					'prev_link' => $listing->previous(null, true, ['class' => 'pull-left']),
-					'next_link' => $listing->previous(null, true, ['class' => 'pull-right'])
+					'next_link' => $listing->next(null, true, ['class' => 'pull-right'])
 				]);
 	}
 }

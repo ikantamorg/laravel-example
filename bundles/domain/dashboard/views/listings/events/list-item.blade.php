@@ -69,7 +69,15 @@
 			@endif
 		</div>
 		<div class="row time">
-			<div class="span7">{{ $event->get_start_time('g:ia') }} - {{ $event->get_end_time('g:ia') }}</div>
+			@if((int) $event->is_timed === 1)
+				@if($event->start_time === $event->end_time)
+					<div class="span7">{{ $event->get_start_time('g:ia') }} onwards</div>
+				@else
+					<div class="span7">{{ $event->get_start_time('g:ia') }} - {{ $event->get_end_time('g:ia') }}</div>
+				@endif
+			@else
+				<div class="span7">Timing to be announced</div>
+			@endif
 		</div>
 		<div class="row venue">
 			@if(count($event->venues) === 1)
