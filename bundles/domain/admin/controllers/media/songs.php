@@ -32,7 +32,7 @@ class Admin_Media_Songs_Controller extends Crud_Base_Controller
 		if($this->_listing)
 			return $this->_listing;
 
-		return $this->_listing = Song::all();
+		return $this->_listing = Song::with(['artists'])->get();
 	}
 
 	public function total_records()
@@ -132,6 +132,11 @@ class Admin_Media_Songs_Controller extends Crud_Base_Controller
 		$table = Hybrid\Table::make(function($t) {
 			$t->column('id');
 			$t->column('name');
+			$t->column('artists', function ($c) {
+				$c->value = function ($r) {
+					return implode(', ', array_map(function ($a) { return $a->name; }, (array) $r->artists));
+				};
+			});
 			$t->column('', function ($c) {
 				$c->value = function ($r) {
 					return HTML::link(URL::to($this->base_uri.'show/'.$r->id), 'Show');
