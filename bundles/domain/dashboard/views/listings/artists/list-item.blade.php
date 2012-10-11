@@ -5,7 +5,7 @@
 	<div class="span7">
 		<div class="row artist-name">
 			<div class="span7">
-				<a href="#">{{ count($artist->featured_songs) }} {{ $artist->name }}</a>
+				<a href="#">{{ $artist->name }}</a>
 			</div>
 		</div>
 		<?php /*
