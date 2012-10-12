@@ -679,16 +679,17 @@ class Query {
 		// a SELECT clause on the query. If an aggregator is present, it's own
 		// grammar function will be used to build the SQL syntax.
 		
-		$this->aggregate = compact('aggregator', 'columns');
-
-		/**
-		* Expected query: 'SELECT $aggregator($columns) from (' . $this->grammar->select($this) . ')'
-		**/
-
-		//$sql = "SELECT {$aggregator}({$this->grammar->columnize($columns)}) FROM ({$this->grammar->select($this)}) AS aggregate";
-
-		$sql = $this->grammar->select($this);
-
+		if(! $this->groupings)
+		{
+			$this->aggregate = compact('aggregator', 'columns');
+			$sql = $this->grammar->select($this);
+		}
+		else
+		{
+			if (is_null($this->selects)) $this->select(array('*'));
+			$sql = "SELECT {$aggregator}({$this->grammar->columnize($columns)}) FROM ({$this->grammar->select($this)}) AS aggregate";
+		}
+		
 		$result = $this->connection->only($sql, $this->bindings);
 
 		// Reset the aggregate so more queries can be performed using the same
@@ -714,6 +715,9 @@ class Query {
 		list($orderings, $this->orderings) = array($this->orderings, null);
 
 		$total = $this->count(reset($columns));
+
+		//$sql = 'SELECT COUNT('.reset($columns).') FROM ('.$this->grammar->select($this).') AS aggregate';
+		//$total = $this->connection->only($sql, $this->bindings);
 
 		$page = Paginator::page($total, $per_page);
 

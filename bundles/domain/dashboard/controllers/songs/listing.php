@@ -7,7 +7,7 @@ class Dashboard_Songs_Listing_Controller extends Dashboard_Base_Controller
 	public function get_index()
 	{
 		$listing = $this->repo('songs')->filter(Input::get())->paginate($this->per_page);
-		$count = $this->repo('songs')->filter(Input::get())->count();
+		$count = $listing->total;
 
 		if($this->appendage())
 			$listing->appends($this->appendage());
