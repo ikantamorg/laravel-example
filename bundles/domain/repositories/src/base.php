@@ -52,7 +52,7 @@ abstract class Base
 	{
 		$q = $this->filtered_q();
 		$q = $q->select($q->model->table().'.id');
-		return count($q->get());
+		return $q->count('id');
 	}
 
 	public function paginate($per_page = 20)
