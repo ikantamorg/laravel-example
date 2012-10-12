@@ -11,6 +11,7 @@ class Videos extends Base
 		return Model::with([
 			'artists',
 			'artists.videos',
+			'artists.profile_photo',
 			'artists.songs',
 		])->where(Model::$table.'.active', '=', 1)->select(Model::$table.'.*');
 	}
