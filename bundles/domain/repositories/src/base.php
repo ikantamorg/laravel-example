@@ -8,6 +8,7 @@ use DB;
 abstract class Base
 {
 	protected $_filter = [];
+	protected $_eager_loads = [];
 	
 	public function filter($params = [])
 	{
@@ -41,6 +42,12 @@ abstract class Base
 		return $q;
 	}
 
+	protected function eager_load($q)
+	{
+		$q->model->includes = $this->_eager_loads;
+		return $q;
+	}
+
 	public function count()
 	{
 		return count($this->filtered_q()->get());
@@ -48,6 +55,6 @@ abstract class Base
 
 	public function paginate()
 	{
-		return $this->filtered_q()->paginate();
+		return $this->eager_load($this->filtered_q())->paginate();
 	}
 }

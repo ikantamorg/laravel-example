@@ -6,12 +6,14 @@ use Core\Artist\Model;
 
 class Artists extends Base
 {
+	protected $_eager_loads = [
+		'featured_songs',
+		'profile_photo'
+	];
+
 	protected function q()
 	{
-		$q = Model::with([
-			'featured_songs',
-			'profile_photo',
-		])->where(Model::$table.'.active', '=', 1)->select(Model::$table.'.*');
+		$q = Model::where(Model::$table.'.active', '=', 1)->select(Model::$table.'.*');
 
 		return $q;
 	}

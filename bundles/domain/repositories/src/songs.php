@@ -6,14 +6,16 @@ use Core\Media\Song as Model;
 
 class Songs extends Base
 {
+	protected $_eager_loads = [
+		'artists',
+		'artists.profile_photo',
+		'artists.videos',
+		'artists.songs'
+	];
+
 	protected function q()
 	{
-		return Model::with([
-			'artists',
-			'artists.profile_photo',
-			'artists.videos',
-			'artists.songs'
-		])->where(Model::$table.'.active', '=', 1)->select(Model::$table.'.*');
+		return Model::where(Model::$table.'.active', '=', 1)->select(Model::$table.'.*');
 	}
 
 	public function filtered_q()

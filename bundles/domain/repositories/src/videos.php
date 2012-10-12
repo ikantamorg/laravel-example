@@ -6,14 +6,16 @@ use Core\Media\Video as Model;
 
 class Videos extends Base
 {
+	protected $_eager_loads = [
+		'artists',
+		'artists.videos',
+		'artists.profile_photo',
+		'artists.songs',
+	];
+
 	protected function q()
 	{
-		return Model::with([
-			'artists',
-			'artists.videos',
-			'artists.profile_photo',
-			'artists.songs',
-		])->where(Model::$table.'.active', '=', 1)->select(Model::$table.'.*');
+		return Model::where(Model::$table.'.active', '=', 1)->select(Model::$table.'.*');
 	}
 
 	public function filtered_q()
