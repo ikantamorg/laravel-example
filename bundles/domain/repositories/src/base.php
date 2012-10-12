@@ -50,7 +50,9 @@ abstract class Base
 
 	public function count()
 	{
-		return count($this->filtered_q()->get());
+		$q = $this->filtered_q();
+		$q = $q->select($q->model->table().'.id');
+		return count($q->get());
 	}
 
 	public function paginate($per_page = 20)
