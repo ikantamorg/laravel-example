@@ -53,8 +53,8 @@ abstract class Base
 		return count($this->filtered_q()->get());
 	}
 
-	public function paginate()
+	public function paginate($per_page = 20)
 	{
-		return $this->eager_load($this->filtered_q())->paginate();
+		return $this->eager_load($this->filtered_q())->paginate($per_page);
 	}
 }
