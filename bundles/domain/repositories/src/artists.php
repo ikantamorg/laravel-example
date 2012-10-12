@@ -6,24 +6,24 @@ use Core\Artist\Model;
 
 class Artists extends Base
 {
-	public function q()
+	protected function q()
 	{
-		return Model::with([
+		$q = Model::with([
 			'featured_songs',
 			'profile_photo',
 		])->where(Model::$table.'.active', '=', 1)->select(Model::$table.'.*');
+
+		return $q;
 	}
 
-	public function filter($params = [])
+	protected function filtered_q()
 	{
-		if(array_key_exists('tags', $params))
-			return $this->add_tag_constraints($this->q(), (array) $params['tags']);
-		else
+		$params = $this->_filter;
+
+		if(array_key_exists('tags', $params)) {
+			return $this->add_tag_constraints($this->q(), (array) $params['tags']);			
+		} else {
 			return $this->q();
-	}
-
-	public function count($params = [])
-	{
-		return Model::where_active(1)->count('id');
+		}
 	}
 }

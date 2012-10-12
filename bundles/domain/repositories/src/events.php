@@ -40,12 +40,11 @@ class Events extends Base
 		])->where(Model::$table.'.active', '=', 1)->select(Model::$table.'.*');
 	}
 
-	public function filter($params = [])
+	protected function filtered_q()
 	{
-		$q = $this->q();
+		$params = $this->_filter;
 
-		if(! $params )
-			return $q->where('start_time', '>', $this->today_datetime())->order_by('start_time', 'asc');
+		$q = $this->q();
 
 		if(@$params['city'])
 			$q = $this->add_city_constraints($q, @$params['city']);

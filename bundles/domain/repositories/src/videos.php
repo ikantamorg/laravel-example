@@ -15,7 +15,7 @@ class Videos extends Base
 		])->where(Model::$table.'.active', '=', 1)->select(Model::$table.'.*');
 	}
 
-	public function filter($params = [])
+	public function filtered_q()
 	{
 		if(array_key_exists('tags', $params))
 			return $this->add_tag_constraints($this->q(), (array) $params['tags']);

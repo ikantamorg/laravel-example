@@ -2,7 +2,7 @@
 
 abstract class Dashboard_Base_Controller extends Rest_Controller
 {
-	public $per_page = 21;
+	public $per_page = 20;
 
 	protected $_appendage = [];
 
