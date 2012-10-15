@@ -17,6 +17,8 @@ Media - Songs - New
 <hr>
 {{ $form->render() }}
 
+<?php /*
+
 <script>
 
 window.baseURL = '{{ URL::base() }}';
@@ -64,5 +66,7 @@ window.baseURL = '{{ URL::base() }}';
 	});
 
 </script>
+*/
+?>
 
 @endsection
