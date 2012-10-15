@@ -48,7 +48,7 @@ class Admin_Media_Songs_Controller extends Crud_Base_Controller
 		if($this->_activated_records)
 			return $this->_activated_records;
 
-		return $this->_activated_records = Song::where_active(1)->count();
+		return $this->_activated_records = Song::where('provider', '<>', 'soundcloud')->where_active(1)->count();
 	}
 
 	public function form()
