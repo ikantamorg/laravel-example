@@ -32,7 +32,7 @@ class Admin_Media_Songs_Controller extends Crud_Base_Controller
 		if($this->_listing)
 			return $this->_listing;
 
-		return $this->_listing = Song::with(['artists'])->get();
+		return $this->_listing = Song::with(['artists'])->where('provider', '<>', 'soundcloud')->order_by('active', 'desc')->get();
 	}
 
 	public function total_records()
@@ -40,7 +40,7 @@ class Admin_Media_Songs_Controller extends Crud_Base_Controller
 		if($this->_total_records)
 			return $this->_total_records;
 
-		return $this->_total_records = Song::count();
+		return $this->_total_records = Song::where('provider', '<>', 'soundcloud')->count();
 	}
 
 	public function activated_records()

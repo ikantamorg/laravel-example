@@ -19,17 +19,17 @@
 				
 				<div class="row">
 					<div class="span7">
-						<p id="time-done">
+						<p class="time-done">
 							03:02
 						</p>
 						
-						<div id="stream">
+						<div class="stream">
 							<div class="stream-1" style="width: 70%;"></div>
 							<div class="stream-2" style="width: 20%;"></div>
 							<div class="handle" style="left:20%;"></div>
 						</div>
 
-						<p id="time-left">
+						<p class="time-left">
 							03:55
 						</p>	
 					</div>
@@ -37,7 +37,7 @@
 					<div class="span2">
 						<div class="sound"></div>
 
-						<div id="volume">
+						<div class="volume">
 							<div class="stream-1" style="width: 70%;"></div>
 							<div class="handle" style="left:70%;"></div>
 						</div>
@@ -78,7 +78,7 @@
 				<div class="clear pull-right">Clear all</div>
 			</div>
 			<div class="screen">
-				<div id="playlist">
+				<div class="playlist">
 					@foreach(range(1, 3) as $r)
 						{{ render('dashboard::partials.playlist.playlist') }}
 					@endforeach

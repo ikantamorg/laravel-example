@@ -15,35 +15,11 @@
 
 		{{ Asset::container('common')->scripts() }}
 
+		{{ Asset::container('dashboard')->scripts() }}
+
 		{{-- HTML::script('js/script.js') --}}
 		{{-- HTML::script('js/player.js') --}}
 		{{-- HTML::script('js/left-pane.js') --}}
-
-		<script type="text/javascript">
-			/*	
-			$(function (){
-				$('.artist-name, .agent-name').hover(
-					function (){
-						$(this).children(':eq(1)').stop().fadeIn(150);
-					},
-					function(){
-						$(this).children(':eq(1)').stop().fadeOut(150);
-					}
-				);
-			})
-
-			$(function (){
-				$('.artist-detail .more').hover(
-					function (){
-						$(this).children('ul').stop().fadeIn(150);
-					},
-					function(){
-						$(this).children('ul').stop().fadeOut(150);
-					}
-				);
-			})
-			*/
-		</script>
 	</head>
 
 	
@@ -89,10 +65,12 @@
 					</div>
 				</div>	
 			</div>
-						
 		</div>
 
 	@include('dashboard::temp.scripts')
 
 	</body>
+
+	<script type="text/javascript" data-main="{{ URL::to_asset('js/dash/app.config.js') }}" src="{{ URL::to_asset('js/require.js') }}">
+	</script>
 </html>

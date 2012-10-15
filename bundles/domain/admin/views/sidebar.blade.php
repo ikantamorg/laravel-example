@@ -1,4 +1,3 @@
-
 <div class="well" id="main-nav">
 	<h3>Admin Panel Menu</h3>
 	<hr/>

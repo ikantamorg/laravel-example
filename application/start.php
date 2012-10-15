@@ -179,9 +179,9 @@ IoC::singleton('common-assets', function () {
 	return Asset::container('common')
 			->add('bs-css', 'css/bootstrap.min.css')
 			->add('fonts', 'css/fonts.css', 'bs-css')
-			->add('jquery', 'js/jquery.min.js', 'fonts')
-			->add('bs-js', 'js/bootstrap.min.js', 'jquery')
-			->add('json2', 'js/json2.js', 'bs-js')
-			->add('us', 'js/underscore.js', 'json2')
-			->add('bb', 'js/backbone.js', 'us');
+			->add('jquery', 'js/lib/jquery.min.js', 'fonts')
+			->add('bs-js', 'js/lib/bootstrap.min.js', 'jquery')
+			->add('json2', 'js/lib/json2.js', 'bs-js')
+			->add('us', 'js/lib/underscore.js', 'json2')
+			->add('bb', 'js/lib/backbone.js', 'us');
 });

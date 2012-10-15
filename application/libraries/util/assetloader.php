@@ -2,8 +2,6 @@
 
 namespace Util;
 
-class AssetLoaderException extends Exception { }
-
 class AssetLoader
 {
 	protected $_container = null;
@@ -14,7 +12,7 @@ class AssetLoader
 	{
 		$this->_container = $container;
 		$this->_pre = $type . '/';
-		$this->_ext = '.' . $_ext;
+		$this->_ext = '.' . $type;
 	}
 
 	public function load(array $tree)

@@ -514,13 +514,13 @@ h5 { font-size:15px; }
   overflow:hidden;
 }
 #player .display .artist-name:hover { color:#999999; }
-#player .display #time-done, #player .display #time-left {
+#player .display .time-done, #player .display .time-left {
   font-size:10px;
   color:#999999;
   float:left;
   margin:10px 10px 0px 10px;
 }
-#player .display #stream {
+#player .display .stream {
   width:240px;
   height:3px;
   background:#222222;
@@ -529,24 +529,24 @@ h5 { font-size:15px; }
   margin-top:15px;
   -webkit-transition:all .1s linear;
 }
-#player .display #stream:hover { height:5px; }
-#player .display #stream:hover .stream-1, #player .display #stream:hover .stream-2 { height:5px; }
-#player .display #stream .stream-1, #player .display #stream .stream-2 {
+#player .display .stream:hover { height:5px; }
+#player .display .stream:hover .stream-1, #player .display .stream:hover .stream-2 { height:5px; }
+#player .display .stream .stream-1, #player .display .stream .stream-2 {
   position:absolute;
   height:3px;
   top:0px;
   left:0px;
   cursor:pointer;
 }
-#player .display #stream .stream-1 {
+#player .display .stream .stream-1 {
   background:#666666;
   z-index:100;
 }
-#player .display #stream .stream-2 {
+#player .display .stream .stream-2 {
   background:#ffffff;
   z-index:200;
 }
-#player .display #stream .handle {
+#player .display .stream .handle {
   width:20px;
   height:20px;
   position:absolute;
@@ -567,7 +567,7 @@ h5 { font-size:15px; }
   margin-top:5px;
 }
 #player .display .sound.mute { background:url('../img/playersprite.png') -280px -20px; }
-#player .display #volume {
+#player .display .volume {
   width:60px;
   height:3px;
   background:#222222;
@@ -577,20 +577,20 @@ h5 { font-size:15px; }
   margin-top:15px;
   -webkit-transition:all .1s linear;
 }
-#player .display #volume:hover { height:5px; }
-#player .display #volume:hover .stream-1, #player .display #volume:hover .stream-2 { height:5px; }
-#player .display #volume .stream-1 {
+#player .display .volume:hover { height:5px; }
+#player .display .volume:hover .stream-1, #player .display .volume:hover .stream-2 { height:5px; }
+#player .display .volume .stream-1 {
   position:absolute;
   height:3px;
   top:0px;
   left:0px;
   cursor:pointer;
 }
-#player .display #volume .stream-1 {
+#player .display .volume .stream-1 {
   background:#ffffff;
   z-index:200;
 }
-#player .display #volume .handle {
+#player .display .volume .handle {
   width:20px;
   height:20px;
   position:absolute;
@@ -737,36 +737,36 @@ h5 { font-size:15px; }
   border-top-left-radius:5px;
   overflow:hidden;
 }
-#player #playlist .list-item { border-bottom:1px solid #222222; }
-#player #playlist .list-item:hover, #player #playlist .list-item.current { background:#222222; }
-#player #playlist .list-item:hover .close { opacity:.7; }
-#player #playlist .list-item.playing .play-song { background:url('../img/buttons.png') -130px -60px; }
-#player #playlist .list-item.playing .play-song:hover { background:url('../img/buttons.png') -130px -30px; }
-#player #playlist .list-item.playing .play-video .play-btn-video { background:url('../img/play.png') 0px -30px; }
-#player #playlist .list-item.current:not(.playing) .play-song { background:url('../img/buttons.png') -100px -60px; }
-#player #playlist .list-item.current:not(.playing) .play-video .play-btn-video { background:url('../img/play.png') 0px -60px; }
-#player #playlist .play-song {
+#player .playlist .list-item { border-bottom:1px solid #222222; }
+#player .playlist .list-item:hover, #player .playlist .list-item.current { background:#222222; }
+#player .playlist .list-item:hover .close { opacity:.7; }
+#player .playlist .list-item.playing .play-song { background:url('../img/buttons.png') -130px -60px; }
+#player .playlist .list-item.playing .play-song:hover { background:url('../img/buttons.png') -130px -30px; }
+#player .playlist .list-item.playing .play-video .play-btn-video { background:url('../img/play.png') 0px -30px; }
+#player .playlist .list-item.current:not(.playing) .play-song { background:url('../img/buttons.png') -100px -60px; }
+#player .playlist .list-item.current:not(.playing) .play-video .play-btn-video { background:url('../img/play.png') 0px -60px; }
+#player .playlist .play-song {
   height:30px;
   width:30px;
   background:url('../img/buttons.png') -100px 0px;
   cursor:pointer;
   margin:10px 0px 10px 20px;
 }
-#player #playlist .play-song:hover { background:url('../img/buttons.png') -100px -30px; }
-#player #playlist .play-video {
+#player .playlist .play-song:hover { background:url('../img/buttons.png') -100px -30px; }
+#player .playlist .play-video {
   height:30px;
   width:30px;
   cursor:pointer;
   margin:10px 0px 10px 20px;
   position:relative;
 }
-#player #playlist .play-video .video-thumb, #player #playlist .play-video .play-btn-video {
+#player .playlist .play-video .video-thumb, #player .playlist .play-video .play-btn-video {
   width:100%;
   height:30px;
   position:absolute;
 }
-#player #playlist .play-video .play-btn-video { background:url('../img/play.png') 0px 0px; }
-#player #playlist .song-name, #player #playlist .video-name {
+#player .playlist .play-video .play-btn-video { background:url('../img/play.png') 0px 0px; }
+#player .playlist .song-name, #player .playlist .video-name {
   font-size:14px;
   color:#999999;
   margin:10px 0px 0px 0px;
@@ -775,7 +775,7 @@ h5 { font-size:15px; }
   white-space:nowrap;
   overflow:hidden;
 }
-#player #playlist .artist-name {
+#player .playlist .artist-name {
   font-size:12px;
   color:#ffffff;
   margin:5px 0px 0px 0px;
@@ -785,62 +785,62 @@ h5 { font-size:15px; }
   white-space:nowrap;
   overflow:hidden;
 }
-#player #playlist .artist-name:hover { color:#666666; }
-#player #playlist .socials.song .fav {
+#player .playlist .artist-name:hover { color:#666666; }
+#player .playlist .socials.song .fav {
   background:url('../img/follow.png') -60px 0px;
   margin:15px 5px;
 }
-#player #playlist .socials.song .fav a {
+#player .playlist .socials.song .fav a {
   height:20px;
   width:20px;
   display:block;
 }
-#player #playlist .socials.song .fav:hover { background:url('../img/follow.png') -40px 0px; }
-#player #playlist .socials.song .fav.added-fav { background:url('../img/follow.png') -40px 0px; }
-#player #playlist .socials.video .fav {
+#player .playlist .socials.song .fav:hover { background:url('../img/follow.png') -40px 0px; }
+#player .playlist .socials.song .fav.added-fav { background:url('../img/follow.png') -40px 0px; }
+#player .playlist .socials.video .fav {
   background:url('../img/follow.png') -60px -60px;
   margin:15px 5px;
 }
-#player #playlist .socials.video .fav a {
+#player .playlist .socials.video .fav a {
   height:20px;
   width:20px;
   display:block;
 }
-#player #playlist .socials.video .fav:hover { background:url('../img/follow.png') -40px -60px; }
-#player #playlist .socials.video .fav.added-fav { background:url('../img/follow.png') -40px -60px; }
-#player #playlist .socials .icon {
+#player .playlist .socials.video .fav:hover { background:url('../img/follow.png') -40px -60px; }
+#player .playlist .socials.video .fav.added-fav { background:url('../img/follow.png') -40px -60px; }
+#player .playlist .socials .icon {
   height:20px;
   width:20px;
   cursor:pointer;
   float:left;
 }
-#player #playlist .socials .icon.share {
+#player .playlist .socials .icon.share {
   background:url('../img/follow.png') -60px -80px;
   margin:15px 5px;
   position:relative;
 }
-#player #playlist .socials .icon.share a {
+#player .playlist .socials .icon.share a {
   height:20px;
   width:20px;
   display:block;
 }
-#player #playlist .socials .icon.share:hover { background:url('../img/follow.png') -40px -80px; }
-#player #playlist .socials .icon.buy {
+#player .playlist .socials .icon.share:hover { background:url('../img/follow.png') -40px -80px; }
+#player .playlist .socials .icon.buy {
   background:url('../img/follow.png') -60px -100px;
   margin:15px 5px;
 }
-#player #playlist .socials .icon.buy a {
+#player .playlist .socials .icon.buy a {
   height:20px;
   width:20px;
   display:block;
 }
-#player #playlist .socials .icon.buy:hover { background:url('../img/follow.png') -40px -100px; }
-#player #playlist .socials .icon.buy.buy-null {
+#player .playlist .socials .icon.buy:hover { background:url('../img/follow.png') -40px -100px; }
+#player .playlist .socials .icon.buy.buy-null {
   background:url('../img/follow.png') 0px -100px;
   cursor:default;
   opacity:.1;
 }
-#player #playlist .socials .popup {
+#player .playlist .socials .popup {
   background:#000000;
   border-radius:5px;
   height:50px;
@@ -852,42 +852,42 @@ h5 { font-size:15px; }
   display:none;
   cursor:default;
 }
-#player #playlist .socials .popup p {
+#player .playlist .socials .popup p {
   font-size:11px;
   margin:0px;
   padding:5px;
   color:#ffffff;
 }
-#player #playlist .socials .popup .arrow {
+#player .playlist .socials .popup .arrow {
   width:15px;
   height:15px;
   position:absolute;
   top:-15px;
   left:5px;
 }
-#player #playlist .socials .popup .facebook {
+#player .playlist .socials .popup .facebook {
   background:url('../img/follow.png') -60px -120px;
   float:left;
   margin:0px 5px;
 }
-#player #playlist .socials .popup .facebook a {
+#player .playlist .socials .popup .facebook a {
   width:20px;
   height:20px;
   display:block;
 }
-#player #playlist .socials .popup .facebook:hover { background:url('../img/follow.png') -40px -120px; }
-#player #playlist .socials .popup .twitter {
+#player .playlist .socials .popup .facebook:hover { background:url('../img/follow.png') -40px -120px; }
+#player .playlist .socials .popup .twitter {
   background:url('../img/follow.png') -60px -140px;
   float:left;
   margin:0px 5px;
 }
-#player #playlist .socials .popup .twitter a {
+#player .playlist .socials .popup .twitter a {
   width:20px;
   height:20px;
   display:block;
 }
-#player #playlist .socials .popup .twitter:hover { background:url('../img/follow.png') -40px -140px; }
-#player #playlist .close {
+#player .playlist .socials .popup .twitter:hover { background:url('../img/follow.png') -40px -140px; }
+#player .playlist .close {
   height:20px;
   width:20px;
   margin:15px 5px;
@@ -895,7 +895,7 @@ h5 { font-size:15px; }
   background:url('../img/buttons.png') 0px -25px;
   cursor:pointer;
 }
-#player #playlist .close:hover { opacity:1; }
+#player .playlist .close:hover { opacity:1; }
 .std-gradient { background:-webkit-linear-gradient(bottom,#efefef,#ffffff,#efefef) #e4e4e4; }
 .std-selected-gradient { background:-webkit-linear-gradient(bottom,#efefef,#e4e4e4,#efefef) #e4e4e4; }
 h5 { font-size:15px; }
@@ -973,18 +973,21 @@ h5 { font-size:15px; }
   float:left;
 }
 .songs-list .list-item .artist-detail .artist-name {
-  font-size:14px;
-  position:relative;
-  float:left;
+  font-size:12px;
   cursor:pointer;
+  position:relative;
 }
-.songs-list .list-item .artist-detail .artist-name:hover>a { color:#484848; }
-.songs-list .list-item .artist-detail .artist-name a {
+.songs-list .list-item .artist-detail .artist-name>a {
   text-decoration:none;
+  font-size:14px;
   color:#660066;
-  margin-right:10px;
   display:block;
+  text-overflow:ellipsis;
+  max-width:100px;
+  white-space:nowrap;
+  overflow:hidden;
 }
+.songs-list .list-item .artist-detail .artist-name>a:hover { color:#484848; }
 .songs-list .list-item .artist-detail .popup {
   background:#222222;
   border-radius:5px;
@@ -992,7 +995,7 @@ h5 { font-size:15px; }
   min-width:350px;
   position:absolute;
   top:25px;
-  z-index:100;
+  z-index:300;
   box-shadow:0px 0px 10px #999999;
   display:none;
   cursor:default;
@@ -1095,21 +1098,22 @@ h5 { font-size:15px; }
 .songs-list .list-item .artist-detail .more {
   position:relative;
   float:left;
+  left:10px;
 }
 .songs-list .list-item .artist-detail .more a {
   text-decoration:none;
-  color:#660066;
+  color:#999999;
   cursor:pointer;
   margin-right:10px;
 }
-.songs-list .list-item .artist-detail .more a:hover { color:#484848; }
+.songs-list .list-item .artist-detail .more a:hover { color:#ffffff; }
 .songs-list .list-item .artist-detail .more ul {
   background:#222222;
   border-radius:5px;
   min-width:250px;
   position:absolute;
   top:25px;
-  z-index:100;
+  z-index:300;
   box-shadow:0px 0px 5px #999999;
   display:none;
 }
