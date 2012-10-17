@@ -27,7 +27,8 @@ class Admin_Artists_Controller extends Crud_Base_Controller
 		'genres',
 		'profile_photo',
 		'featured_songs',
-		'classification_tags'
+		'classification_tags',
+		'featured_videos'
 	];
 
 	public $view_base = 'admin::artists.';
@@ -206,6 +207,18 @@ class Admin_Artists_Controller extends Crud_Base_Controller
 							$c->options = $options;
 							$c->attr = ['multiple' => 'multiple'];
 							$c->value = Input::old('featured_songs', array_map(function ($s) { return $s->id; }, (array) @$this->resource()->featured_songs));
+						});
+					}
+
+					if(@$this->resource()->videos) {
+						$fs->control('select', 'Videos', function ($c) {
+							$c->name = 'featured_videos[]';
+							$options = [];
+							foreach(@$this->resource()->videos as $v)
+								$options[$v->id] = $v->name;
+							$c->options = $options;
+							$c->attr = ['multiple' => 'multiple'];
+							$c->value = Input::old('featured_videos', array_map(function ($v) { return $v->id; }, (array) @$this->resource()->featured_videos));
 						});
 					}
 				});

@@ -180,21 +180,7 @@
 									
 									<div class="video-detail">
 										<div class="video-name">KandisaKandisaKandisaKandisa</div>		
-									</div>
-
-									<div class="socials">
-										<div class="icon fav"><a href="#" rel="tooltip" title="Add to favorites"></a></div>
-										<div class="icon share pull-right">
-											<a href="#"></a>
-											<div class="popup2">
-												<p>Share:</p>
-												{{ HTML::image('img/arrow-mirror.png', 'arrow', [ 'class' => 'arrow']) }}
-												<div class="icon facebook"><a></a></div>
-												<div class="icon twitter"><a></a></div>
-											</div>
-										</div>
-									</div>	
-									
+									</div>									
 								</div>
 							</div>
 						</div>

@@ -76,7 +76,7 @@ class Model extends Abstracts\IndustryPlayerModel
 
 	public function featured_videos()
 	{
-		return $this->has_many_and_belongs_to('Core\\Media\\Video', 'core_artist_featured_songs', 'artist_id', 'video_id');
+		return $this->has_many_and_belongs_to('Core\\Media\\Video', 'core_artist_featured_videos', 'artist_id', 'video_id');
 	}
 
 	public function events()
