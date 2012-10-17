@@ -7,7 +7,9 @@ use Core\Artist\Model;
 class Artists extends Base
 {
 	protected $_eager_loads = [
-		'featured_songs',
+		'featured_songs' => function ($q) {
+			$q->where_active(1);
+		},
 		'profile_photo'
 	];
 
