@@ -277,7 +277,7 @@ abstract class Crud_Base_Controller extends App_Controller
 				});
 				$t->column('', function ($col) {
 					$col->value = function ($row) {
-						if($row->active)
+						if((int) $row->active === 1)
 							return HTML::link(URL::to($this->base_uri) . 'deactivate/' . $row->id, 'Deactivate');
 						else
 							return HTML::link(URL::to($this->base_uri) . 'activate/' . $row->id, 'Activate');
