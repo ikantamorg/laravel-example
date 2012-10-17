@@ -18,7 +18,8 @@ abstract class TagableModel extends Model
 
 	public function before_delete()
 	{
-		$this->classification_tags()->sync([]);
+		if(get_called_class() !=== 'Core\\Media\\Song')
+			$this->classification_tags()->sync([]);
 	}
 
 	public function classification_tags()

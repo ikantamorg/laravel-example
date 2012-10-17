@@ -84,9 +84,7 @@
 			@endif
 		</div>
 		<div class="row venue">
-			@if(count($event->venues) === 1)
-				<div class="span7">{{ $event->venue->name }}, {{ $event->venue->city->name }}</div>
-			@elseif(count($event->venues) > 0)
+			@if(count($event->venues) > 0)
 				<div class="span7">
 					@foreach($event->venues as $i => $v)
 						{{ $v->name }}, {{ $v->city->name }}

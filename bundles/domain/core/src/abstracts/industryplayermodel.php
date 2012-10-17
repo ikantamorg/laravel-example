@@ -8,7 +8,7 @@ use Core\IndustryPlayer\Map;
 abstract class IndustryPlayerModel extends ContactableModel
 {
 	protected $_registrar = null;
-	
+
 	protected function registrar()
 	{
 		if($this->_registrar)
@@ -44,8 +44,23 @@ abstract class IndustryPlayerModel extends ContactableModel
 
 	public function get_register_entry()
 	{
-		$register_entry = $this->registrar()->register_entry();
-		return $register_entry;
+		return $this->registrar()->register_entry();
+	}
+
+	public function get_industry_memberships($tag = null)
+	{
+		if(! $this->register_entry )
+			return [];
+
+		if($tag === null)
+			return $this->register_entry->industry_memberships;
+
+		return array_values(array_filter(
+			$this->register_entry->industry_memberships,
+				function ($m) use ($tag) {
+					return in_array($tag, array_map(function ($t) { return $t->name; }, $m->membership_tags));
+				}
+			));
 	}
 
 	/*********/

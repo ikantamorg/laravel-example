@@ -41,4 +41,9 @@ class Membership extends Abstracts\Model
 	{
 		return $this->has_many('Core\\IndustryMember\\MembershipTagConnection', 'industry_membership_id');
 	}
+
+	public function get_membership_tags()
+	{
+		return array_map(function ($tc) { return $tc->membership_tag; }, $this->membership_tag_connections);
+	}
 }

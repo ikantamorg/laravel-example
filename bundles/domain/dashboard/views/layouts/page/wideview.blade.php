@@ -14,12 +14,8 @@
 					
 					<div class="span18 offset1">
 						<div class="row">
-							<div class="span17">
-								{{ $body }}
-							</div>
-							<div class="span1">
-							</div>
-						</div>						
+							{{ $body }}
+						</div>
 					</div>
 					
 				</div>

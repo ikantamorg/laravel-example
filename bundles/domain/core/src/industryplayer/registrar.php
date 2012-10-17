@@ -41,9 +41,15 @@ class Registrar
 		if(! $this->_industry_player )
 			return null;
 
-		$this->_register_entry = RegisterEntry::where('industry_player_id', '=', $this->_industry_player->id)
-											  ->where('type', '=', $this->_industry_player->register_entry_type)
-											  ->first();
+		$this->_register_entry = RegisterEntry::with([
+													'industry_memberships',
+													'industry_memberships.industry_member_profile',
+													'industry_memberships.membership_tag_connections',
+													'industry_memberships.membership_tag_connections.membership_tag',
+													'industry_memberships.membership_tag_connections.connected_industry_player'
+												])->where('industry_player_id', '=', $this->_industry_player->id)
+												  ->where('type', '=', $this->_industry_player->register_entry_type)
+											      ->first();
 		return $this->_register_entry;
 	}
 

@@ -25,7 +25,7 @@ class Events extends Base
 			return $this->_today_datetime;
 
 		$dt = new DateTime;
-		return $this->_today_datetime = DateTime::createFromFormat('Y M d H:i', $dt->format('Y M d') . '00:00');
+		return $this->_today_datetime = DateTime::createFromFormat('Y M d H:i', $dt->format('Y M d') . ' 00:00');
 	}
 
 	protected function future_datetime($days_ahead)
