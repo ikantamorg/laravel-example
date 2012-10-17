@@ -6,12 +6,15 @@ use Core\Media\Video as Model;
 
 class Videos extends Base
 {
-	protected $_eager_loads = [
-		'artists',
-		'artists.videos',
-		'artists.profile_photo',
-		'artists.songs',
-	];
+	protected function includes()
+	{
+		return [
+			'artists',
+			'artists.videos',
+			'artists.profile_photo',
+			'artists.songs',
+		];
+	}
 
 	protected function q()
 	{

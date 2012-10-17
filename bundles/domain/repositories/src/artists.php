@@ -6,12 +6,14 @@ use Core\Artist\Model;
 
 class Artists extends Base
 {
-	protected $_eager_loads = [
-		'featured_songs' => function ($q) {
-			$q->where_active(1);
-		},
-		'profile_photo'
-	];
+	protected function includes() {
+		return [
+			'featured_songs' => function ($q) {
+				$q->where_active(1);
+			},
+			'profile_photo'
+		];
+	}
 
 	protected function q()
 	{

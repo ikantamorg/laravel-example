@@ -7,16 +7,19 @@ use DateTime;
 
 class Events extends Base
 {
-	protected $_eager_loads = [
-		'artists',
-		'artists.songs',
-		'artists.videos',
-		'artists.profile_photo',
-		'profile_photo',
-		'venues',
-		'venues.city'
-	];
-
+	protected function includes()
+	{
+		return [
+			'artists',
+			'artists.songs',
+			'artists.videos',
+			'artists.profile_photo',
+			'profile_photo',
+			'venues',
+			'venues.city'
+		];
+	}
+	
 	protected $_today_datetime = null;
 
 	protected function today_datetime()

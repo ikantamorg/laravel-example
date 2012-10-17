@@ -44,7 +44,7 @@ abstract class Base
 
 	protected function eager_load($q)
 	{
-		$q->model->includes = $this->_eager_loads;
+		$q->model->includes = $this->includes();
 		return $q;
 	}
 
