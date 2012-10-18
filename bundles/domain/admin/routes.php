@@ -7,6 +7,14 @@ Route::get('(:bundle)', function () {
 });
 
 
+Route::any('admin/event/(:any)/photos/(:any?)/(:any?)', function ($event_id, $action = null, $photo_id = null) {
+	$action = $action ? : 'index';
+	$controller = Controller::resolve('admin', 'event.photos');
+	$controller->set_event_id($event_id);
+
+	return $controller->execute($action, [$photo_id]);
+});
+
 Route::controller(Controller::detect('admin'));
 
 

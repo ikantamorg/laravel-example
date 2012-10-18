@@ -51,11 +51,18 @@
 									
 									@if($im = head($artist->get_industry_memberships('manager')))
 										<div class="agent-name">	
-											<a class="name" href="#">Dev Bhatia,</a>
-											<a class="agency" href="#">UnMute Agency</a>
+											<a class="name" href="#">
+												{{ $im->industry_member_profile->name }},
+											</a>
+											@if($industry_player = $im->connected->industry_player_for_tag('manager'))
+												<a class="agency" href="#">
+													{{ $industry_player->name }}
+												</a>
+											@endif
+											
 										</div>
-										<div class="p contact"><span>T : </span> +91 99999 99999</div>
-										<div class="p email"><span>E : </span> agent at the rate agency.com</div>
+										<div class="p contact"><span>T : </span> {{ $im->industry_member_profile->phone }}</div>
+										<div class="p email"><span>E : </span> {{ $im->industry_member_profile->email }}</div>
 									@else
 									@endif
 
@@ -63,15 +70,21 @@
 								<div class="heading">BOOKING</div>
 								<div class="agent main-content">
 									
-									@if($booking = head($artist->get_industry_memberships('booking')))
+									@if($im = head($artist->get_industry_memberships('booking')))
 										<div class="agent-name">	
-											<a class="name" href="#">Dev Bhatia,</a>
+											<a class="name" href="#">
+												{{ $im->industry_member_profile->name }},
+											</a>
 
-											<a class="agency" href="#">UnMute Agency</a>
+											@if($industry_player = $im->connected->industry_player_for_tag('booking'))
+												<a class="agency" href="#">
+													{{ $industry_player->name }}
+												</a>
+											@endif
 											
 										</div>
-										<div class="p contact"><span>T : </span> +91 99999 99999</div>
-										<div class="p email"><span>E : </span> agent at the rate agency.com</div>
+										<div class="p contact"><span>T : </span> {{ $im->industry_member_profile->phone }}</div>
+										<div class="p email"><span>E : </span> {{ $im->industry_member_profile->email }}</div>
 									@else
 									@endif
 
@@ -169,18 +182,19 @@
 
 								<div class="heading">VIDEOS<a class="all">(see all)</a></div>
 								<div class="video-thumb">
-									@if($video = $artist->random_video)
-									<div class="video-image">
-										{{ HTML::image('img/video-thumb.jpg', 'video') }}
-									</div>
-									<div class="shadow"></div>
+									@if($video = head($artist->featured_videos))
+										<div class="video-image">
+											<img src="{{ $video->thumb }}" alt="{{ $video->name }}"/>	
+										</div>
+										<div class="shadow"></div>
+
+										<div class="video-play-btn"></div>
+										<div class="add-q-btn"></div>
 										
-									<div class="video-play-btn"></div>
-									<div class="add-q-btn"></div>
-									
-									<div class="video-detail">
-										<div class="video-name">KandisaKandisaKandisaKandisa</div>		
-									</div>									
+										<div class="video-detail">
+											<div class="video-name">{{ $video->name }}</div>		
+										</div>
+									@endif
 								</div>
 							</div>
 						</div>
@@ -190,16 +204,24 @@
 								<div class="row songs-list">
 									<div class="span5">
 										
-										@foreach(range(1, 3) as $r)
-											
+										@foreach($artist->featured_songs as $i=>$s)
+											@if($i === 3)
+												<?php break; ?>
+											@endif
 											<div class="row list-item">
-												<div class="span1"><div class="song-play-btn"></div></div>
-												<div class="span1"><div class="add-q-btn"><a href="#" rel="tooltip" title="Add to Playlist"></a></div></div>
+												<div class="span1">
+													<div class="song-play-btn"></div>
+												</div>
+												<div class="span1">
+													<div class="add-q-btn">
+														<a href="#" rel="tooltip" title="Add to Playlist"></a>
+													</div>
+												</div>
 
 												<div class="span3">
 													<div class="row song-detail">
 														<div class="span3">
-															<p class="song-name">KandisaKandisaKandisa</p>
+															<p class="song-name">{{ $s->name }}</p>
 														</div>	
 													</div>
 												</div>
@@ -219,18 +241,50 @@
 								<div class="heading">PICTURES<a class="all">(see all)</a></div>
 								<div class="row pictures-list">
 									<div class="span16 offset1">
-										@foreach(range(1, 5) as $r)
+										@if($artist->owned_photos)
 											<div class="album-thumb">
-												<a  href="{{ URL::to('artist-profile/album') }}" class="album-link"></a>
+												<a  href="#" class="album-link"></a>
 												<div class="shadow"></div>
 
 												<div class="album-image">
-													{{ HTML::image('img/video-thumb.jpg', 'video') }}
+													<img src="{{ head($artist->owned_photos)->get_url('thumb') }}"
+														 alt="Owned Photos"/>												
 												</div>
-												<div class="album-name">Around the Globe in 80 Days and Night</div>
-												<div class="photo-count">20 photos</div>
+												<div class="album-name">Owned Photos</div>
+												<div class="photo-count">{{ count($artist->owned_photos) }}</div>
 											</div>
-										@endforeach	
+										@endif
+
+										@if($artist->tagged_photos)
+											<div class="album-thumb">
+												<a  href="#" class="album-link"></a>
+												<div class="shadow"></div>
+
+												<div class="album-image">
+													<img src="{{ head($artist->photos)->get_url('thumb') }}"
+														 alt="Tagged Photos"/>												
+												</div>
+												<div class="album-name">Tagged Photos</div>
+												<div class="photo-count">{{ count($artist->photos) }}</div>
+											</div>
+										@endif
+
+										@foreach($artist->photo_albums as $album)
+											@if($album->photos)
+												<div class="album-thumb">
+													<a  href="#" class="album-link"></a>
+													<div class="shadow"></div>
+
+													<div class="album-image">
+														<img src="{{ head($album->photos)->get_url('thumb') }}"
+															 alt="{{ $album->name }}"/>
+													</div>
+													<div class="album-name">{{ $album->name }}</div>
+													<div class="photo-count">{{ count($album->photos) }} photos</div>
+												</div>
+											@endif
+										@endforeach
+										
 									</div>			
 								</div>
 							</div>	

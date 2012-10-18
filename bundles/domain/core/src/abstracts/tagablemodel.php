@@ -18,7 +18,7 @@ abstract class TagableModel extends Model
 
 	public function before_delete()
 	{
-		if(get_called_class() !== 'Core\\Media\\Song')
+		if(! in_array(get_called_class(), ['Core\\Media\\Photo', 'Core\\Media\\Photo\\Album']) )
 			$this->classification_tags()->sync([]);
 	}
 

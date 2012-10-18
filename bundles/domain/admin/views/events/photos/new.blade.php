@@ -1,12 +1,12 @@
 @layout('admin::layout')
 
 @section('title')
-Media - Songs - New
+Events - Add Event Photo
 @endsection
 
 @section('top-nav')
 
-@include('admin::media.songs._nav')
+@include('admin::events._nav')
 
 @endsection
 

@@ -46,4 +46,18 @@ class Membership extends Abstracts\Model
 	{
 		return array_map(function ($tc) { return $tc->membership_tag; }, $this->membership_tag_connections);
 	}
+
+	public function connected_industry_player_for_tag($tag_name)
+	{
+		$connection = null;
+		foreach($this->membership_tag_connections as $mtc)
+		{
+			if($mtc->membership_tag->name === $tag_name) {
+				$connection = $mtc;
+				break;
+			}
+		}
+
+		return $connection ? $connection->connected_industry_player : null;
+	}
 }

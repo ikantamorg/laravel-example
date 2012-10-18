@@ -338,6 +338,10 @@ class Admin_Events_Controller extends Crud_Base_Controller
 				$c->value = function ($r) { return HTML::link(URL::to($this->base_uri.'show/'.$r->id), 'Show'); };
 			});
 
+			$t->column('', function ($c) {
+				$c->value = function ($r) { return HTML::link(URL::to('admin/event/'.$r->id.'/photos'), 'Photos'); };
+			});
+
 			$t->rows($this->listing()->results);
 		});
 

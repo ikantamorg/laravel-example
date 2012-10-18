@@ -9,14 +9,6 @@
 
 		{{ Asset::container('admin-app')->styles() }}
 
-		<script src="http://connect.soundcloud.com/sdk.js"></script>
-		<script>
-		// initialize client with app credentials
-		SC.initialize({
-		  client_id: '27d1f5473e10fd09910188013599b36c',
-		  redirect_uri: 'http://kapv89.webfactional.com/muselize/public'
-		});
-
 		</script>
 	</head>
 	<body>

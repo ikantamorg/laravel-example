@@ -99,6 +99,11 @@ class Model extends Abstracts\IndustryPlayerModel
 		return $this->belongs_to('Core\\Media\\Photo', 'profile_photo_id');
 	}
 
+	public function photo_albums()
+	{
+		return $this->has_many_and_belongs_to('Core\\Media\\Photo\\Album', 'core_artist_photo_album', 'artist_id', 'photo_album_id');
+	}
+
 	public function get_owned_photos()
 	{
 		return $this->register_entry->photos;
