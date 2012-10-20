@@ -1,6 +1,6 @@
 <?php
 
-class App_Controller extends Filterable_Controller
+abstract class App_Controller extends Filterable_Controller
 {
 	
 }

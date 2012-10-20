@@ -28,7 +28,8 @@ class Admin_Artists_Controller extends Crud_Base_Controller
 		'profile_photo',
 		'featured_songs',
 		'classification_tags',
-		'featured_videos'
+		'featured_videos',
+		'cover_photo'
 	];
 
 	public $view_base = 'admin::artists.';
@@ -237,6 +238,24 @@ class Admin_Artists_Controller extends Crud_Base_Controller
 					{
 						$fs->control('input:radio', '', function ($c) use ($p) {
 							$c->name = 'profile_photo';
+							$c->value = $p->id;
+							$c->attr = (int) $this->resource()->profile_photo_id === (int)$p->id ? 
+												['checked' => 'checked', 'data-url' => $p->get_url('icon')]
+											  : ['data-url' => $p->get_url('icon')];
+						});
+					}
+				});
+
+				$f->fieldset('Cover Photo', function ($fs) {
+					$photos = [];
+					
+					foreach($this->resource()->photos as $p)
+						$photos[$p->id] = $p;
+										
+					foreach($photos as $p)
+					{
+						$fs->control('input:radio', '', function ($c) use ($p) {
+							$c->name = 'cover_photo';
 							$c->value = $p->id;
 							$c->attr = (int) $this->resource()->profile_photo_id === (int)$p->id ? 
 												['checked' => 'checked', 'data-url' => $p->get_url('icon')]

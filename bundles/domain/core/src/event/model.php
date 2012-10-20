@@ -238,4 +238,10 @@ class Model extends Abstracts\ContactableModel
 	{
 		return $this->belongs_to('Core\\Media\\Photo', 'profile_photo_id');
 	}
+
+
+	public function cover_photo()
+	{
+		return $this->belongs_to('Core\\Media\\Photo', 'cover_photo_id');
+	}
 }
