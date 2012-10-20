@@ -1,5 +1,5 @@
 define(
-	['vent', './modules/player'],
+	['./vent', './modules/player'],
 	function (vent, player) {
 
 		return {

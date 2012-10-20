@@ -38,8 +38,11 @@ class Registrar
 
 	public function register_entry()
 	{
+		if($this->_register_entry)
+			return $this->_register_entry;
+
 		if(! $this->_industry_player )
-			return null;
+			return $this->_register_entry = null;
 
 		$this->_register_entry = RegisterEntry::with([
 													'industry_memberships',

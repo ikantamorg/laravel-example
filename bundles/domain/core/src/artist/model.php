@@ -130,10 +130,12 @@ class Model extends Abstracts\IndustryPlayerModel
 
 	protected function find_closest_relevant_event($flag = 'upcoming')
 	{
-		$q = Event::with(['profile_photo', 'venue', 'venue.city'])
+		$q = Event::with(['profile_photo', 'venues', 'venues.city'])
 				  ->join('core_event_artist', 'core_event_artist.event_id', '=', Event::$table.'.id')
 				  ->join('core_artists', 'core_event_artist.artist_id', '=', static::$table.'.id')
-				  ->where(static::$table.'.id', '=', $this->id)->select(Event::$table.'.*');
+				  ->where(static::$table.'.id', '=', $this->id)
+				  ->where(static::$table.'.active', '=', 1)
+				  ->select(Event::$table.'.*');
 
 		if($flag === 'past') {
 			return $q->where(Event::$table.'.start_time', '<', $this->today_datetime())

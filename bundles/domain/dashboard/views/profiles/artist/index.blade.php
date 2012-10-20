@@ -1,6 +1,6 @@
 <div class="span17">
 	{{-- title --}}
-	@include('dashboard::profiles.artist._title')
+	{{ render('dashboard::profiles.artist._title', ['artist' => $artist]) }}
 	{{-- ***** --}}
 	
 	<div class="row station">
@@ -9,16 +9,16 @@
 				<div class="span17">
 
 					{{-- left_panel --}}
-					@include('dashboard::profiles.artist._left_panel')
+					{{ render('dashboard::profiles.artist._left_panel', ['artist' => $artist]) }}
 					{{-- ********** --}}
 
 					<div class="row artist-hero">
 						<div class="display-pic">
-							<img src="{{ $artist->profile_photo ? $artist->profile_photo->get_url('display') : }}"/>
+							<img src="{{ $artist->profile_photo ? $artist->profile_photo->url : '' }}"/>
 						</div>
 						<div class="artist-profile-name">
 							<div class="name">{{ $artist->name }}</div>
-							<div class="genres"><?=implode('/ ', array_map(function ($g) { return $g->name; }, $artist->genres)?></div>
+							<div class="genres"><?=implode('/ ', array_map(function ($g) { return $g->name; }, $artist->genres))?></div>
 						</div> 
 					</div>
 
@@ -26,7 +26,7 @@
 						<div class="span5">
 							<div class="sec">
 								<div class="heading">MEMBERS</div>
-								@if($artist->industry_memberships as $im)
+								@if($artist->industry_memberships)
 									@foreach($artist->get_industry_memberships('member') as $i => $im)
 										@if($i === 4)
 											<?php break; ?>
@@ -117,7 +117,7 @@
 									
 									@if($event = $artist->closest_relevant_event)
 										<div class="event-img">
-											<img src="{{ $event->profile_photo ? $event->profile_photo->get_url('thumb') : }}"
+											<img src="{{ $event->profile_photo ? $event->profile_photo->get_url('thumb') :''}}"
 												 alt="{{ $event->name }}"
 											/>
 										</div>
@@ -182,7 +182,7 @@
 
 								<div class="heading">VIDEOS<a class="all">(see all)</a></div>
 								<div class="video-thumb">
-									@if($video = head($artist->featured_videos))
+									@if($video = head($artist->featured_videos) or $video = head($artist->videos))
 										<div class="video-image">
 											<img src="{{ $video->thumb }}" alt="{{ $video->name }}"/>	
 										</div>

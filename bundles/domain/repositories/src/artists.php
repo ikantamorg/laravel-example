@@ -32,4 +32,8 @@ class Artists extends Base
 			return $this->q();
 		}
 	}
+	public function find_by_slug($slug)
+	{
+		return Model::where_slug($slug)->first();
+	}
 }

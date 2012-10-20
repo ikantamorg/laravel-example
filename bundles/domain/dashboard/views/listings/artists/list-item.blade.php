@@ -5,7 +5,7 @@
 	<div class="span7">
 		<div class="row artist-name">
 			<div class="span7">
-				<a href="#">{{ $artist->name }}</a>
+				<a href="{{ URL::to('dashboard/artists/profile/'.$artist->slug) }}">{{ $artist->name }}</a>
 			</div>
 		</div>
 		<?php /*
