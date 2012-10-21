@@ -10,19 +10,19 @@
 		<div class="add-q-btn"></div>
 		
 		<div class="video-detail">
-			<div class="video-name">{{ $video->name }}</div>
+			<div class="video-name">{{ e($video->name) }}</div>
 
 			@if($video->artists and $artist = @$video->artists[0])
 				<div class="artist-detail">
 					<div class="artist-name pull-left">
-						<a href="#">{{ $artist->name }}</a>
+						<a href="#">{{ e($artist->name) }}</a>
 						<div class="popup">
 							<img src="{{ URL::to_asset('img/arrow.png') }}" alt="arrow" class="arrow"/>
-							<img src="{{ $artist->profile_photo ? $artist->profile_photo->get_url('thumb') : '' }}" alt="{{ $artist->name }}"/>
+							<img src="{{ $artist->get_profile_photo_url('thumb') }}" alt="{{ $artist->name }}"/>
 							
 							<div class="popup-detail">
 								<div class="popup-name">
-									<a href="#">{{ $artist->name }}</a>
+									<a href="#">{{ e($artist->name) }}</a>
 								</div>
 
 								<div class="popup-facts">
@@ -46,8 +46,8 @@
 								<img src="{{ URL::to_asset('img/arrow.png') }}" alt="arrow" class="arrow"/>
 								@foreach($video->artists as $a)
 									<li>
-										<img src="{{ $a->profile_photo ? $a->profile_photo->get_url('thumb') : '' }}" alt="{{ $a->name }}"/>
-										<a href="#">{{ $a->name }}</a>
+										<img src="{{ $a->get_profile_photo_url('icon') }}" alt="{{ $a->name }}"/>
+										<a href="#">{{ e($a->name) }}</a>
 									</li>
 								@endforeach
 							</ul>	

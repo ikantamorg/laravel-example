@@ -5,7 +5,7 @@
 	<div class="span7">
 		<div class="row song-detail">
 			<div class="span7">
-				<p class="song-name">{{ $song->name }}</p>
+				<p class="song-name">{{ e($song->name) }}</p>
 			</div>	
 		</div>
 		<div class="row artist-detail">
@@ -13,14 +13,14 @@
 				@foreach(range(0, 1) as $r)
 					@if($artist = @$song->artists[$r])
 						<div class="artist-name">
-							<a href="#">{{ $artist->name }}</a>							
+							<a href="#">{{ e($artist->name) }}</a>							
 							<div class="popup">
 								<img src="{{ URL::to_asset('img/arrow.png') }}" alt="arrow" class="arrow"/>
 								<img src="{{ $artist->profile_photo ? $artist->profile_photo->get_url('thumb') : '' }}" alt="artist"/>
 								
 								<div class="popup-detail">
 									<div class="popup-name">
-										<a href="#">{{ $artist->name }}</a>
+										<a href="#">{{ e($artist->name) }}</a>
 									</div>
 
 									<div class="popup-facts">
@@ -50,7 +50,7 @@
 						@foreach(range(2, count($artists) - 1) as $r)
 							@if($artist = $song->artists[$r])
 								<li>
-									<a href="#">{{ $artist->name }}</a>
+									<a href="#">{{ e($artist->name) }}</a>
 								</li>
 							@endif
 						@endforeach

@@ -7,6 +7,7 @@ use Core\Abstracts;
 use Core\Event\Model as Event;
 use DateTime;
 use Core\Media\Video;
+use Core\Media\Song;
 
 class Model extends Abstracts\IndustryPlayerModel
 {
@@ -18,6 +19,9 @@ class Model extends Abstracts\IndustryPlayerModel
 
 	protected $_upcoming_events = [];
 	protected $_past_events = [];
+
+	protected $_active_songs = [];
+	protected $_active_videos = [];
 
 	public function before_delete()
 	{
@@ -185,5 +189,38 @@ class Model extends Abstracts\IndustryPlayerModel
 			return $q->where(Event::$table.'.start_time', '>', $this->today_datetime())->get();
 		else
 			return [];
+	}
+
+	public function get_profile_photo_url($format = null)
+	{
+		return $this->profile_photo ? $this->profile_photo->get_url($format) : '';
+	}
+
+	public function get_active_songs()
+	{
+		if($this->_active_songs)
+			return $this->_active_songs;
+
+		return $this->_active_songs = Song::with('artists')
+										->join('core_artist_song', 'core_artist_song.song_id', '=', Song::$table.'.id')
+										->join(static::$table, 'core_artist_song.artist_id', '=', static::$table.'.id')
+										->select(Song::$table.'.*')
+										->where(Song::$table.'.active', '=', 1)
+										->where(static::$table.'.id', '=', $this->id)
+										->get();
+	}
+
+	public function get_active_videos()
+	{
+		if($this->_active_videos)
+			return $this->_active_videos;
+
+		return $this->_active_videos = Video::with('artists')
+											->join('core_artist_video', 'core_artist_video.video_id', '=', Video::$table.'.id')
+											->join(static::$table, 'core_artist_video.artist_id', '=', static::$table.'.id')
+											->select(Video::$table.'.*')
+											->where(Video::$table.'.active', '=', 1)
+											->where(static::$table.'.id', '=', $this->id)
+											->get();
 	}
 }

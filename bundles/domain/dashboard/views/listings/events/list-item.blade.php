@@ -4,7 +4,7 @@
 	</div>
 	<div class="span7">
 		<div class="row event-name">
-			<div class="span7"><a href="#">{{ $event->name }}</a></div>
+			<div class="span7"><a href="#">{{ e($event->name) }}</a></div>
 		</div>
 
 		<div class="row artist-detail">
@@ -15,14 +15,14 @@
 
 						<div class="artist-name">
 							@if((int) $artist->active === 1)
-								<a href="#">{{ $artist->name }}</a>
+								<a href="#">{{ e($artist->name) }}</a>
 								<div class="popup">
 									<img src="{{ URL::to_asset('img/arrow.png') }}" alt="arrow" class="arrow"/>
-									<img src="{{ $artist->profile_photo ? $artist->profile_photo->get_url('thumb') : '' }}" 
-										alt="{{ $artist->name }}"/>
+									<img src="{{ $artist->get_profile_photo_url('thumb') }}" 
+										alt="{{ e($artist->name) }}"/>
 									<div class="popup-detail">
 										<div class="popup-name">
-											<a href="#">{{ $artist->name }}</a>
+											<a href="#">{{ e($artist->name) }}</a>
 										</div>
 
 										<div class="popup-facts">
@@ -38,7 +38,7 @@
 									</div>	
 								</div>
 							@else
-								<a>{{ $artist->name }}</a>
+								<a>{{ e($artist->name) }}</a>
 							@endif
 						</div>
 						
@@ -53,8 +53,8 @@
 						@foreach(range(4, count($event->artists) - 1) as $r)
 							@if($artist = @$event->artists[$r])
 								<li>
-									<img src="{{ $artist->profile_photo ? $artist->profile_photo->get_url('icon') : '' }}" alt="{{ $artist->name }}"/>
-									<a href="#">{{ $artist->name }}</a>
+									<img src="{{ $artist->get_profile_photo_url('icon') }}" alt="{{ e($artist->name) }}"/>
+									<a href="#">{{ e($artist->name) }}</a>
 								</li>
 							@endif
 						@endforeach
@@ -91,7 +91,7 @@
 			<div class="span7">
 				@if(count($event->venues) > 0)
 					@foreach($event->venues as $i => $v)
-						{{ $v->name }}, {{ $v->city->name }}
+						{{ e($v->name) }}, {{ e($v->city->name) }}
 						@if(@$event->venues[$i+1])
 							|
 						@endif

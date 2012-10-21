@@ -9,7 +9,7 @@ class Dashboard_Artists_Profile_Controller extends Dashboard_Base_Controller
 		if(! $artist = $this->repo('artists')->find_by_slug($slug) )
 			return Response::error(404);
 
-		return $this->layout->nest('body', 'dashboard::profiles.artist.index', [
+		return $this->layout->nest('body', 'dashboard::profiles.artist.home', [
 					'artist' => $artist
 				]);
 	}
@@ -19,8 +19,9 @@ class Dashboard_Artists_Profile_Controller extends Dashboard_Base_Controller
 		if(! $artist = $this->repo('artists')->find_by_slug($slug) )
 			return Response::error(404);
 
-		return $this->layout->nest('body', 'dashboard::profiles.artist.info', [
-					'artist' => $artist
+		return $this->layout->nest('body', 'dashboard::profiles.artist.layout', [
+					'artist' => $artist,
+					'page' => 'info'
 				]);
 	}
 
@@ -29,8 +30,9 @@ class Dashboard_Artists_Profile_Controller extends Dashboard_Base_Controller
 		if(! $artist = $this->repo('artists')->find_by_slug($slug) )
 			return Response::error(404);
 
-		return $this->layout->nest('body', 'dashboard::profiles.artist.songs', [
-					'artist' => $artist
+		return $this->layout->nest('body', 'dashboard::profiles.artist.layout', [
+					'artist' => $artist,
+					'page' => 'songs'
 				]);
 	}
 
@@ -39,8 +41,9 @@ class Dashboard_Artists_Profile_Controller extends Dashboard_Base_Controller
 		if(! $artist = $this->repo('artists')->find_by_slug($slug) )
 			return Response::error(404);
 
-		return $this->layout->nest('body', 'dashboard::profiles.artist.events', [
-					'artist' => $artist
+		return $this->layout->nest('body', 'dashboard::profiles.artist.layout', [
+					'artist' => $artist,
+					'page' => 'events'
 				]);
 	}
 
@@ -49,8 +52,9 @@ class Dashboard_Artists_Profile_Controller extends Dashboard_Base_Controller
 		if(! $artist = $this->repo('artists')->find_by_slug($slug) )
 			return Repsonse::error(404);
 
-		return $this->layout->nest('body', 'dashboard::profiles.aritst.videos', [
-					'artist' => $artist
+		return $this->layout->nest('body', 'dashboard::profiles.artist.layout', [
+					'artist' => $artist,
+					'page' => 'videos'
 				]);
 	}
 
@@ -59,8 +63,9 @@ class Dashboard_Artists_Profile_Controller extends Dashboard_Base_Controller
 		if(! $artist = $this->repo('artists')->find_by_slug($slug) )
 			return Response::error(404);
 
-		return $this->layout->nest('body', 'dashboard::profiles.artist.albums', [
-					'artist' => $artist
+		return $this->layout->nest('body', 'dashboard::profiles.artist.layout', [
+					'artist' => $artist,
+					'page' => 'albums'
 				]);
 	}
 }

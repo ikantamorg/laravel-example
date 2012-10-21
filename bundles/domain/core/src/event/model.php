@@ -244,4 +244,9 @@ class Model extends Abstracts\ContactableModel
 	{
 		return $this->belongs_to('Core\\Media\\Photo', 'cover_photo_id');
 	}
+
+	public function get_profile_photo_url($format = null)
+	{
+		return $this->profile_photo ? $this->profile_photo->get_url($format) : '';
+	}
 }
