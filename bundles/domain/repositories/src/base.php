@@ -9,6 +9,9 @@ abstract class Base
 {
 	protected $_filter = [];
 	protected $_eager_loads = [];
+
+	abstract public function q();
+	abstract public function filtered_q();
 	
 	public function filter($params = [])
 	{

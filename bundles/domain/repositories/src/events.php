@@ -82,14 +82,8 @@ class Events extends Base
 		return $q;
 	}
 
-	public function count_upcoming()
-	{
-		return Model::where('start_time', '>', $this->today_datetime())->count();
-	}
-	/*******/
-
 	public function find_by_slug($slug)
 	{
-		return Model::where_slug($slug);
+		return Model::where_slug($slug)->first();
 	}
 }

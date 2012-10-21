@@ -21,10 +21,9 @@ class Songs extends Base
 		return Model::where(Model::$table.'.active', '=', 1)->select(Model::$table.'.*');
 	}
 
-	public function filtered_q()
+	protected function filtered_q()
 	{
 		$params = $this->_filter;
-
 		if(array_key_exists('tags', $params))
 			return $this->add_tag_constraints($this->q(), (array) $params['tags']);
 		else
