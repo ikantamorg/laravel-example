@@ -66,34 +66,38 @@
 		</div>
 		
 		<div class="row date">
-			@if($event->start_date === $event->end_date)
-				<div class="span7">{{ $event->get_start_date('j M, D') }}</div>
-			@else
-				<div class="span7">{{ $event->get_start_date('j M D') }} - {{ $event->get_end_date('j M D') }}</div>
-			@endif
+			<div class="span7">
+				@if($event->start_date === $event->end_date)
+					{{ $event->get_start_date('j M, D') }}
+				@else
+					{{ $event->get_start_date('j M D') }} - {{ $event->get_end_date('j M D') }}
+				@endif
+			</div>
 		</div>
 		<div class="row time">
-			@if((int) $event->is_timed === 1)
-				@if($event->start_time === $event->end_time)
-					<div class="span7">{{ $event->get_start_time('g:ia') }} onwards</div>
+			<div class="span7">
+				@if((int) $event->is_timed === 1)
+					@if($event->start_time === $event->end_time)
+						{{ $event->get_start_time('g:ia') }} onwards
+					@else
+						{{ $event->get_start_time('g:ia') }} - {{ $event->get_end_time('g:ia') }}
+					@endif
 				@else
-					<div class="span7">{{ $event->get_start_time('g:ia') }} - {{ $event->get_end_time('g:ia') }}</div>
+					Timing to be announced
 				@endif
-			@else
-				<div class="span7">Timing to be announced</div>
-			@endif
+			</div>
 		</div>
 		<div class="row venue">
-			@if(count($event->venues) > 0)
-				<div class="span7">
+			<div class="span7">
+				@if(count($event->venues) > 0)
 					@foreach($event->venues as $i => $v)
 						{{ $v->name }}, {{ $v->city->name }}
 						@if(@$event->venues[$i+1])
 							|
 						@endif
 					@endforeach
-				</div>
-			@endif
+				@endif
+			</div>
 		</div>
 		
 	</div>

@@ -257,7 +257,7 @@ class Admin_Artists_Controller extends Crud_Base_Controller
 						$fs->control('input:radio', '', function ($c) use ($p) {
 							$c->name = 'cover_photo';
 							$c->value = $p->id;
-							$c->attr = (int) $this->resource()->profile_photo_id === (int)$p->id ? 
+							$c->attr = (int) $this->resource()->cover_photo_id === (int)$p->id ? 
 												['checked' => 'checked', 'data-url' => $p->get_url('icon')]
 											  : ['data-url' => $p->get_url('icon')];
 						});

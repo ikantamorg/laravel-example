@@ -16,6 +16,9 @@ class Model extends Abstracts\IndustryPlayerModel
 
 	protected $_random_video = null;
 
+	protected $_upcoming_events = [];
+	protected $_past_events = [];
+
 	public function before_delete()
 	{
 		parent::before_delete();
@@ -139,7 +142,7 @@ class Model extends Abstracts\IndustryPlayerModel
 				  ->join('core_event_artist', 'core_event_artist.event_id', '=', Event::$table.'.id')
 				  ->join('core_artists', 'core_event_artist.artist_id', '=', static::$table.'.id')
 				  ->where(static::$table.'.id', '=', $this->id)
-				  ->where(static::$table.'.active', '=', 1)
+				  ->where(Event::$table.'.active', '=', 1)
 				  ->select(Event::$table.'.*');
 
 		if($flag === 'past') {
@@ -149,5 +152,38 @@ class Model extends Abstracts\IndustryPlayerModel
 			return $q->where(Event::$table.'.start_time', '>', $this->today_datetime())
 				   	 ->order_by(Event::$table.'.start_time')->take(1)->first();
 		}
+	}
+
+	public function get_upcoming_events()
+	{
+		if($this->_upcoming_events)
+			return $this->_upcoming_events;
+
+		return $this->_upcoming_events;
+	}
+
+	public function get_past_events()
+	{
+		if($this->_past_events)
+			return $this->_past_events;
+
+		return $this->_past_events = $this->find_events_by_timespan('past');
+	}
+
+	protected function find_events_by_timespan($flag = 'upcoming')
+	{
+		$q = Event::with(['venues', 'venues.city'])
+					->join('core_event_artist', 'core_event_artist.event_id', '=', Event::$table.'.id')
+					->join(static::$table, static::$table.'.id', '=', 'core_event_artist.artist_id')
+					->where(static::$table.'.id', '=' , $this->id)
+					->where(Event::$table.'.active', '=', 1)
+					->select(Event::$table.'.*');
+
+		if($flag === 'upcoming')
+			return $q->where(Event::$table.'.start_time', '>', $this->today_datetime())->get();
+		elseif($flag === 'past')
+			return $q->where(Event::$table.'.start_time', '>', $this->today_datetime())->get();
+		else
+			return [];
 	}
 }

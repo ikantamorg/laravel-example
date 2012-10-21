@@ -80,7 +80,7 @@
 			<div class="screen">
 				<div class="playlist">
 					@foreach(range(1, 3) as $r)
-						{{ render('dashboard::partials.playlist.playlist') }}
+						{{ render('dashboard::common.player.playlist-item') }}
 					@endforeach
 				</div>
 			</div>

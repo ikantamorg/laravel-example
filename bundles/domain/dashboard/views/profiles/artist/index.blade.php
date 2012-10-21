@@ -14,7 +14,11 @@
 
 					<div class="row artist-hero">
 						<div class="display-pic">
-							<img src="{{ $artist->profile_photo ? $artist->profile_photo->url : '' }}"/>
+							@if($photo = $artist->cover_photo or $photo = $artist->profile_photo)
+								<img src="{{ $photo->url }}" alt="{{ $artist->name }}"/>
+							@else
+								<img src="" alt="{{ $artist->name }}"/>
+							@endif
 						</div>
 						<div class="artist-profile-name">
 							<div class="name">{{ $artist->name }}</div>
@@ -54,7 +58,7 @@
 											<a class="name" href="#">
 												{{ $im->industry_member_profile->name }},
 											</a>
-											@if($industry_player = $im->connected->industry_player_for_tag('manager'))
+											@if($industry_player = $im->connected_industry_player_for_tag('manager'))
 												<a class="agency" href="#">
 													{{ $industry_player->name }}
 												</a>
@@ -76,7 +80,7 @@
 												{{ $im->industry_member_profile->name }},
 											</a>
 
-											@if($industry_player = $im->connected->industry_player_for_tag('booking'))
+											@if($industry_player = $im->connected_industry_player_for_tag('booking'))
 												<a class="agency" href="#">
 													{{ $industry_player->name }}
 												</a>

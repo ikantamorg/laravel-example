@@ -38,4 +38,4 @@ abstract class Model extends ActiveEloquent
 	{
 		Slugger::make($this)->slugify($separator, $check, $step);
 	}
-} 
+}

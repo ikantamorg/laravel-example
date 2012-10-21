@@ -87,4 +87,9 @@ class Events extends Base
 		return Model::where('start_time', '>', $this->today_datetime())->count();
 	}
 	/*******/
+
+	public function find_by_slug($slug)
+	{
+		return Model::where_slug($slug);
+	}
 }

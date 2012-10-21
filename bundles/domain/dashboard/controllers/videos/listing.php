@@ -4,7 +4,7 @@ class Dashboard_Videos_Listing_Controller extends Dashboard_Base_Controller
 {
 	public $layout = 'dashboard::layouts.page.narrow';
 
-	public $per_page = 21;
+	public $per_page = 30;
 
 	public function get_index()
 	{
