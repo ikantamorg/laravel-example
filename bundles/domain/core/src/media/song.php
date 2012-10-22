@@ -3,6 +3,7 @@
 namespace Core\Media;
 
 use Core\Abstracts;
+use DB;
 use Locator;
 
 class Song extends Abstracts\MediaModel
@@ -16,6 +17,10 @@ class Song extends Abstracts\MediaModel
 		parent::before_delete();
 		$this->artists()->sync([]);
 		$this->genres()->sync([]);
+		DB::table('core_artist_featured_songs')
+		  ->where('artist_id', '=', $this->id)->delete();
+		DB::table('core_artist_featured_videos')
+		  ->where('artist_id', '=', $this->id)->delete();
 	}
 
 	public function before_save()
