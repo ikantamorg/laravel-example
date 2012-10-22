@@ -12,7 +12,7 @@
 		<a href="{{ URL::to('dashboard/artists/profile/'.$artist->slug.'/videos') }}"></a>
 	</div>	
 	<div class="nav-icon pictures">
-		<a href="{{ URL::to('dashboard/artists/profile/'.$artist->slug.'/albums') }}"></a>
+		<a href="{{ URL::to('dashboard/artists/profile/'.$artist->slug.'/pictures') }}"></a>
 	</div>	
 </div>
 {{-- Use active class to make link active --}}

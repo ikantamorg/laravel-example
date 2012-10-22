@@ -51,6 +51,18 @@ class Admin_Media_Songs_Controller extends Crud_Base_Controller
 		return $this->_activated_records = Song::where('provider', '<>', 'soundcloud')->where_active(1)->count();
 	}
 
+	/**HOOKS**/
+	public function before_create()
+	{
+		Input::merge(['provider' => 'users']);
+	}
+
+	public function before_update()
+	{
+		Input::merge(['provider' => 'users']);
+	}
+	/*********/
+
 	public function form()
 	{
 		$form = Hybrid\Form::make(function ($f) {

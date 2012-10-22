@@ -58,14 +58,14 @@ class Dashboard_Artists_Profile_Controller extends Dashboard_Base_Controller
 				]);
 	}
 
-	public function get_albums($slug = null)
+	public function get_pictures($slug = null)
 	{
 		if(! $artist = $this->repo('artists')->find_by_slug($slug) )
 			return Response::error(404);
 
 		return $this->layout->nest('body', 'dashboard::profiles.artist.layout', [
 					'artist' => $artist,
-					'page' => 'albums'
+					'page' => 'pictures'
 				]);
 	}
 }
