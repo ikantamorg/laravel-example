@@ -24,6 +24,8 @@ class Video extends Abstracts\MediaModel
 		$this->events()->sync([]);
 		$this->artists()->sync([]);
 		$this->genres()->sync([]);
+		DB::table('core_artist_featured_videos')
+		  ->where('video_id', '=', $this->id)->delete();
 	}
 
 	public function before_save()

@@ -18,9 +18,7 @@ class Song extends Abstracts\MediaModel
 		$this->artists()->sync([]);
 		$this->genres()->sync([]);
 		DB::table('core_artist_featured_songs')
-		  ->where('artist_id', '=', $this->id)->delete();
-		DB::table('core_artist_featured_videos')
-		  ->where('artist_id', '=', $this->id)->delete();
+		  ->where('song_id', '=', $this->id)->delete();
 	}
 
 	public function before_save()
