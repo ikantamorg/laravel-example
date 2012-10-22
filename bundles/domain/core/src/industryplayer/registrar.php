@@ -47,6 +47,7 @@ class Registrar
 		$this->_register_entry = RegisterEntry::with([
 													'industry_memberships',
 													'industry_memberships.industry_member_profile',
+													'industry_memberships.tags',
 													'industry_memberships.membership_tag_connections',
 													'industry_memberships.membership_tag_connections.membership_tag',
 													'industry_memberships.membership_tag_connections.connected_industry_player'
