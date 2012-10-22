@@ -267,12 +267,12 @@ class Model extends Abstracts\ContactableModel
 		if($this->_performing_artists)
 			return $this->_performing_artists;
 
-		$q = Artist::join('core_event_artist', 'core_event_artist.artist_id', '=', Artist::$table.'.id')
+		$q = Artist::with('profile_photo')
+				   ->join('core_event_artist', 'core_event_artist.artist_id', '=', Artist::$table.'.id')
 				   ->join(static::$table, 'core_event_artist.event_id', '=', static::$table.'.id')
 				   ->select(Artist::$table.'.*')
 				   ->distinct()
-				   ->where(static::$table.'.id', '=', $this->id)
-				   ->where(Artist::$table.'.active', '=', 1);
+				   ->where(static::$table.'.id', '=', $this->id);
 
 		return $this->_performing_artists = $q->get();
 	}

@@ -58,7 +58,7 @@ abstract class IndustryPlayerModel extends ContactableModel
 		return array_values(array_filter(
 			$this->register_entry->industry_memberships,
 				function ($m) use ($tag) {
-					return in_array($tag, array_map(function ($t) { return $t->name; }, $m->membership_tags));
+					return in_array(strtolower($tag), array_map(function ($t) { return strtolower($t->name); }, $m->membership_tags));
 				}
 			));
 	}
