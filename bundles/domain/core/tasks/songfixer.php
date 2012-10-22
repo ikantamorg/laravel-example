@@ -31,4 +31,14 @@ class Core_Songfixer_Task
 			$this->correct_stream_url($s);
 		}
 	}
+
+	public function remove_soundcloud_shit()
+	{
+		$songs = Core\Media\Song::where_provider('soundcloud')->get();
+
+		foreach($songs as $s)
+		{
+			$s->delete();
+		}
+	}
 }
