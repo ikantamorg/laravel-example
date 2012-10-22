@@ -10,3 +10,6 @@ Route::controller('dashboard::videos.listing');
 Route::any('dashboard/artists/profile/(:any)/(:any?)', function ($slug, $action = 'index') {
 	return Controller::resolve('dashboard', 'artists.profile')->execute($action, [$slug]);
 });
+Route::any('dashboard/events/profile/(:any)/(:any?)', function ($slug, $action = 'index') {
+	return Controller::resolve('dashboard', 'events.profile')->execute($action, [$slug]);
+});

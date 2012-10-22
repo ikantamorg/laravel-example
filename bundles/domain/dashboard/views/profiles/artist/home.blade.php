@@ -28,7 +28,7 @@
 					</div>
 
 					<div class="row picture-preview">
-						{{ render('dashboard::profiles.artist.home.albums', ['artist' => $artist]) }}
+						{{ render('dashboard::profiles.artist.home.pictures', ['artist' => $artist]) }}
 					</div>
 				</div>
 			</div>

@@ -181,7 +181,8 @@ class Model extends Abstracts\IndustryPlayerModel
 					->join(static::$table, static::$table.'.id', '=', 'core_event_artist.artist_id')
 					->where(static::$table.'.id', '=' , $this->id)
 					->where(Event::$table.'.active', '=', 1)
-					->select(Event::$table.'.*');
+					->select(Event::$table.'.*')
+					->distinct();
 
 		if($flag === 'upcoming')
 			return $q->where(Event::$table.'.start_time', '>', $this->today_datetime())->get();
@@ -207,6 +208,7 @@ class Model extends Abstracts\IndustryPlayerModel
 										->select(Song::$table.'.*')
 										->where(Song::$table.'.active', '=', 1)
 										->where(static::$table.'.id', '=', $this->id)
+										->distinct()
 										->get();
 	}
 
@@ -221,6 +223,7 @@ class Model extends Abstracts\IndustryPlayerModel
 											->select(Video::$table.'.*')
 											->where(Video::$table.'.active', '=', 1)
 											->where(static::$table.'.id', '=', $this->id)
+											->distinct()
 											->get();
 	}
 }

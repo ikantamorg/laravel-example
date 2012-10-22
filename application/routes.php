@@ -1,9 +1,5 @@
 <?php
 
-Route::get('test-stuff', function () {
-	dd(apc_cache_info());
-});
-
 Route::get('/', function()
 {
 	return View::make('home.index');

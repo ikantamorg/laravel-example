@@ -4,7 +4,11 @@
 	</div>
 	<div class="span7">
 		<div class="row event-name">
-			<div class="span7"><a href="#">{{ e($event->name) }}</a></div>
+			<div class="span7">
+				<a href="{{ URL::to('dashboard/events/profile/'.$event->slug) }}">
+					{{ e($event->name) }}
+				</a>
+			</div>
 		</div>
 
 		<div class="row artist-detail">

@@ -4,19 +4,14 @@ namespace Core\Event;
 
 use Core\Abstracts;
 use DateTime;
+use Core\Artist\Model as Artist;
 
 class Model extends Abstracts\ContactableModel
 {
 	public static $table = 'core_events';
 
-	public static $accessible = [
-		'name',
-		'date',
-		'about',
-		'website_url',
-		'facebook_url',
-		'soundcloud_url',
-	];
+	protected $_active_artists = [];
+	protected $_performing_artists = [];
 
 	const DB_DATE_FORMAT = 'Y-m-d';
 	const DB_TIME_FORMAT = 'H:i:s';
@@ -223,12 +218,15 @@ class Model extends Abstracts\ContactableModel
 			'core_event_photo', 'event_id', 'photo_id'
 		);
 	}
-	/*
-	public function photo_album()
+	
+	public function photo_albums()
 	{
-		return $this->belongs_to('Core\\Media\\Album', 'album_id');
+		return $this->has_many_and_belongs_to(
+			'Core\\Media\\Photo\\Album',
+			'core_event_photo_album','event_id', 'photo_album_id'
+		);
 	}
-	*/
+	
 	public function get_venue()
 	{
 		return head($this->venues);
@@ -248,5 +246,34 @@ class Model extends Abstracts\ContactableModel
 	public function get_profile_photo_url($format = null)
 	{
 		return $this->profile_photo ? $this->profile_photo->get_url($format) : '';
+	}
+
+	public function get_active_artists()
+	{
+		if($this->_active_artists)
+			return $this->_active_artists;
+
+		$q = Artist::join('core_event_artist', 'core_event_artist.artist_id', '=', Artist::$table.'.id')
+				   ->join(static::$table, 'core_event_artist.event_id', '=', static::$table.'.id')
+				   ->select(Artist::$table.'.*')
+				   ->distinct()
+				   ->where(static::$table.'.id', '=', $this->id)
+				   ->where(Artist::$table.'.active', '=', 1);
+
+		return $this->_active_artists = $q->get();
+	}
+	public function get_performing_artists()
+	{
+		if($this->_performing_artists)
+			return $this->_performing_artists;
+
+		$q = Artist::join('core_event_artist', 'core_event_artist.artist_id', '=', Artist::$table.'.id')
+				   ->join(static::$table, 'core_event_artist.event_id', '=', static::$table.'.id')
+				   ->select(Artist::$table.'.*')
+				   ->distinct()
+				   ->where(static::$table.'.id', '=', $this->id)
+				   ->where(Artist::$table.'.active', '=', 1);
+
+		return $this->_performing_artists = $q->get();
 	}
 }

@@ -10,7 +10,7 @@ class Dashboard_Events_Profile_Controller extends Dashboard_Base_Controller
 			return Response::error(404);
 
 		return $this->layout->nest('body', 'dashboard::profiles.event.home', [
-					'event' => $event;
+					'event' => $event
 				]);
 	}
 

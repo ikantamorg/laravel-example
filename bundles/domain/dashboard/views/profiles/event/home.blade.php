@@ -12,12 +12,16 @@
 					{{ render('dashboard::profiles.event.common.left_panel', ['event' => $event]) }}
 					{{-- ********** --}}
 
-					<div class="row event-hero">
+					<div class="row artist-hero">
 						{{ render('dashboard::profiles.event.home.hero', ['event' => $event]) }}
 					</div>
 
 					<div class="row info-preview">
 						{{ render('dashboard::profiles.event.home.info', ['event' => $event]) }}
+					</div>
+
+					<div class="row artist-preview">
+						{{ render('dashboard::profiles.event.home.artists', ['event' => $event]) }}
 					</div>
 
 					<div class="row divider">
@@ -28,7 +32,7 @@
 					</div>
 
 					<div class="row picture-preview">
-						{{ render('dashboard::profiles.event.home.albums', ['event' => $event]) }}
+						{{ render('dashboard::profiles.event.home.pictures', ['event' => $event]) }}
 					</div>
 				</div>
 			</div>
