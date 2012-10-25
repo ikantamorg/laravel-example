@@ -223,4 +223,11 @@ class Tag extends Abstracts\Model
 
 	/*******************/
 
+	public function connected_tags_for_tagable($tagable, $other_tags = [])
+	{
+		if(! $tagable instanceof Tagable and ! $tagable = Tagable::find_by_slug($tagable))
+			return [];
+
+		
+	}
 }

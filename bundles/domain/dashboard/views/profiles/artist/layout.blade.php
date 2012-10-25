@@ -14,7 +14,7 @@
 					<div class="row {{ $page }}-main">
 						{{ render("dashboard::profiles.artist.pages.{$page}", ['artist' => $artist]) }}
 						
-						@if(! in_array($page, ['videos', 'albums']) )
+						@if(! in_array($page, ['videos', 'pictures']) )
 							{{ render('dashboard::profiles.artist.layout.right-col', ['artist' => $artist, 'page' => $page]) }}
 						@endif
 					</div>

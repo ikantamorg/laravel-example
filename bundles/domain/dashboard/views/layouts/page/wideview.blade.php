@@ -9,7 +9,7 @@
 				<div class="row">
 
 					<div class="span4">
-						{{ render('dashboard::common.left-pane', ['role' => 'visitor']) }}
+						<?=Dashboard::widget('left_pane')?>
 					</div>
 					
 					<div class="span18 offset1">

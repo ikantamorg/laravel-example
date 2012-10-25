@@ -50,6 +50,13 @@ $(function (){
 
 $(function () {
 
+	var $el = $('#content .left-pane .left-item.selected');
+
+	$el.height($el.find('.tag-list').height() + 30);
+
+	console.log('here');
+
+	/*
 	$('#content .left-pane .heading').click(function () {
 		var $el = $(this).parent().parent();
 
@@ -70,7 +77,7 @@ $(function () {
 				.animate({'height': height+10});
 							
 	});
-
+	*/
 });
 
 $(function () {

@@ -17,7 +17,7 @@ class Artists extends Base
 
 	protected function q()
 	{
-		$q = Model::where(Model::$table.'.active', '=', 1)->select(Model::$table.'.*');
+		$q = Model::where(Model::$table.'.active', '=', 1)->select(Model::$table.'.*')->distinct();
 
 		return $q;
 	}

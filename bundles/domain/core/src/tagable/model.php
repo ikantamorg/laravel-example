@@ -69,6 +69,6 @@ class Model extends Abstracts\Model
 				static::$_tagables[$tagable->slug] = $tagable;
 		}
 
-		return array_get(static::$_tagables, $slug);
+		return $slug ? array_get(static::$_tagables, $slug) : null;
 	}
 }

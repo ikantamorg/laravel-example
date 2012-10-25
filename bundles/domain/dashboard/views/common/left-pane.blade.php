@@ -2,88 +2,88 @@
 	<div class="span4">
 		<div class="row title"></div>
 
-		<div class="row artist-tag left-item">
+		<div class="row artist-tag left-item{{ ($active_tagable === 'artists') ? ' selected' : '' }}">
 			<div class="span4">
 				<a class="heading" href="{{ URL::to_action('dashboard::artists.listing') }}">ARTISTS</a>
 				<a class="clear">clear x</a>
 
-				<div class="tag-list">
-					<ul class="unstyled">
-						<li><a>sufi</a></li>
-						<li><a>fusion</a></li>
-						<li><a>pop</a></li>
-						<li><a>remix</a></li>
-						<li><a>sad</a></li>
-						<li><a>country</a></li>
-						<li><a>bollywood</a></li>
-						<li><a>jazz</a></li>
-						<li><a>dance</a></li>
-					</ul>
-				</div>
+				@if($active_tagable === 'artists')
+					<div class="tag-list">
+						<ul class="unstyled">
+							@foreach($displayed_tags as $t)
+								<li>
+									<a href="{{ URL::to('dashboard/artists/listing').'?'.http_build_query(['tags' => [$t->slug]]) }}">
+										{{ $t->name }}
+									</a>
+								</li>
+							@endforeach							
+						</ul>
+					</div>
+				@endif
 			</div>	
 		</div>
-		<div class="row event-tag left-item">
+		<div class="row event-tag left-item{{ ($active_tagable === 'events') ? ' selected' : '' }}">
 			<div class="span4">
 				<a class="heading" href="{{ URL::to_action('dashboard::events.listing') }}">EVENTS</a>
 				<a class="clear">clear x</a>
 
-				<div class="tag-list">
-					<ul class="unstyled">
-						<li><a>sufi</a></li>
-						<li><a>fusion</a></li>
-						<li><a>pop</a></li>
-						<li><a>remix</a></li>
-						<li><a>sad</a></li>
-						<li><a>country</a></li>
-						<li><a>bollywood</a></li>
-						<li><a>jazz</a></li>
-						<li><a>dance</a></li>
-					</ul>
-				</div>
+				@if($active_tagable === 'events')
+					<div class="tag-list">
+						<ul class="unstyled">
+							@foreach($displayed_tags as $t)
+								<li>
+									<a href="{{ URL::to('dashboard/events/listing').'?'.http_build_query(['timespan' => $t->slug]) }}">
+										{{ $t->name }}
+									</a>
+								</li>
+							@endforeach							
+						</ul>
+					</div>
+				@endif
 			</div>	
 		</div>
-		<div class="row song-tag left-item">
+		<div class="row song-tag left-item{{ ($active_tagable === 'songs') ? ' selected' : '' }}">
 			<div class="span4">
 				<a class="heading" href="{{ URL::to_action('dashboard::songs.listing') }}">SONGS</a>
 				<a class="clear">clear x</a>
 
-				<div class="tag-list">
-					<ul class="unstyled">
-						<li><a>sufi</a></li>
-						<li><a>fusion</a></li>
-						<li><a>pop</a></li>
-						<li><a>remix</a></li>
-						<li><a>sad</a></li>
-						<li><a>country</a></li>
-						<li><a>bollywood</a></li>
-						<li><a>jazz</a></li>
-						<li><a>dance</a></li>
-					</ul>
-				</div>
+				@if($active_tagable === 'songs')
+					<div class="tag-list">
+						<ul class="unstyled">
+							@foreach($displayed_tags as $t)
+								<li>
+									<a href="{{ URL::to('dashboard/songs/listing').'?'.http_build_query(['tags' => [$t->slug]]) }}">
+										{{ $t->name }}
+									</a>
+								</li>
+							@endforeach							
+						</ul>
+					</div>
+				@endif
 			</div>	
 		</div>
 		
-		<div class="row video-tag left-item">
+		<div class="row video-tag left-item{{ ($active_tagable === 'videos') ? ' selected' : '' }}">
 			<div class="span4">
 				<a class="heading" href="{{ URL::to_action('dashboard::videos.listing') }}">VIDEOS</a>
 				<a class="clear">clear x</a>
 
-				<div class="tag-list">
-					<ul class="unstyled">
-						<li><a>sufi</a></li>
-						<li><a>fusion</a></li>
-						<li><a>pop</a></li>
-						<li><a>remix</a></li>
-						<li><a>sad</a></li>
-						<li><a>country</a></li>
-						<li><a>bollywood</a></li>
-						<li><a>jazz</a></li>
-						<li><a>dance</a></li>
-					</ul>
-				</div>
+				@if($active_tagable === 'videos')
+					<div class="tag-list">
+						<ul class="unstyled">
+							@foreach($displayed_tags as $t)
+								<li>
+									<a href="{{ URL::to('dashboard/videos/listing').'?'.http_build_query(['tags' => [$t->slug]]) }}">
+										{{ $t->name }}
+									</a>
+								</li>
+							@endforeach							
+						</ul>
+					</div>
+				@endif
 			</div>	
 		</div>
-		<div class="row favorite-tag left-item last selected">
+		<div class="row favorite-tag left-item last">
 			<div class="span4">
 				<a class="heading">FAVORITES</a>
 

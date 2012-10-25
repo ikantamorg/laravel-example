@@ -8,7 +8,7 @@
 			<div class="span23">
 				<div class="row">
 					<div class="span4">
-						{{ render('dashboard::common.left-pane', ['role' => 'visitor']) }}
+						<?=Dashboard::widget('left_pane');?>
 					</div>
 					
 					<div class="span12 offset1">

@@ -18,7 +18,7 @@ class Videos extends Base
 
 	protected function q()
 	{
-		return Model::where(Model::$table.'.active', '=', 1)->select(Model::$table.'.*');
+		return Model::where(Model::$table.'.active', '=', 1)->select(Model::$table.'.*')->distinct();
 	}
 
 	protected function filtered_q()
