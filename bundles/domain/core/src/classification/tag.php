@@ -228,6 +228,15 @@ class Tag extends Abstracts\Model
 		if(! $tagable instanceof Tagable and ! $tagable = Tagable::find_by_slug($tagable))
 			return [];
 
-		
+		if(! $tag_ids = array_map(function ($el) { return $el->id; }, $other_tags))
+			return [];
+
+		$q = Tag::join('core_tag_map', 'core_tag_map.tag_b_id', '=', 'core_tags.id')
+				->where('core_tag_map.tagable_id', '=', $tagable->id)
+				->where('core_tag_map.tag_a_id', 'in', $tag_ids)
+				->group_by('core_tag_map.tag_a_id')
+				->having(DB::raw('count(core_tag_map.tag_a_id)'), '>=', count($tag_ids))
+				->select('core_tags.*')
+				->get();
 	}
 }

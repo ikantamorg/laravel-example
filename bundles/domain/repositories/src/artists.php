@@ -35,4 +35,16 @@ class Artists extends Base
 	{
 		return Model::where_slug($slug)->first();
 	}
+
+	public function count()
+	{
+		$q = $this->filtered_q();
+		$q = $q->select($q->model->table().'.id');
+		return $q->count('id');
+	}
+
+	public function paginate($per_page = 20)
+	{
+		return $this->eager_load($this->filtered_q())->paginate($per_page);
+	}
 }

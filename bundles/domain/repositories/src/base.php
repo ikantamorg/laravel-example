@@ -10,9 +10,6 @@ abstract class Base
 	protected $_filter = [];
 	protected $_eager_loads = [];
 
-	abstract protected function q();
-	abstract protected function filtered_q();
-	
 	public function filter($params = [])
 	{
 		$this->_filter = $params;
@@ -49,17 +46,5 @@ abstract class Base
 	{
 		$q->model->includes = $this->includes();
 		return $q;
-	}
-
-	public function count()
-	{
-		$q = $this->filtered_q();
-		$q = $q->select($q->model->table().'.id');
-		return $q->count('id');
-	}
-
-	public function paginate($per_page = 20)
-	{
-		return $this->eager_load($this->filtered_q())->paginate($per_page);
 	}
 }

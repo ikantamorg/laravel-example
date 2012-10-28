@@ -28,6 +28,8 @@ class Repository
 				$class .= '\\';
 		}
 
+		$class = str_replace('.', '\\', $class);
+
 		return $class;
 	}
 

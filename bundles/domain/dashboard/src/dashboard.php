@@ -30,6 +30,8 @@ class Dashboard
 				$class .= '\\';
 		}
 
+		$class = str_replace('.', '\\', $class);
+
 		return $class;
 	}
 
