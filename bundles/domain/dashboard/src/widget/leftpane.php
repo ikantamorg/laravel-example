@@ -95,7 +95,14 @@ class LeftPane
 
 		$params = $this->params;
 		$params['tags'] = @$params['tags'] ? : [];
-		$params['tags'][] = $slug;
+
+		$params_count = count($this->params) - 1 + count((array) $params['tags']);
+
+		if($params_count < 3) {
+			$params['tags'][] = $slug;
+		} else {
+			$params[count($params)-1] = $slug;
+		}
 
 		return http_build_query($params);
 	}
