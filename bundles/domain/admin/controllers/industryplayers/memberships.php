@@ -76,25 +76,27 @@ class Admin_IndustryPlayers_Memberships_Controller extends Crud_Base_Controller
 				});
 			});
 			
-			$f->fieldset('Membership Tags', function ($fs) {
-				$fs->control('select', '', function ($c) {
-					$c->name = 'tags[]';
-					$c->value = Input::old('tags', array_map(function ($t) { return $t->id; }, (array) @$this->resource()->tags));
-					$options = [];
-					
-					$industry_register_entry_type = @$this->resource()->industry_register_entry->type;
-					
-					foreach(MembershipTag::all() as $t) {
-						if($t->type === $industry_register_entry_type)
-							$options[$t->type] = isset($options[$t->type]) ? 
-												  $options[$t->type] + [$t->id => $t->name]
-												: [$t->id => $t->name];
-					}
+			@if($this->resource()->exists) {
+				$f->fieldset('Membership Tags', function ($fs) {
+					$fs->control('select', '', function ($c) {
+						$c->name = 'tags[]';
+						$c->value = Input::old('tags', array_map(function ($t) { return $t->id; }, (array) @$this->resource()->tags));
+						$options = [];
+						
+						$industry_register_entry_type = @$this->resource()->industry_register_entry->type;
+						
+						foreach(MembershipTag::all() as $t) {
+							if($t->type === $industry_register_entry_type)
+								$options[$t->type] = isset($options[$t->type]) ? 
+													  $options[$t->type] + [$t->id => $t->name]
+													: [$t->id => $t->name];
+						}
 
-					$c->options = $options;
-					$c->attr = ['multiple' => 'multiple'];
+						$c->options = $options;
+						$c->attr = ['multiple' => 'multiple'];
+					});
 				});
-			});			
+			}
 		});
 
 		return $form;
