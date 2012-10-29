@@ -2,12 +2,12 @@
 	<div class="span4">
 		<div class="row title"></div>
 
-		<div class="row artist-tag left-item{{ ($active_tagable->slug === 'artists') ? ' selected' : '' }}">
+		<div class="row artist-tag left-item{{ (@$active_tagable->slug === 'artists') ? ' selected' : '' }}">
 			<div class="span4">
 				<a class="heading" href="{{ URL::to_action('dashboard::artists.listing') }}">ARTISTS</a>
 				<a class="clear">clear x</a>
 
-				@if($active_tagable->slug === 'artists')						
+				@if(@$active_tagable->slug === 'artists')						
 					<div class="tag-list">
 						<ul class="unstyled">
 							@foreach($displayed_tags as $t)
@@ -22,12 +22,12 @@
 				@endif
 			</div>	
 		</div>
-		<div class="row event-tag left-item{{ ($active_tagable->slug === 'events') ? ' selected' : '' }}">
+		<div class="row event-tag left-item{{ (@$active_tagable->slug === 'events') ? ' selected' : '' }}">
 			<div class="span4">
 				<a class="heading" href="{{ URL::to_action('dashboard::events.listing') }}">EVENTS</a>
 				<a class="clear">clear x</a>
 
-				@if($active_tagable->slug === 'events')
+				@if(@$active_tagable->slug === 'events')
 					<div class="tag-list">
 						<ul class="unstyled">
 							@foreach($displayed_tags as $t)
@@ -44,12 +44,12 @@
 				@endif
 			</div>	
 		</div>
-		<div class="row song-tag left-item{{ ($active_tagable->slug === 'songs') ? ' selected' : '' }}">
+		<div class="row song-tag left-item{{ (@$active_tagable->slug === 'songs') ? ' selected' : '' }}">
 			<div class="span4">
 				<a class="heading" href="{{ URL::to_action('dashboard::songs.listing') }}">SONGS</a>
 				<a class="clear">clear x</a>
 
-				@if($active_tagable->slug === 'songs')
+				@if(@$active_tagable->slug === 'songs')
 					<div class="tag-list">
 						<ul class="unstyled">
 							@foreach($displayed_tags as $t)
@@ -65,12 +65,12 @@
 			</div>	
 		</div>
 		
-		<div class="row video-tag left-item{{ ($active_tagable->slug === 'videos') ? ' selected' : '' }}">
+		<div class="row video-tag left-item{{ (@$active_tagable->slug === 'videos') ? ' selected' : '' }}">
 			<div class="span4">
 				<a class="heading" href="{{ URL::to_action('dashboard::videos.listing') }}">VIDEOS</a>
 				<a class="clear">clear x</a>
 
-				@if($active_tagable->slug === 'videos')
+				@if(@$active_tagable->slug === 'videos')
 					<div class="tag-list">
 						<ul class="unstyled">
 							@foreach($displayed_tags as $t)
