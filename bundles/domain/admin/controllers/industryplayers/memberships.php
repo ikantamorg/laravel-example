@@ -82,7 +82,7 @@ class Admin_IndustryPlayers_Memberships_Controller extends Crud_Base_Controller
 					$c->value = Input::old('tags', array_map(function ($t) { return $t->id; }, (array) @$this->resource()->tags));
 					$options = [];
 					
-					$industry_register_entry_type = $this->resource()->industry_register_entry->type;
+					$industry_register_entry_type = @$this->resource()->industry_register_entry->type;
 					
 					foreach(MembershipTag::all() as $t) {
 						if($t->type === $industry_register_entry_type)
