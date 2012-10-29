@@ -76,7 +76,7 @@ class Admin_IndustryPlayers_Memberships_Controller extends Crud_Base_Controller
 				});
 			});
 			
-			@if($this->resource()->exists) {
+			if($this->resource()->exists) {
 				$f->fieldset('Membership Tags', function ($fs) {
 					$fs->control('select', '', function ($c) {
 						$c->name = 'tags[]';
