@@ -1,6 +1,8 @@
 <div class="row list-item">
-	<div class="span2">
-		<img src="{{ $event->profile_photo ? $event->profile_photo->get_url('thumb') : '' }}" alt="{{ $event->name }}"/>
+	<div class="span3">
+		<div class="event-img">
+			<img src="{{ $event->get_profile_photo_url('thumb') }}" alt="{{ $event->name }}"/>
+		</div>		
 	</div>
 	<div class="span7">
 		<div class="row event-name">
@@ -26,7 +28,7 @@
 										alt="{{ e($artist->name) }}"/>
 									<div class="popup-detail">
 										<div class="popup-name">
-											<a href="#">{{ e($artist->name) }}</a>
+											<a href="{{ URL::to('dashboard/artists/profile/'.$artist->slug) }}">{{ e($artist->name) }}</a>
 										</div>
 
 										<div class="popup-facts">
@@ -58,7 +60,9 @@
 							@if($artist = @$event->artists[$r])
 								<li>
 									<img src="{{ $artist->get_profile_photo_url('icon') }}" alt="{{ e($artist->name) }}"/>
-									<a href="#">{{ e($artist->name) }}</a>
+									<a href="{{ URL::to('dashboard/artists/profile/'.$artist->slug) }}">
+										{{ e($artist->name) }}
+									</a>
 								</li>
 							@endif
 						@endforeach
@@ -106,7 +110,7 @@
 		
 	</div>
 
-	<div class="span1 offset2">
+	<div class="span1 offset1">
 		<div class="socials">
 			<div class="icon fav"><a href="#" rel="tooltip" title="Follow this Event"></a></div>
 			<div class="icon share">
@@ -114,8 +118,8 @@
 				<div class="popup2">
 					<p>Share:</p>
 					<img src="{{ URL::to_asset('img/arrow-mirror.png') }}" alt="arrow" class="arrow"/>
-					<div class="icon facebook"><a></a></div>
-					<div class="icon twitter"><a></a></div>
+					<div class="share-icon facebook"><a></a></div>
+					<div class="share-icon twitter"><a></a></div>
 				</div>
 			</div>
 		</div>		

@@ -9,7 +9,7 @@
 				<div class="span17">
 
 					{{-- left_panel --}}
-					{{ render('dashboard::profiles.artist.common.left_panel', ['artist' => $artist]) }}
+					{{ render('dashboard::profiles.artist.common.left_panel', ['artist' => $artist, 'page' => $page]) }}
 
 					<div class="row {{ $page }}-main">
 						{{ render("dashboard::profiles.artist.pages.{$page}", ['artist' => $artist]) }}

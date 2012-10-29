@@ -9,7 +9,7 @@
 				<div class="span17">
 
 					{{-- left_panel --}}
-					{{ render('dashboard::profiles.event.common.left_panel', ['event' => $event]) }}
+					{{ render('dashboard::profiles.event.common.left_panel', ['event' => $event, 'page' => null]) }}
 					{{-- ********** --}}
 
 					<div class="row artist-hero">
@@ -31,9 +31,11 @@
 						{{ render('dashboard::profiles.event.home.media', ['event' => $event]) }}
 					</div>
 
-					<div class="row picture-preview">
-						{{ render('dashboard::profiles.event.home.pictures', ['event' => $event]) }}
-					</div>
+					@if($event->photos)
+						<div class="row picture-preview">
+							{{ render('dashboard::profiles.event.home.pictures', ['event' => $event]) }}
+						</div>
+					@endif
 				</div>
 			</div>
 		</div>

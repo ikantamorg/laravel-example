@@ -9,7 +9,7 @@
 				<div class="span17">
 
 					{{-- left_panel --}}
-					{{ render('dashboard::profiles.event.common.left_panel', ['event' => $event]) }}
+					{{ render('dashboard::profiles.event.common.left_panel', ['event' => $event, 'page' => $page]) }}
 
 					<div class="row {{ $page }}-main">
 						{{ render("dashboard::profiles.event.pages.{$page}", ['event' => $event]) }}

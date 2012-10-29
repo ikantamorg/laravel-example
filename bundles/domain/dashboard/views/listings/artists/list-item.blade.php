@@ -1,6 +1,6 @@
 <div class="row list-item">
 	<div class="span2">
-		<img src="{{ $artist->profile_photo ? $artist->profile_photo->get_url('thumb') : '' }}" alt="{{ $artist->name }}"/>
+		<img src="{{ $artist->get_profile_photo_url('thumb') }}" alt="{{ $artist->name }}"/>
 	</div>
 	<div class="span7">
 		<div class="row artist-name">
@@ -8,16 +8,7 @@
 				<a href="{{ URL::to('dashboard/artists/profile/'.$artist->slug) }}">{{ $artist->name }}</a>
 			</div>
 		</div>
-		<?php /*
-		<!--div class="row artist-news">
-			<div class="span7">
-				<p>Kandisa acquired cult status and propelled Indian Ocean into the status of one of India’s most original and creative bands.
-				</p>
-				<a href="{{ URL::to('artist-profile/info') }}">go to artist profile</a>
-			</div>
-		</div-->
-		*/ ?>
-
+		
 		@foreach($artist->featured_songs as $i => $song)
 			@if($i === 2)
 				<?php break; ?>
@@ -41,8 +32,8 @@
 				<div class="popup2">
 					<p>Share:</p>
 					{{ HTML::image('img/arrow-mirror.png', 'arrow', [ 'class' => 'arrow']) }}
-					<div class="icon facebook"><a></a></div>
-					<div class="icon twitter"><a></a></div>
+					<div class="share-icon facebook"><a></a></div>
+					<div class="share-icon twitter"><a></a></div>
 				</div>
 			</div>
 		</div>	

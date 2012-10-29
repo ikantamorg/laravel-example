@@ -1,6 +1,6 @@
 <div class="span17">
 	<div class="heading">ARTIST PERFORMING<a class="all">(see all)</a></div>
-	<div class="row artist-list">
+	<div class="row artist-list sec">
 		@foreach($event->artists as $i=>$artist)
 			@if($i === 3)
 				<?php break; ?>

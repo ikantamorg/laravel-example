@@ -20,7 +20,7 @@
 								
 								<div class="popup-detail">
 									<div class="popup-name">
-										<a href="#">{{ e($artist->name) }}</a>
+										<a href="{{ URL::to('dashboard/artists/profile/'.$artist->slug) }}">{{ e($artist->name) }}</a>
 									</div>
 
 									<div class="popup-facts">
@@ -50,7 +50,7 @@
 						@foreach(range(2, count($artists) - 1) as $r)
 							@if($artist = $song->artists[$r])
 								<li>
-									<a href="#">{{ e($artist->name) }}</a>
+									<a href="{{ URL::to('dashboard/artists/profile/'.$artist->slug) }}">{{ e($artist->name) }}</a>
 								</li>
 							@endif
 						@endforeach
@@ -70,8 +70,8 @@
 				<div class="popup2">
 					<p>Share:</p>
 					<img src="{{ URL::to_asset('img/arrow-mirror.png') }}" alt="arrow" class="arrow" />
-					<div class="icon facebook"><a></a></div>
-					<div class="icon twitter"><a></a></div>
+					<div class="share-icon facebook"><a></a></div>
+					<div class="share-icon twitter"><a></a></div>
 				</div>
 			</div>
 		</div>	

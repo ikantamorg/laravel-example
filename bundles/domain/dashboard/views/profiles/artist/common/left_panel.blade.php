@@ -1,17 +1,17 @@
 <div class="tabs">
-	<div class="nav-icon info">
+	<div class="nav-icon info<?=($page === 'info') ? ' active' : ''?>">
 		<a href="{{ URL::to('dashboard/artists/profile/'.$artist->slug.'/info') }}"></a>
 	</div>	
-	<div class="nav-icon songs">
+	<div class="nav-icon songs<?=($page === 'songs') ? ' active' : ''?>">
 		<a href="{{ URL::to('dashboard/artists/profile/'.$artist->slug.'/songs') }}"></a>
 	</div>	
-	<div class="nav-icon events">
+	<div class="nav-icon events<?=($page === 'events') ? ' active' : ''?>">
 		<a href="{{ URL::to('dashboard/artists/profile/'.$artist->slug.'/events') }}"></a>
 	</div>	
-	<div class="nav-icon videos">
+	<div class="nav-icon videos<?=($page === 'videos') ? ' active' : ''?>">
 		<a href="{{ URL::to('dashboard/artists/profile/'.$artist->slug.'/videos') }}"></a>
 	</div>	
-	<div class="nav-icon pictures">
+	<div class="nav-icon pictures<?=($page === 'pictures') ? ' active' : ''?>">
 		<a href="{{ URL::to('dashboard/artists/profile/'.$artist->slug.'/pictures') }}"></a>
 	</div>	
 </div>

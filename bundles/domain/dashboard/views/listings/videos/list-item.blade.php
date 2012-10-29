@@ -15,7 +15,7 @@
 			@if($video->artists and $artist = @$video->artists[0])
 				<div class="artist-detail">
 					<div class="artist-name pull-left">
-						<a href="#">{{ e($artist->name) }}</a>
+						<a href="{{ URL::to('dashboard/artists/profile/'.$artist->slug) }}">{{ e($artist->name) }}</a>
 						<div class="popup">
 							<img src="{{ URL::to_asset('img/arrow.png') }}" alt="arrow" class="arrow"/>
 							<img src="{{ $artist->get_profile_photo_url('thumb') }}" alt="{{ $artist->name }}"/>
@@ -64,8 +64,8 @@
 				<div class="popup2">
 					<p>Share:</p>
 					{{ HTML::image('img/arrow-mirror.png', 'arrow', [ 'class' => 'arrow']) }}
-					<div class="icon facebook"><a></a></div>
-					<div class="icon twitter"><a></a></div>
+					<div class="share-icon facebook"><a></a></div>
+					<div class="share-icon twitter"><a></a></div>
 				</div>
 			</div>
 		</div>	
