@@ -35,6 +35,13 @@ class Admin_Media_Song_Featured_Controller extends Rest_Controller
 	protected function listing_table()
 	{
 		$table = Hybrid\Table::make(function ($t) {
+			$t->attr(['class' => 'table table-striped table-bordered']);
+			$t->empty_message = 'There are no records';
+
+			$t->rows->attr = function ($row) {
+				return ['id' => 'row-'.$row->id];
+			};
+
 			$t->column('id');
 			$t->column('name');
 

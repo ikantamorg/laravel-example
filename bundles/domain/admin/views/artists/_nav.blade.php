@@ -5,4 +5,7 @@
 	<li<?=admin_nav_attr('artist/types')?>>
 		<a href="{{ URL::to('admin/artist/types') }}">Artist Types</a>
 	</li>
+	<li<?=admin_nav_attr('artist/featured')?>>
+		<a href="{{ URL::to('admin/artist/featured') }}">Featured</a>
+	</li>
 </ul>

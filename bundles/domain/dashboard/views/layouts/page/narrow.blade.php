@@ -8,7 +8,7 @@
 			<div class="span23">
 				<div class="row">
 					<div class="span4">
-						<?=Dashboard::widget('left_pane');?>
+						<?=Dashboard::widget('left_pane')?>
 					</div>
 					
 					<div class="span12 offset1">
@@ -18,7 +18,7 @@
 					</div>
 					
 					<div class="span4 offset1">
-						@include('dashboard::common.right-pane')
+						<?=Dashboard::widget('right_pane')?>						
 					</div>
 
 				</div>

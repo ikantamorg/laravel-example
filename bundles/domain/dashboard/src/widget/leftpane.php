@@ -2,10 +2,8 @@
 
 namespace Dashboard\Widget;
 
-use Repository;
-use URI, Auth, View, Input;
 
-class LeftPane
+class LeftPane extends Base
 {
 	protected $data = [
 		'active_tagable' => null,
@@ -15,36 +13,13 @@ class LeftPane
 	];
 	
 	protected $view ='dashboard::common.left-pane';
-	protected $uri;
-	protected $user;
-	protected $params;
-
-	public function __construct($uri = null, $user = null, $params = [])
+	
+	protected function setup()
 	{
-		$this->uri = $uri ? : URI::current();
-		$this->user = $user ? : Auth::user();
-		$this->params = $params ? : Input::get();
-
 		$this->set_active_tagable();
 		$this->set_role();
 		$this->set_selected_tags();
 		$this->set_displayed_tags();
-	}
-
-	public function __get($prop)
-	{
-		return @$this->data[$prop];
-	}
-
-	public function __set($prop, $val)
-	{
-		if(array_key_exists($prop, $this->data))
-			$this->data[$prop] = $val;
-	}
-
-	protected function repo($slug)
-	{
-		return Repository::of($slug);
 	}
 
 	protected function set_active_tagable()
@@ -109,16 +84,10 @@ class LeftPane
 
 	public function render()
 	{
-		return View::make($this->view)
-					->with($this->data)
+		return $this->view()
 					->with('params', $this->params)
 					->with('user', $this->user)
 					->with('qs', function ($slug, $key = null) { return $this->query_string($slug, $key); })
 					->render();
-	}
-
-	public function __tostring()
-	{
-		return $this->render();
 	}
 }

@@ -2,15 +2,15 @@
 
 use Core\Event\Model as Event;
 
-class Dashboard_Event_Featured_Controller extends Rest_Controller
+class Admin_Event_Featured_Controller extends Rest_Controller
 {
 	public $restful = true;
 
 	public $resource_type = 'events';
 
 	public $fields = ['type', 'resource_id'];
-	public $view_base = 'dashboard::events.featured.';
-	public $base_uri = 'dashboard/event/featured/';
+	public $view_base = 'admin::events.featured.';
+	public $base_uri = 'admin/event/featured/';
 
 	protected $_listing = [];
 
@@ -35,18 +35,27 @@ class Dashboard_Event_Featured_Controller extends Rest_Controller
 	protected function listing_table()
 	{
 		$table = Hybrid\Table::make(function ($t) {
+			$t->attr(['class' => 'table table-striped table-bordered']);
+			$t->empty_message = 'There are no records';
+
+			$t->rows->attr = function ($row) {
+				return ['id' => 'row-'.$row->id];
+			};
+
 			$t->column('id');
 			$t->column('name');
 
-			$t->rows($this->listing);
+			$t->rows($this->listing());
 		});
+
+		return $table;
 	}
 
 	protected function form()
 	{
 		$form = Hybrid\Form::make(function ($f) {
 			$f->attr = ['method' => 'PUT', 'action' => URL::to($this->base_uri.'update')];
-			
+
 			$f->fieldset('Featured Events', function ($fs) {
 				$fs->control('select', 'Events', function ($c) {
 					$c->name = $this->resource_type.'[]';
@@ -62,13 +71,15 @@ class Dashboard_Event_Featured_Controller extends Rest_Controller
 				});
 			});
 		});
+
+		return $form;
 	}
 
 	public function get_index()
 	{
 		return View::make($this->view_base.'index')->with([
 					'table' => $this->listing_table(),
-					'base_uri' => $this->base_uri,
+					'base_url' => URL::to($this->base_uri),
 					'listing' => $this->listing()
 				]);
 	}
@@ -77,7 +88,7 @@ class Dashboard_Event_Featured_Controller extends Rest_Controller
 	{
 		return View::make($this->view_base.'edit')->with([
 					'form' => $this->form(),
-					'base_uri' => $this->base_uri
+					'base_url' => URL::to($this->base_uri)
 				]);
 	}
 

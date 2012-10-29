@@ -5,4 +5,7 @@
 	<li<?=admin_nav_attr('event/types')?>>
 		<a href="{{ URL::to('admin/event/types') }}">Event Types</a>
 	</li>
+	<li<?=admin_nav_attr('event/featured')?>>
+		<a href="{{ URL::to('admin/event/featured') }}">Featured</a>
+	</li>
 </ul>

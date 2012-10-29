@@ -54,8 +54,6 @@ $(function () {
 
 	$el.height($el.find('.tag-list').height() + 30);
 
-	console.log('here');
-
 	/*
 	$('#content .left-pane .heading').click(function () {
 		var $el = $(this).parent().parent();

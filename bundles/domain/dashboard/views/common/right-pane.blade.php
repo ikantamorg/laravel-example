@@ -10,6 +10,18 @@
 				<div class="featured-item">
 					<div id="carousel" class="carousel slide">
 			            <div class="carousel-inner">
+			            	@foreach($featured as $i => $item)
+			            		<div class="item<?=$i===0 ? ' active' : ''?>">
+			            			@if($resource_type === 'events' || $resource_type === 'artists')
+			            				<img src="{{ $item->get_profile_photo_url('thumb') }}" alt="{{ $item->name }}">
+			            			@elseif($resource_type === 'songs')
+			            				<img src="{{ ($a = head($item->artists)) ? $a->get_profile_photo_url('thumb') : '' }}">
+			            			@elseif($resource_type === 'videos')
+			            				<img src="{{ $item->thumb }}" alt="{{ $item->name }}">
+			            			@endif			            			
+			            		</div>
+			            	@endforeach
+			            <?php /*
 			              <div class="item active">
 			                {{ HTML::image('img/feat1.jpg', 'feat1') }}
 
@@ -39,6 +51,7 @@
 			                </div>
 			              </div>
 			            </div>
+			        	*/ ?>
 			            <a class="left carousel-control" href="#carousel" data-slide="prev">&lsaquo;</a>
 			            <a class="right carousel-control" href="#carousel" data-slide="next">&rsaquo;</a>
 			        </div>
