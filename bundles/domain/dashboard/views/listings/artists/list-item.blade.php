@@ -1,6 +1,8 @@
 <div class="row list-item">
 	<div class="span2">
-		<img src="{{ $artist->get_profile_photo_url('thumb') }}" alt="{{ $artist->name }}"/>
+		<div class="artist-image">
+			<img src="{{ $artist->get_profile_photo_url('thumb') }}" alt="{{ $artist->name }}"/>
+		</div>
 	</div>
 	<div class="span7">
 		<div class="row artist-name">
