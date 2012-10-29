@@ -74,7 +74,6 @@
 					<div class="icon twitter"><a></a></div>
 				</div>
 			</div>
-			<div class="icon buy"><a href="#" rel="tooltip" title="Buy this Song"></a></div>
 		</div>	
 	</div>
 

@@ -1,6 +1,6 @@
 <?php
 
-class Core_Artist_Featured_Videos {
+class Core_Featured_Table {
 
 	/**
 	 * Make changes to the database.
@@ -9,13 +9,13 @@ class Core_Artist_Featured_Videos {
 	 */
 	public function up()
 	{
-		Schema::create('core_artist_featured_videos', function ($t) {
+		Schema::create('core_featured', function ($t) {
 			$t->increments('id');
-			$t->integer('artist_id');
-			$t->integer('video_id');
+			$t->string('type');
+			$t->integer('resource_id');
 			$t->timestamps();
 
-			$t->unique(['artist_id', 'video_id']);
+			$t->unique(['type', 'resource_id']);
 		});
 	}
 
@@ -26,7 +26,7 @@ class Core_Artist_Featured_Videos {
 	 */
 	public function down()
 	{
-		Schema::drop('core_artist_featured_videos');
+		Schema::drop('core_featured');
 	}
 
 }

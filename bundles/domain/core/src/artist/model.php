@@ -163,7 +163,7 @@ class Model extends Abstracts\IndustryPlayerModel
 		if($this->_upcoming_events)
 			return $this->_upcoming_events;
 
-		return $this->_upcoming_events;
+		return $this->_upcoming_events = $this->find_events_by_timespan('upcoming');
 	}
 
 	public function get_past_events()
@@ -174,7 +174,7 @@ class Model extends Abstracts\IndustryPlayerModel
 		return $this->_past_events = $this->find_events_by_timespan('past');
 	}
 
-	protected function find_events_by_timespan($flag = 'upcoming')
+	protected function find_events_by_timespan($flag)
 	{
 		$q = Event::with(['venues', 'venues.city'])
 					->join('core_event_artist', 'core_event_artist.event_id', '=', Event::$table.'.id')
