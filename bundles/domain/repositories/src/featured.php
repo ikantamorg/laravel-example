@@ -26,21 +26,33 @@ class Featured extends Base
 
 	protected function featured_artists()
 	{
-		return Artist::with('profile_photo')->where_in('id', $this->featured_ids('artists'))->get();
+		if($ids = $this->featured_ids('artists'))
+			return Artist::with('profile_photo')->where_in('id', $ids)->get();
+		else
+			return [];
 	}
 
 	protected function featured_events()
 	{
-		return Event::with('profile_photo')->where_in('id', $this->featured_ids('events'))->get();
+		if($ids = $this->featured_ids('events'))
+			return Event::with('profile_photo')->where_in('id', $ids)->get();
+		else
+			return [];
 	}
 
 	protected function featured_videos()
 	{
-		return Video::where_in('id', $this->featured_ids('videos'))->get();
+		if($ids = $this->featured_ids('videos'))
+			return Video::where_in('id', $ids)->get();
+		else
+			return [];
 	}
 
 	protected function featured_songs()
 	{
-		return Song::with('artists')->where_in('id', $this->featured_ids('songs'))->get();
+		if($ids = $this->featured_ids('songs'))
+			return Song::with('artists')->where_in('id', $ids)->get();
+		else
+			return [];
 	}
 }
