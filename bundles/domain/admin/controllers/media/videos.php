@@ -41,7 +41,7 @@ class Admin_Media_Videos_Controller extends Crud_Base_Controller
 		if($this->_listing)
 			return $this->_listing;
 
-		return $this->_listing = Video::with(['genres', 'industry_register_entry'])->get();
+		return $this->_listing = Video::with(['genres', 'industry_register_entry', 'artists', 'type'])->get();
 	}
 
 	public function total_records()
