@@ -7,22 +7,22 @@
 			<div class="tag-list">
 				<div class="row fav fav-song">
 					<div class="span1 icon"></div>
-					<div class="span2 name"><a href="{{ URL::to('dashboard/me/songs') }}">SONGS</a></div>
+					<div class="span2 name"><a href="{{ URL::to('dashboard/me/favorites/songs') }}">SONGS</a></div>
 					<div class="span1 count">{{ $num_fav_songs }}</div>
 				</div>
 				<div class="row fav fav-artist">
 					<div class="span1 icon"></div>
-					<div class="span2 name"><a href="{{ URL::to('dashobard/me/artists') }}">ARTISTS</a></div>
+					<div class="span2 name"><a href="{{ URL::to('dashboard/me/favorites/artists') }}">ARTISTS</a></div>
 					<div class="span1 count">{{ $num_fav_artists }}</div>
 				</div>
 				<div class="row fav fav-event">
 					<div class="span1 icon"></div>
-					<div class="span2 name"><a href="{{ URL::to('dashboard/me/events') }}">EVENTS</a></div>
+					<div class="span2 name"><a href="{{ URL::to('dashboard/me/favorites/events') }}">EVENTS</a></div>
 					<div class="span1 count">{{ $num_fav_events }}</div>
 				</div>
 				<div class="row fav fav-video ">
 					<div class="span1 icon"></div>
-					<div class="span2 name"><a href="{{ URL::to('dashboard/me/videos') }}">VIDEOS</a></div>
+					<div class="span2 name"><a href="{{ URL::to('dashboard/me/favorites/videos') }}">VIDEOS</a></div>
 					<div class="span1 count">{{ $num_fav_videos }}</div>
 				</div>
 			</div>

@@ -27,14 +27,6 @@ class User
 		return $this->pivot($resource_type)->where_user_id(@$this->user->id)->count('id');
 	}
 
-	public function fav_listing($resource_type, $per_page)
-	{
-		if(! $this->user )
-			return [];
-
-		return $this->user->{'favorite_'.$resource_type}()->paginate($per_page);
-	}
-
 	public function add_to_favorites($resource_type, $resource)
 	{
 		if(! $this->user or ! in_array($resource_type, $this->allowed_resource_types) )

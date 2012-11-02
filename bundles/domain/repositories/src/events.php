@@ -57,6 +57,9 @@ class Events extends Base
 		if(@$params['tags'])
 			$q = $this->add_tag_constraints($q, (array) @$params['tags']);
 
+		if(@$params['favorited_by_user'])
+			$q = $this->add_favorited_by_user_constraint($q, @$params['favorited_by_user']);
+
 		if($ts = @$params['timespan'] and $ts === 'past')
 		{
 			$q = $q->where('start_time', '<', $this->today_datetime())->order_by('start_time', 'desc');

@@ -24,10 +24,15 @@ class Videos extends Base
 	protected function filtered_q()
 	{
 		$params = $this->_filter;
+		$q = $this->q();
+
 		if(array_key_exists('tags', $params))
-			return $this->add_tag_constraints($this->q(), (array) $params['tags']);
-		else
-			return $this->q();
+			$q = $this->add_tag_constraints($q, (array) $params['tags']);
+
+		if(array_key_exists('favorited_by_user', $params))
+			$q = $this->add_favorited_by_user_constraint($q, $params['favorited_by_user']);
+
+		return $q;
 	}
 
 	public function find_by_id($id)

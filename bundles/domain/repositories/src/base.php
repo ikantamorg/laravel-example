@@ -21,6 +21,24 @@ abstract class Base
 		$this->_filter = [];
 	}
 
+	public function add_favorited_by_user_constraint($q, $user)
+	{
+		if(! $user )
+			return $q;
+
+		if(! $tagable = $q->model->tagable )
+			return $q;
+
+		$singular = Str::singular($tagable->slug);
+
+		$fav_table = 'core_user_favorite_'.$tagable->slug;
+
+		$q = $q->join($fav_table, $fav_table.".{$singular}_id", '=', $q->model->table().'.id')
+			   ->where($fav_table.'.user_id', '=', $user->id);
+
+		return $q;
+	}
+
 	public function add_tag_constraints($q, $tags)
 	{
 		if( ! $tags )
