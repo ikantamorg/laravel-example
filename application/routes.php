@@ -80,8 +80,10 @@ Route::get('important-cities', function () {
 
 });
 
-Route::filter('test', function () {
-	
+Route::get('test', function () {
+	Config::set('application.profiler', false);
+	echo Form::open(URL::to('test'), 'DELETE');
+	echo Form::close();
 });
 
 Route::filter('after', function($response)

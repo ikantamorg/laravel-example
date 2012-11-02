@@ -185,9 +185,13 @@ class Model extends Abstracts\IndustryPlayerModel
 					->distinct();
 
 		if($flag === 'upcoming')
-			return $q->where(Event::$table.'.start_time', '>', $this->today_datetime())->get();
+			return $q->where(Event::$table.'.start_time', '>', $this->today_datetime())
+					 ->order_by(Event::$table.'.start_time')
+					 ->get();
 		elseif($flag === 'past')
-			return $q->where(Event::$table.'.start_time', '>', $this->today_datetime())->get();
+			return $q->where(Event::$table.'.start_time', '<', $this->today_datetime())
+					 ->order_by(Event::$table.'.start_time', 'desc')
+					 ->get();
 		else
 			return [];
 	}

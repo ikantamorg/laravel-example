@@ -22,13 +22,17 @@
 				<div class="span3">
 					<p class="song-name">{{ $song->name }}</p>
 				</div>
-				<div class="span2"><a href="{{ URL::to('artist-profile/songs') }}" class="more">view more songs</a></div>
+				<div class="span2">
+					<a href="{{ URL::to('dashboard/artists/profile/'.$artist->slug.'/songs') }}" class="more">view more songs</a>
+				</div>
 			</div>
 		@endforeach
 	</div>
 	<div class="span1 offset2">
 		<div class="socials">
-			<div class="icon fav"><a href="#" rel="tooltip" title="Follow this artist"></a></div>
+			
+			{{ render('dashboard::common.partials.artist-fav-icon', ['artist' => $artist]) }}
+			
 			<div class="icon share">
 				<a href="#"></a>
 				<div class="popup2">

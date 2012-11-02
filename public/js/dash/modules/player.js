@@ -1,12 +1,5 @@
-define(['./player/vent'], function (vent, controls) {
+define(['./player/vent'], function (vent) {
 	
-	var Player = function () {
-		this.$el = $('#player');
-		this.playControls = {};
-		
-		this.playControls.$el = this.$el.find('.control');
-		this.playControls.$playBtn = this.playControls.$el.find('.play');
-		
-	}
+	
 
 });

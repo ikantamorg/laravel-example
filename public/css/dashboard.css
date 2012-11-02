@@ -2566,6 +2566,32 @@ h5 { font-size:15px; }
 .songs-list .arrow, .video-thumb .arrow { top:50px; }
 .events-list .arrow { top:50px; }
 .artists-list .arrow { top:40px; }
+.fav-heading {
+  background:#ffffff;
+  border:1px solid #e5e5e5;
+  min-height:100px;
+  margin-bottom:20px;
+  font-family:Questrial;
+  color:#660066;
+}
+.fav-heading .fav-image {
+  height:90px;
+  width:90px;
+  margin:10px 0px;
+  border-radius:10px;
+}
+.fav-heading .fav-image.songs { background:url('../img/fav.jpg') 0px 0px; }
+.fav-heading .fav-image.videos { background:url('../img/fav.jpg') -90px 0px; }
+.fav-heading .fav-image.events { background:url('../img/fav.jpg') -180px 0px; }
+.fav-heading .fav-image.artists { background:url('../img/fav.jpg') -270px 0px; }
+.fav-heading .fav-name {
+  font-size:30px;
+  margin-top:30px;
+}
+.fav-heading .fav-count {
+  font-size:20px;
+  margin-top:20px;
+}
 body {
   background:url(../img/bg.jpg) repeat bottom center;
   cursor:default;
@@ -2695,29 +2721,6 @@ body {
 }
 .settings .musejam .image { background:url('../img/connect.png') 0px -110px; }
 .settings .facebook .image { background:url('../img/connect.png') 0px 0px; }
-.fav-heading {
-  background:#ffffff;
-  border:1px solid #e5e5e5;
-  min-height:100px;
-  margin-bottom:20px;
-  font-family:Questrial;
-  color:#660066;
-}
-.fav-heading .fav-image {
-  height:90px;
-  width:90px;
-  background:url('../img/fav.jpg') 0px 0px;
-  margin:10px 0px;
-  border-radius:10px;
-}
-.fav-heading .fav-name {
-  font-size:30px;
-  margin-top:30px;
-}
-.fav-heading .fav-count {
-  font-size:20px;
-  margin-top:20px;
-}
 .more {
   position:relative;
   float:left;

@@ -32,11 +32,5 @@ class RightPane extends Base
 			return;
 
 		$this->featured = $this->repo('featured')->find_all($this->resource_type);
-
-	}
-
-	public function render()
-	{
-		return $this->view()->render();
 	}
 }

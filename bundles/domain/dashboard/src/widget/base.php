@@ -10,6 +10,7 @@ abstract class Base
 	protected $data = [];
 
 	protected $view = null;
+
 	protected $uri;
 	protected $user;
 	protected $params;
@@ -46,6 +47,15 @@ abstract class Base
 
 	protected function view()
 	{
-		return View::make($this->view)->with($this->data);
+		return View::make($this->view)->with($this->data)->with([
+				'user' => $this->user,
+				'uri' => $this->uri,
+				'params' => $this->params
+			]);
+	}
+
+	protected function render()
+	{
+		return $this->view()->render();
 	}
 }

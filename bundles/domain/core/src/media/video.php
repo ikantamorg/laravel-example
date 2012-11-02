@@ -2,7 +2,7 @@
 
 namespace Core\Media;
 
-use HTML;
+use HTML, DB;
 
 use Core\Abstracts;
 

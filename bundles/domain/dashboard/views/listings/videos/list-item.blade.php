@@ -31,7 +31,9 @@
 								</div>
 
 								<div class="socials">
-									<div class="icon pull-left fav"><a href="#" rel="tooltip" title="Add to favorites"></a></div>
+									<?=render('dashboard::common.partials.artist-fav-icon', [
+										'artist' => $artist, 'class' => 'pull-left'
+									])?>
 									<div class="icon facebook"><a href="#" rel="tooltip" title="Share on Facebook"></a></div>
 									<div class="icon twitter"><a href="#" rel="tooltip" title="Share on Twitter"></a></div>
 								</div>
@@ -58,7 +60,9 @@
 		</div>		
 
 		<div class="socials">
-			<div class="icon fav"><a href="#" rel="tooltip" title="Add to favorites"></a></div>
+			
+			{{ render('dashboard::common.partials.video-fav-icon', ['video' => $video]) }}
+
 			<div class="icon share pull-right">
 				<a href="#"></a>
 				<div class="popup2">

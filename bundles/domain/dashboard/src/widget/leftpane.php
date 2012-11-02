@@ -9,7 +9,8 @@ class LeftPane extends Base
 		'active_tagable' => null,
 		'role' => null,
 		'selected_tags' => [],
-		'displayed_tags' => []
+		'displayed_tags' => [],
+		'qs' => null
 	];
 	
 	protected $view ='dashboard::common.left-pane';
@@ -20,6 +21,7 @@ class LeftPane extends Base
 		$this->set_role();
 		$this->set_selected_tags();
 		$this->set_displayed_tags();
+		$this->set_query_string_builder();
 	}
 
 	protected function set_active_tagable()
@@ -62,6 +64,11 @@ class LeftPane extends Base
 		$this->displayed_tags = $this->repo('tags')->filter($params)->find_all();
 	}
 
+	protected function set_query_string_builder()
+	{
+		$this->qs = function ($slug, $key = null) { return $this->query_string($slug, $key); };
+	}
+
 	protected function query_string($slug, $key = null)
 	{
 		if($this->active_tagable->slug === 'events') {
@@ -69,6 +76,7 @@ class LeftPane extends Base
 		}
 
 		$params = $this->params;
+		unset($params['page']);
 		$params['tags'] = @$params['tags'] ? : [];
 
 		$params_count = count($this->params) - 1 + count((array) $params['tags']);
@@ -80,14 +88,5 @@ class LeftPane extends Base
 		}
 
 		return http_build_query($params);
-	}
-
-	public function render()
-	{
-		return $this->view()
-					->with('params', $this->params)
-					->with('user', $this->user)
-					->with('qs', function ($slug, $key = null) { return $this->query_string($slug, $key); })
-					->render();
 	}
 }

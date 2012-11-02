@@ -75,7 +75,7 @@
 	<div class="row heading">PAST EVENTS</div>
 	<div class="row events-list">
 		<div class="span7">
-			@foreach((array) $artist->upcoming_events as $event)
+			@foreach((array) $artist->past_events as $event)
 				<div class="row list-item past">
 					<div class="span3">
 						<div class="event-img">

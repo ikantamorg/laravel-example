@@ -28,7 +28,9 @@
 										alt="{{ e($artist->name) }}"/>
 									<div class="popup-detail">
 										<div class="popup-name">
-											<a href="{{ URL::to('dashboard/artists/profile/'.$artist->slug) }}">{{ e($artist->name) }}</a>
+											<a href="{{ URL::to('dashboard/artists/profile/'.$artist->slug) }}">
+												{{ e($artist->name) }}
+											</a>
 										</div>
 
 										<div class="popup-facts">
@@ -37,7 +39,9 @@
 										</div>
 
 										<div class="socials">
-											<div class="icon pull-left fav"><a href="#" rel="tooltip" title="Add to favorites"></a></div>
+											<?=render('dashboard::common.partials.artist-fav-icon', [
+												'artist' => $artist, 'class' => 'pull-left'
+											])?>
 											<div class="icon facebook"><a href="#" rel="tooltip" title="Share on Facebook"></a></div>
 											<div class="icon twitter"><a href="#" rel="tooltip" title="Share on Twitter"></a></div>
 										</div>
@@ -112,7 +116,9 @@
 
 	<div class="span1 offset1">
 		<div class="socials">
-			<div class="icon fav"><a href="#" rel="tooltip" title="Follow this Event"></a></div>
+			
+			{{ render('dashboard::common.partials.event-fav-icon', ['event' => $event]) }}
+			
 			<div class="icon share">
 				<a href="#"></a>
 				<div class="popup2">

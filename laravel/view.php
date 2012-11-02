@@ -415,7 +415,7 @@ class View implements ArrayAccess {
 	 */
 	public function data()
 	{
-		$data = array_merge($this->data, static::$shared);
+		$data = array_merge(static::$shared, $this->data);
 
 		// All nested views and responses are evaluated before the main view.
 		// This allows the assets used by nested views to be added to the

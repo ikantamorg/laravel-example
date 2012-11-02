@@ -16,10 +16,6 @@
 		{{ Asset::container('common')->scripts() }}
 
 		{{ Asset::container('dashboard')->scripts() }}
-
-		{{-- HTML::script('js/script.js') --}}
-		{{-- HTML::script('js/player.js') --}}
-		{{-- HTML::script('js/left-pane.js') --}}
 	</head>
 
 	
@@ -39,9 +35,26 @@
 
 		<div id="matter">	
 			<div class="container">
+				<div class="row">
+					<div class="span23 offset1">
+						<div class="row" id="content">
+							<div class="span23">
+								<div class="row">
+									<div class="span4">
+										<?=Dashboard::widget('left_pane')?>
+									</div>
 
-				@yield('content')
-				
+									{{-- The main content BS --}}
+					
+									@yield('content')
+
+									{{-- Hack the shit out of it --}}
+
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>			
 			</div>
 		</div>	
 

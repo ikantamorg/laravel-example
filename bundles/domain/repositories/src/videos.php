@@ -30,6 +30,11 @@ class Videos extends Base
 			return $this->q();
 	}
 
+	public function find_by_id($id)
+	{
+		return Model::where_active(1)->where_id($id)->first();
+	}
+
 	public function count()
 	{
 		$q = $this->filtered_q();
