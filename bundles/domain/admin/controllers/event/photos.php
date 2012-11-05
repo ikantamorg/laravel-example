@@ -46,7 +46,7 @@ class Admin_Event_Photos_Controller extends Crud_Base_Controller
 		if(! in_array($this->event_id, $event_ids = Input::get('events')) )
 		{
 			$event_ids[] = $this->event_id;
-			Input::merge('events', $event_ids);
+			Input::merge(['events' => $event_ids]);
 		}
 	}
 
@@ -55,7 +55,7 @@ class Admin_Event_Photos_Controller extends Crud_Base_Controller
 		if(! in_array($this->event_id, $event_ids = Input::get('events')) )
 		{
 			$event_ids[] = $this->event_id;
-			Input::merge('events', $event_ids);
+			Input::merge(['events' => $event_ids]);
 		}
 	}
 

@@ -32,24 +32,18 @@ class Admin_Event_Organizers_Controller extends Crud_Base_Controller
 	{
 		if(! $this->event = Event::find($this->event_id) )
 			return Response::error(404);
+
+		View::share('event', $this->event);
 	}
 
 	public function before_create()
 	{
-		if(! in_array($this->event_id, $event_ids = Input::get('events')) )
-		{
-			$event_ids[] = $this->event_id;
-			Input::merge('events', $event_ids);
-		}
+		Input::merge(['event' => $this->event_id]);
 	}
 
 	public function before_update()
 	{
-		if(! in_array($this->event_id, $event_ids = Input::get('events')) )
-		{
-			$event_ids[] = $this->event_id;
-			Input::merge('events', $event_ids);
-		}
+		Input::merge(['event' => $this->event_id]);
 	}
 
 	/****************/
@@ -120,6 +114,8 @@ class Admin_Event_Organizers_Controller extends Crud_Base_Controller
 					return @$r->industry_member->name;
 				};
 			});
+
+			$t->rows($this->listing());
 		});
 
 		return $table;

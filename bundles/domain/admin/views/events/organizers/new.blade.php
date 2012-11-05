@@ -1,7 +1,7 @@
 @layout('admin::layout')
 
 @section('title')
-Events - Add Event Organizer
+Events - Add Event Organizer for {{ $event->name }}
 @endsection
 
 @section('top-nav')
