@@ -4,6 +4,7 @@
 			href="{{ URL::to('dashboard/me/favorites/song/'. $song->id) }}"
 			data-method="POST"
 			data-stop-default="yes"
+			data-driver="httpVerbRequest"
 			rel="tooltip"
 			title="Add to favorites"
 		></a>
@@ -12,6 +13,7 @@
 			href="{{ URL::to('dashboard/me/favorites/song/'.$song->id) }}"
 			data-method="DELETE"
 			data-stop-default="yes"
+			data-driver="httpVerbRequest"
 			rel="tooltip"
 			title="Remove from favorites"
 		></a>

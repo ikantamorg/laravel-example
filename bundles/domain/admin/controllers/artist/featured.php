@@ -104,7 +104,10 @@ class Admin_Artist_Featured_Controller extends Rest_Controller
 			DB::table('core_featured')->where_type($this->resource_type)->where_in('resource_id', $removed_ids)->delete();
 
 		foreach($new_ids as $id)
-			DB::table('core_featured')->insert(['type' => $this->resource_type, 'resource_id' => $id]);
+			DB::table('core_featured')->insert([
+				'type' => $this->resource_type, 'resource_id' => $id,
+				'created_at' => new DateTime, 'updated_at' => new DateTime
+			]);
 
 		return Redirect::to($this->base_uri)->with('flash.success', $this->resource_type . 'featured succesfully');
 	}

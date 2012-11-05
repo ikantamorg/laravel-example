@@ -6,6 +6,8 @@ class Dashboard
 {
 	protected static $_widgets = [];
 
+	protected static $_base_namespace = 'Dashboard\\Widget';
+
 	public static function widget($slug)
 	{
 		if(array_key_exists($slug, static::$_widgets))
@@ -20,7 +22,7 @@ class Dashboard
 	{
 		$parts = explode('.', $slug);
 
-		$class = 'Dashboard\\Widget\\';
+		$class = static::$_base_namespace . '\\';
 
 		foreach($parts as $i => $p)
 		{

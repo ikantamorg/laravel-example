@@ -348,18 +348,19 @@ class Admin_Events_Controller extends Crud_Base_Controller
 					return @$r->type->name;
 				};
 			});
-			//$t->column('source');
-			$t->column('website_url');
-			$t->column('facebook_url');
-			//$t->column('soundcloud_url');
-
-			$t->column('', function ($c) {
-				$c->value = function ($r) { return HTML::link(URL::to($this->base_uri.'show/'.$r->id), 'Show'); };
-			});
 
 			$t->column('', function ($c) {
 				$c->value = function ($r) { return HTML::link(URL::to('admin/event/'.$r->id.'/photos'), 'Photos'); };
 			});
+
+			$t->column('', function ($c) {
+				$c->value = function ($r) { return HTML::link(URL::to('admin/event/'.$r->id.'/organizers'), 'Organizers'); };
+			});
+
+			//$t->column('source');
+			$t->column('website_url');
+			$t->column('facebook_url');
+			//$t->column('soundcloud_url');
 
 			$t->rows($this->listing()->results);
 		});

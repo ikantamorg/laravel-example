@@ -20,6 +20,7 @@ class FavoritesMenu extends Base
 	{
 		$this->setup_role();
 		$this->setup_counts();
+		$this->setup_selected();
 	}
 
 	protected function setup_role()
@@ -31,5 +32,10 @@ class FavoritesMenu extends Base
 	{
 		foreach(['artists', 'events', 'songs', 'videos'] as $r)
 			$this->{'num_fav_'.$r} = $this->repo('user')->count_fav($r);
+	}
+
+	protected function setup_selected()
+	{
+
 	}
 }

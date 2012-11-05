@@ -8,4 +8,7 @@
 	<li<?=admin_nav_attr('media/song/featured')?>>
 		<a href="{{ URL::to('admin/media/song/featured') }}">Featured</a>
 	</li>
+	<li<?=admin_nav_attr('media/song/recommended')?>>
+		<a href="{{ URL::to('admin/media/song/recommended') }}">Recommended</a>
+	</li>
 </ul>

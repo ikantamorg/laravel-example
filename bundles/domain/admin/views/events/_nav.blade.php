@@ -8,4 +8,7 @@
 	<li<?=admin_nav_attr('event/featured')?>>
 		<a href="{{ URL::to('admin/event/featured') }}">Featured</a>
 	</li>
+	<li<?=admin_nav_attr('event/recommended')?>>
+		<a href="{{ URL::to('admin/event/recommended') }}">Recommended</a>
+	</li>
 </ul>

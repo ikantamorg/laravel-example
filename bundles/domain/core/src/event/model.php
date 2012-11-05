@@ -179,6 +179,11 @@ class Model extends Abstracts\ContactableModel
 		);
 	}
 
+	public function organizers()
+	{
+		return $this->has_many('Core\\Event\\Organizer', 'event_id');
+	}
+
 	public function artists()
 	{
 		return $this->has_many_and_belongs_to(
@@ -226,7 +231,7 @@ class Model extends Abstracts\ContactableModel
 			'core_event_photo_album','event_id', 'photo_album_id'
 		);
 	}
-	
+
 	public function get_venue()
 	{
 		return head($this->venues);
@@ -262,6 +267,7 @@ class Model extends Abstracts\ContactableModel
 
 		return $this->_active_artists = $q->get();
 	}
+
 	public function get_performing_artists()
 	{
 		if($this->_performing_artists)

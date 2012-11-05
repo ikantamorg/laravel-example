@@ -25,9 +25,7 @@
 			<div class="container">
 				<div class="row">
 					<div class="span22 offset1">
-
-						{{ render('dashboard::common.header', ['role' => 'visitor']) }}
-
+						<?=Dashboard::widget('header')?>
 					</div>
 				</div>	
 			</div>	

@@ -8,4 +8,7 @@
 	<li<?=admin_nav_attr('artist/featured')?>>
 		<a href="{{ URL::to('admin/artist/featured') }}">Featured</a>
 	</li>
+	<li<?=admin_nav_attr('artist/recommended')?>>
+		<a href="{{ URL::to('admin/artist/recommended') }}">Recommended</a>
+	</li>
 </ul>

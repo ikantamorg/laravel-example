@@ -89,4 +89,132 @@ $(function () {
 	});
 });
 
+/**Player**/
+
+
+// Function to Play or Pause the palyer
+
+$(function (){
+	$('#player .play').toggle(
+		function (){
+			$(this).addClass('pause');
+		},
+		function(){
+			$(this).removeClass('pause');
+		}
+	);
+});
+
+//---------------------------------------------------------------------------------------------------
+
+
+
+
+// Function to determine the behaviour of the play button on every song in the play-list
+
+$(function (){
+	$('.play-song, .play-video').click(function (){
+		var $playBtn = $(this),
+			$listItem = $playBtn.parent();
+
+		if($listItem.hasClass('current')){
+			if($listItem.hasClass('playing'))
+				$listItem.removeClass('playing');
+			else
+				$listItem.addClass('playing ');
+		} else{
+			$listItem.siblings('.current').removeClass('current').removeClass('playing').end().addClass('current')
+			.addClass('playing');
+		}
+	});
+	
+	
+	$('.song-play-btn, .video-play-btn').click(function (){
+		var $playBtn = $(this),
+			$listItem = $playBtn.parent().parent()
+		;	
+
+		if($listItem.hasClass('current')){
+			if($listItem.hasClass('playing'))
+				$listItem.removeClass('playing');
+			else
+				$listItem.addClass('playing ');
+		} else{
+			$listItem.siblings('.current').removeClass('current').removeClass('playing').end().addClass('current')
+			.addClass('playing');
+		}
+	});
+
+
+
+	// TO REMOVE THE SONG FROM THE PLAYLIST
+
+	$('#playlist .list-item .close').click(function (){
+		$(this).parent().slideUp();
+	});
+
+
+	// TO CLEAR ALL THE SONGS FROM THE PALY-LIST
+
+	$('.playlist .clear').click(function (){
+		$(this).parent().siblings().find('.list-item').hide();
+	});
+});
+
+//---------------------------------------------------------------------------------------------------
+
+
+
+// TO COLLAPSE AND EXPAND THE VIDEO AND PLAYLIST WINDOW
+
+$(function (){
+	$('#player .control .video').click(function () {
+		var $el = $(this).parent().parent().parent().find('.frame.video');
+		
+		if($el.height() > 0) {
+			$el.animate({top:'12px', height:'0px'}, 300);
+			$el.find('.screen').animate({height:'0px'}, 300);
+		} else {
+			$el.animate({top:'-339px', height:'350px'}, 300);
+			$el.find('.screen').animate({height:'315px'}, 300);
+		}
+	});
+
+
+
+	$('#player .frame.video .collapse').click(
+		function(){
+			$(this).parent().parent().animate({top:'12px', height:'0px'}, 300);
+			$(this).parent().siblings().animate({height:'0px'}, 300);
+
+		}
+	);
+
+
+
+	$('#player .control .playlist').click(function () {
+		var $el = $(this).parent().parent().parent().find('.frame.playlist');
+
+		if($el.height() > 0) {
+			$el.animate({top:'12px', height:'0px'}, 300);
+			$el.find('.screen').animate({height:'0px'}, 300);
+		} else {
+			$el.animate({top:'-339px', height:'350px'}, 300);
+			$el.find('.screen').animate({height:'315px'}, 300);
+		}
+	});
+
+
+
+	$('#player .frame.playlist .collapse').click(
+		function(){
+			$(this).parent().parent().animate({top:'12px', height:'0px'}, 300);
+			$(this).parent().siblings().animate({height:'0px'}, 300);
+
+		}
+	);
+});
+
+//---------------------------------------------------------------------------------------------------
+
 </script>

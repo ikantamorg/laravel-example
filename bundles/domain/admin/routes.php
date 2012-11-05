@@ -14,6 +14,13 @@ Route::any('admin/event/(:any)/photos/(:any?)/(:any?)', function ($event_id, $ac
 	return $controller->execute($action, [$photo_id]);
 });
 
+Route::any('admin/event/(:any)/organizers/(:any?)/(:any?)', function ($event_id, $action = 'index', $organizer_id = null) {
+	$controller = Controller::resolve('admin', 'event.organizers');
+	$controller->set_event_id($event_id);
+
+	return $controller->execute($action, [$organizer_id]);
+});
+
 Route::controller(Controller::detect('admin'));
 
 

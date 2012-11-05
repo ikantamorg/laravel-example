@@ -18,7 +18,8 @@ define(
 					stopDefault: ($a.data('stop-default') === "yes"),
 					usesAjax: ($a.data('use-ajax') === "yes"),
 					method: ($a.data('method') ? $a.data('method') : 'GET'),
-					openPopup: ($a.data('open-popup') === "yes")
+					openPopup: ($a.data('open-popup') === "yes"),
+					driver: $a.data('driver')
 				};
 
 				$anchor.options = options;

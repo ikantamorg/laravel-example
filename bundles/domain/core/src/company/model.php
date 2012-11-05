@@ -74,9 +74,9 @@ class Model extends Abstracts\IndustryPlayerModel
 	{
 		return $this->has_many_and_belongs_to(
 			'Core\\Event\\Model',
-			'core_company_event',
+			'core_event_organizers',
 			'company_id',
 			'event_id'
-		);
+		)->distinct();
 	}
 }

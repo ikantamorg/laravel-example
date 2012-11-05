@@ -136,7 +136,7 @@
 				</div>
 
 				<div  class="button" id="profile">
-					<a href="#">Sahej Bakshi</a>
+					<a href="#">{{ $user->username }}</a>
 				</div>	
 			</div>
 		</div>
