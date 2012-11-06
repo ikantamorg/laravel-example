@@ -311,8 +311,8 @@ class Paginator {
 			if(! $independent)
 			{
 				return '<li'.HTML::attributes(array('class'=>"{$class} disabled")).'>' .
-							'<a href="#"'.HTML::attributes($attributes).'>'.$text.'</a>' .
-						'</li>';
+						'<a href="#"'.HTML::attributes($attributes).'>'.$text.'</a>' .
+					'</li>';
 			}
 			else
 			{
@@ -394,8 +394,8 @@ class Paginator {
 		if(! $independent)
 		{
 			return '<li'.HTML::attributes(array('class' => $class)).'>' .
-						HTML::link(URI::current().$query, $text, $attributes, Request::secure()) .
-					'</li>';
+					HTML::link(URI::current().$query, $text, $attributes, Request::secure()) .
+				'</li>';
 		}
 		else
 		{
@@ -447,4 +447,5 @@ class Paginator {
 		$this->language = $language;
 		return $this;
 	}
+
 }

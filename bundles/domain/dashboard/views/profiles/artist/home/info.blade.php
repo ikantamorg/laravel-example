@@ -24,7 +24,7 @@
 	<div class="heading">MANAGEMENT</div>
 	<div class="agent sec">
 		
-		@if($im = head($artist->get_industry_memberships('manager')))
+		@if($im = head($artist->get_industry_memberships('artist manager')))
 			<div class="agent-name">	
 				<a class="name" href="#">
 					{{ e($im->industry_member_profile->name) }},

@@ -169,7 +169,7 @@
 		<div  class="span1 dropdown" id="settings">
 			<a class="dropdown-toggle pull-left " data-toggle="dropdown" href="#"><div class="icon"></div></a>
 			<ul class="dropdown-menu">
-				<li><a href="{{ URL::to('settings') }}">Settings</a></li>
+				<li><a href="{{ URL::to('dashboard/me/settings') }}">Settings</a></li>
 				     <li class="divider"></li>
 				<li><a href="#">Logout</a></li>
 			</ul>

@@ -217,4 +217,19 @@ $(function (){
 
 //---------------------------------------------------------------------------------------------------
 
+
+$(function (){
+	$('.settings .edit').click(function (){
+		var $edit = $(this),
+			$setItem = $edit.parent().parent(),
+			$selectedItem = $setItem.siblings('.selected');
+		;
+
+		$selectedItem.length > 0 && $selectedItem.removeClass('selected').find('.hidden-data').hide().end().find('.data').show();
+			
+		$setItem.addClass('selected').find('.data').hide().end().find('.hidden-data').show();
+
+	});
+});
+
 </script>

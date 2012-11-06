@@ -342,6 +342,67 @@ class Query {
 	{
 		return $this->where_not_in($column, $values, 'OR');
 	}
+	
+	/**
+	 * Add a BETWEEN condition to the query
+	 * 
+	 * @param  string  $column    
+	 * @param  mixed  $min       
+	 * @param  mixed  $max       
+	 * @param  string  $connector 
+	 * @param  boolean $not       
+	 * @return Query
+	 */
+	public function where_between($column, $min, $max, $connector = 'AND', $not = false)
+	{
+		$type = ($not) ? 'where_not_between' : 'where_between';
+
+		$this->wheres[] = compact('type', 'column', 'min', 'max', 'connector');
+
+		$this->bindings[] = $min;
+		$this->bindings[] = $max;
+
+		return $this;
+	}
+
+	/**
+	 * Add a OR BETWEEN condition to the query
+	 * 
+	 * @param  string  $column    
+	 * @param  mixed  $min       
+	 * @param  mixed  $max       
+	 * @return Query
+	 */
+	public function or_where_between($column, $min, $max)
+	{
+		return $this->where_between($column, $min, $max, 'OR');
+	}
+
+	/**
+	 * Add a NOT BETWEEN condition to the query
+	 * 
+	 * @param  string  $column    
+	 * @param  mixed  $min       
+	 * @param  mixed  $max       
+	 * @return Query
+	 */
+	public function where_not_between($column, $min, $max, $connector = 'AND')
+	{
+		return $this->where_between($column, $min, $max, $connector, true);
+	}
+
+	/**
+	 * Add a OR NOT BETWEEN condition to the query
+	 * 
+	 * @param  string  $column    
+	 * @param  mixed  $min       
+	 * @param  mixed  $max       
+	 * @return Query
+	 */
+	public function or_where_not_between($column, $min, $max)
+	{
+		return $this->where_not_between($column, $min, $max, 'OR');
+	}
 
 	/**
 	 * Add a where null condition to the query.
@@ -678,7 +739,6 @@ class Query {
 		// We'll set the aggregate value so the grammar does not try to compile
 		// a SELECT clause on the query. If an aggregator is present, it's own
 		// grammar function will be used to build the SQL syntax.
-		
 		if(! $this->groupings)
 		{
 			$this->aggregate = compact('aggregator', 'columns');
@@ -689,7 +749,9 @@ class Query {
 			if (is_null($this->selects)) $this->select(array('*'));
 			$sql = "SELECT {$aggregator}({$this->grammar->columnize($columns)}) FROM ({$this->grammar->select($this)}) AS aggregate";
 		}
-		
+
+		$sql = $this->grammar->select($this);
+
 		$result = $this->connection->only($sql, $this->bindings);
 
 		// Reset the aggregate so more queries can be performed using the same
@@ -715,9 +777,6 @@ class Query {
 		list($orderings, $this->orderings) = array($this->orderings, null);
 
 		$total = $this->count(reset($columns));
-
-		//$sql = 'SELECT COUNT('.reset($columns).') FROM ('.$this->grammar->select($this).') AS aggregate';
-		//$total = $this->connection->only($sql, $this->bindings);
 
 		$page = Paginator::page($total, $per_page);
 

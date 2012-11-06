@@ -87,20 +87,20 @@ class Belongs_To extends Relationship {
 	{
 		$foreign = $this->foreign_key();
 
-		$parents_hash = array();
+		$dictionary = array();
 
-	    foreach ($parents as $parent)
-	    {
-	    	$parents_hash[$parent->get_key()] = $parent;
-	    }
+		foreach ($parents as $parent)
+		{
+			$dictionary[$parent->get_key()] = $parent;
+		}
 
-	    foreach ($children as $child)
-	    {
-	    	if (array_key_exists($child->$foreign, $parents_hash))
-	    	{
-	    		$child->relationships[$relationship] = $parents_hash[$child->$foreign];
-	    	}
-	    }
+		foreach ($children as $child)
+		{
+			if (array_key_exists($child->$foreign, $dictionary))
+			{
+				$child->relationships[$relationship] = $dictionary[$child->$foreign];
+			}
+		}
 	}
 
 	/**
@@ -111,6 +111,18 @@ class Belongs_To extends Relationship {
 	public function foreign_value()
 	{
 		return $this->base->get_attribute($this->foreign);
+	}
+
+	/**
+	* Bind an object over a belongs-to relation using its id.
+	*
+	* @return Eloquent
+	*/
+	public function bind($id)
+	{
+		$this->base->fill(array($this->foreign => $id))->save();
+
+		return $this->base;
 	}
 
 }
