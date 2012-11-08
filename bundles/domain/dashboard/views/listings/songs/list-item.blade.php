@@ -49,7 +49,7 @@
 						<ul class="unstyled">
 							<img src="{{ URL::to_asset('img/arrow.png') }}" alt="arrow" class="arrow"/>
 
-						@foreach(range(2, count($artists) - 1) as $r)
+						@foreach(range(2, count($song->artists) - 1) as $r)
 							@if($artist = $song->artists[$r])
 								<li>
 									<a href="{{ URL::to('dashboard/artists/profile/'.$artist->slug) }}">{{ e($artist->name) }}</a>
