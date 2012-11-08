@@ -2,5 +2,6 @@
 
 return array(
 	'admin',
-	'dashboard'
+	'dashboard',
+	'player'
 );

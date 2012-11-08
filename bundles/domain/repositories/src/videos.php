@@ -40,6 +40,11 @@ class Videos extends Base
 		return Model::where_active(1)->where_id($id)->first();
 	}
 
+	public function find_for_player($id)
+	{
+		return Model::with('artists')->where_active(1)->where_id($id)->first();
+	}
+
 	public function count()
 	{
 		$q = $this->filtered_q();

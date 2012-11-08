@@ -7,6 +7,7 @@
 			data-driver="httpVerbRequest"
 			rel="tooltip"
 			title="Add to favorites"
+			class="handledLink"
 		></a>
 	@else
 		<a
@@ -16,6 +17,7 @@
 			data-driver="httpVerbRequest"
 			rel="tooltip"
 			title="Remove from favorites"
+			class="handledLink"
 		></a>
 	@endif
 </div>

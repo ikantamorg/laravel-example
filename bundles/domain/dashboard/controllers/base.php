@@ -9,7 +9,7 @@ abstract class Dashboard_Base_Controller extends Rest_Controller
 	public function before()
 	{
 		if(Auth::user() and Auth::user()->is_admin())
-			Config::set('application.profiler', true);
+			Config::set('application.profiler', false);
 	}
 
 	public function repo($slug)

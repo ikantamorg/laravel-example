@@ -1,10 +1,15 @@
 define(
-	['./vent', './modules/linkHandler'],
-	function (vent, linkHandler) {
+	[
+		'./vent',
+		'./modules/linkHandler',
+		'./modules/player'
+	],
+	function (vent, linkHandler, player) {
 
 		return {
 			start: function () {
 				linkHandler.init();
+				player.init();
 			}
 		};
 	}

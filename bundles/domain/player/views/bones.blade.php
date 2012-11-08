@@ -70,7 +70,7 @@
 					<div class="full-screen pull-right"><a rel="tooltip" title="View Full-screen"></a></div>
 				</div>
 				<div class="screen">
-					
+					<h1>VIDEO</h1>
 				</div>
 			</div>
 

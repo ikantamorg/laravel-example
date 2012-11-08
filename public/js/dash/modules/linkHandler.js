@@ -33,7 +33,7 @@ define(
 		};
 
 		linkHandler.init = function () {
-			$('a').on('click', function (ev) {
+			$('a.handledLink').on('click', function (ev) {
 				var $anchor = $(this),
 					options = linkHandler.extractOptions($anchor)
 				;

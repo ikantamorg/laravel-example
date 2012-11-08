@@ -71,14 +71,15 @@
 		<div id="player">
 			<div class="container">
 				<div class="row">
-					<div class="span22 offset1">
-						@include('dashboard::common.player')
-					</div>
+					@include('dashboard::common.player')
 				</div>	
 			</div>
 		</div>
 
-	@include('dashboard::temp.scripts')
+		@include('dashboard::common.player.playlist-item.song-tmpl')
+		@include('dashboard::common.player.playlist-item.video-tmpl')
+
+		@include('dashboard::temp.scripts')
 
 	</body>
 

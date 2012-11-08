@@ -6,8 +6,9 @@
 			data-stop-default="yes"
 			data-driver="httpVerbRequest"
 			rel="tooltip"
-			title="Add to favorites">
-		</a>
+			title="Add to favorites"
+			class="handledLink"
+		></a>
 	@else
 		<a
 			href="{{ URL::to('dashboard/me/favorites/video/'.$video->id) }}"
@@ -15,7 +16,8 @@
 			data-stop-default="yes"
 			data-driver="httpVerbRequest"
 			rel="tooltip"
-			title="Add to favorites">
-		</a>
+			title="Remove from favorites"
+			class="handledLink"
+		></a>
 	@endif
 </div>

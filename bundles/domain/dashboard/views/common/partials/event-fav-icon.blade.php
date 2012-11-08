@@ -7,6 +7,7 @@
 			data-driver="httpVerbRequest"
 			rel="tooltip"
 			title="Follow"
+			class="handledLink"
 		></a>
 	@else
 		<a
@@ -16,6 +17,7 @@
 			data-driver="httpVerbRequest"
 			rel="tooltip"
 			title="Unfollow"
+			class="handledLink"
 		></a>
 	@endif
 </div>
