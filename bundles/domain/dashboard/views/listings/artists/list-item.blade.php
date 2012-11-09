@@ -1,4 +1,4 @@
-<div class="row list-item">
+<div class="row list-item" data-id="{{ $artist->id }}">
 	<div class="span2">
 		<div class="artist-image">
 			<img src="{{ $artist->get_profile_photo_url('thumb') }}" alt="{{ $artist->name }}"/>
@@ -15,7 +15,7 @@
 			@if($i === 2)
 				<?php break; ?>
 			@endif
-			<div class="row artist-song">
+			<div class="row artist-song" data-id="{{ $song->id }}">
 				<div class="span1 offset1">
 					<div class="play-button"></div>
 				</div>

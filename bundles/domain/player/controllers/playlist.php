@@ -17,18 +17,18 @@ class Player_Playlist_Controller extends Player_Base_Controller
 
 	public function delete_item($index = null)
 	{
-		return Response::json(['success' => Playlist::instance()->remove_item($index)]);
+		return Response::json(['success' => Playlist::instance()->remove_item_at($index)]);
 	}
 
 	public function post_item($type, $id)
 	{
 		if(! $repo = $this->repo_from_type($type) or ! $model = $repo->find_for_player($id))
-			return Response::json(['success' => false]);
+			return Response::json(['success' => false], 400);
 
-		if($index = Playlist::instance()->add_item($type, $model);
-			return Respose::json(Playlist::instance()->get_item_at($index)->to_array());
+		if(false !== ($index = Playlist::instance()->add_item($type, $model)))
+			return Response::json(Playlist::instance()->get_item_at($index)->to_array());
 		
-		return Response::json(['success' => false]);
+		return Response::json(['success' => false], 400);
 	}
 
 	protected function repo_from_type($type)

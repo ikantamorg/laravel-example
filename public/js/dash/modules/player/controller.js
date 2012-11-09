@@ -10,12 +10,14 @@ define(
 		var controller = {
 
 			playItem: function (options) {
+				if(! options) return;
+
 				var item = null;
 
 				if(options.item)
 					item = options.item;
 				else if(options.type && options.id)
-					item = playlist.findItemById(options.type, options.id);
+					item = playlist.findItem(options.type, options.id);
 
 				if( item ) {
 					mediaDriver.play(item); // plays the item
@@ -29,13 +31,31 @@ define(
 				}
 			},
 
-			cleanUpDisplay: function () {
+			queueItem: function (options) {
+				if(! options) return;
+
+				var item = null;
+
+				if(options.item)
+					item = options.item;
+				else if(options.type && options.id)
+					item = playlist.findItem(options.type, options.id);
+
+				if( ! item ) {
+					// attaches the item to playlist, should also update the view of the playlist
+					playlist.addNewItem(options.type, options.id, this.queueItem, this);
+				}
+			},
+
+			cleanUpDisplay: function (lastPlayedItem) {
 				ui.cleanUpDisplay();
-				this.playNextItem();
+				if(playlist.nextItem() && playlist.nextItem() !== lastPlayedItem)
+					this.playNextItem();
+
 			},
 
 			playNextItem: function () {
-				var nextItem = playlist.nextItem() || playlist.firstItem();
+				var nextItem = playlist.nextItem();
 				
 				if(! nextItem ) return;
 				
@@ -43,7 +63,7 @@ define(
 			},
 
 			playPrevItem: function () {
-				var prevItem = playlist.prevItem() || playlist.lastItem();
+				var prevItem = playlist.prevItem();
 
 				if(! prevItem) return;
 
@@ -54,11 +74,11 @@ define(
 				if(mediaDriver.isPlaying()) {
 					mediaDriver.togglePlayPause();
 					ui.togglePlayPauseBtn();
-					vent.reactor.trigger(vent.interface.itemPausedSuccess.id, item);
+					vent.reactor.trigger(vent.interface.itemPausedSuccess.id, mediaDriver.getCurrentMedia());
 				} else {
 					mediaDriver.togglePlayPause();
 					ui.togglePlayPauseBtn();
-					vent.reactor.trigger(vent.interface.itemPlayedSuccess.id, item);
+					vent.reactor.trigger(vent.interface.itemPlayedSuccess.id, mediaDriver.getCurrentMedia());
 				}
 			},
 
@@ -78,6 +98,10 @@ define(
 				ui.toggleVideoFullScreen();
 			},
 
+			removeItemFromQueue: function (item) {
+				playlist.removeItem(item);
+			},
+
 			start: function () {
 				vent.reactor.on(vent.interface.itemPlayed.id, this.playItem, this);
 				vent.reactor.on(vent.interface.itemFinished.id, this.cleanUpDisplay, this);
@@ -87,7 +111,9 @@ define(
 				vent.reactor.on(vent.interface.playlistWindowToggled.id, this.togglePlaylistWindow, this);
 				vent.reactor.on(vent.interface.videoWindowToggled.id, this.toggleVideoWindow, this);
 				vent.reactor.on(vent.interface.playlistCleared.id, this.clearPlaylist, this);
-				vent.reactor.on(vent.interface.videoFullscreenToggled.id, this.toggleVideoFullScreen, this);
+				vent.reactor.on(vent.interface.videoFullScreenToggled.id, this.toggleVideoFullScreen, this);
+				vent.reactor.on(vent.interface.itemRemovedFromQueue.id, this.removeItemFromQueue, this);
+				vent.reactor.on(vent.interface.itemQueued.id, this.queueItem, this);
 			},
 
 			stop: function () {

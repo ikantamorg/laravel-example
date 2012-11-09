@@ -5,8 +5,6 @@ $(function (){
 
 	$('.icon a, .add-q-btn a').tooltip();
 
-	$('.left-pane').affix();
-
 });
 
 
@@ -85,31 +83,15 @@ $(function () {
 	});
 });
 
-/**Player**/
-
-
-// Function to Play or Pause the palyer
-
-$(function (){
-	$('#player .play').toggle(
-		function (){
-			$(this).addClass('pause');
-		},
-		function(){
-			$(this).removeClass('pause');
-		}
-	);
-});
-
 //---------------------------------------------------------------------------------------------------
 
 
 
 
 // Function to determine the behaviour of the play button on every song in the play-list
-
+/*
 $(function (){
-	$('.play-song, .play-video').click(function (){
+	$('#player .play-song, #player .play-video').click(function (){
 		var $playBtn = $(this),
 			$listItem = $playBtn.parent();
 
@@ -125,7 +107,7 @@ $(function (){
 	});
 	
 	
-	$('.song-play-btn, .video-play-btn').click(function (){
+	$('#player .song-play-btn, #player .video-play-btn').click(function (){
 		var $playBtn = $(this),
 			$listItem = $playBtn.parent().parent()
 		;	
@@ -141,7 +123,8 @@ $(function (){
 		}
 	});
 
-
+*/
+/*
 
 	// TO REMOVE THE SONG FROM THE PLAYLIST
 
@@ -156,6 +139,7 @@ $(function (){
 		$(this).parent().siblings().find('.list-item').hide();
 	});
 });
+*/
 
 //---------------------------------------------------------------------------------------------------
 
@@ -163,53 +147,6 @@ $(function (){
 
 // TO COLLAPSE AND EXPAND THE VIDEO AND PLAYLIST WINDOW
 
-$(function (){
-	$('#player .control .video').click(function () {
-		var $el = $(this).parent().parent().parent().find('.frame.video');
-		
-		if($el.height() > 0) {
-			$el.animate({top:'12px', height:'0px'}, 300);
-			$el.find('.screen').animate({height:'0px'}, 300);
-		} else {
-			$el.animate({top:'-339px', height:'350px'}, 300);
-			$el.find('.screen').animate({height:'315px'}, 300);
-		}
-	});
-
-
-
-	$('#player .frame.video .collapse').click(
-		function(){
-			$(this).parent().parent().animate({top:'12px', height:'0px'}, 300);
-			$(this).parent().siblings().animate({height:'0px'}, 300);
-
-		}
-	);
-
-
-
-	$('#player .control .playlist').click(function () {
-		var $el = $(this).parent().parent().parent().find('.frame.playlist');
-
-		if($el.height() > 0) {
-			$el.animate({top:'12px', height:'0px'}, 300);
-			$el.find('.screen').animate({height:'0px'}, 300);
-		} else {
-			$el.animate({top:'-339px', height:'350px'}, 300);
-			$el.find('.screen').animate({height:'315px'}, 300);
-		}
-	});
-
-
-
-	$('#player .frame.playlist .collapse').click(
-		function(){
-			$(this).parent().parent().animate({top:'12px', height:'0px'}, 300);
-			$(this).parent().siblings().animate({height:'0px'}, 300);
-
-		}
-	);
-});
 
 //---------------------------------------------------------------------------------------------------
 

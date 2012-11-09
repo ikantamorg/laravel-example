@@ -13,23 +13,23 @@ define(
 				'itemPlayed',
 				'itemQueued',
 				'itemFavoritedSuccess',
-				'itemUnFavoritedSuccess',
+				'itemUnfavoritedSuccess',
 			];
 
 			_.each(dashToPlayerEvents, function (event) {
-				dashVent.reactor.on(dashVent.interface[event].id, function (itemType, itemId) {
-					playerVent.reactor.trigger(playerVent.interface[event].id, itemType, itemId);
+				dashVent.reactor.on(dashVent.interface[event].id, function (options) {
+					playerVent.reactor.trigger(playerVent.interface[event].id, options);
 				});
 			});
 
 			var playerToDashEvents = [
 				'itemFavorited',
-				'itemUnFavorited'
+				'itemUnfavorited'
 			];
 
 			_.each(playerToDashEvents, function (event) {
 				playerVent.reactor.on(playerVent.interface[event].id, function (itemType, itemId) {
-					dashVent.reactor.trigger(dashVent.interface[event].id, itemType, itemId);
+					dashVent.reactor.trigger(dashVent.interface[event].id, options);
 				});
 			});
 

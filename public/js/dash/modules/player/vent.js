@@ -1,15 +1,25 @@
 define(function () {
 	return {
 		interface: {
-			itemPlayed: {id: 'songPlayed'},
-			itemPlayedSuccess: {id: 'songPlayedSuccess'},
-			itemPaused: {id: 'songPaused'},
-			itemPausedSuccess: {id: 'songPausedSuccess'},
-			itemRemovedFromQueue: {id: 'songRemovedFromQueue'},
-			itemRemovedFromQueueSuccess: {id: 'songRemovedFromQueueSuccess'},
-			itemFinished: {id: 'songFinished'}
-			itemFavorited: {id: 'songFavorited'},
-			itemFavoritedSuccess: {id: 'songFavoritedSuccess'},
+			itemPlayed: {id: 'itemPlayed'},
+			itemPlayedSuccess: {id: 'itemPlayedSuccess'},
+			
+			itemPaused: {id: 'itemPaused'},
+			itemPausedSuccess: {id: 'itemPausedSuccess'},
+			
+			itemQueued: {id: 'itemQueued'},
+			itemQueuedSuccess: {id: 'itemQueuedSuccess'},
+			
+			itemRemovedFromQueue: {id: 'itemRemovedFromQueue'},
+			itemRemovedFromQueueSuccess: {id: 'itemRemovedFromQueueSuccess'},
+			
+			itemFinished: {id: 'itemFinished'},
+
+			itemFavorited: {id: 'itemFavorited'},
+			itemFavoritedSuccess: {id: 'itemFavoritedSuccess'},
+			
+			itemUnfavorited: {id: 'itemUnfavorited'},
+			itemUnfavoritedSuccess: {id: 'itemUnfavoritedSuccess'},
 			
 			/////////////
 

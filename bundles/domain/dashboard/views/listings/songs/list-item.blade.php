@@ -1,4 +1,4 @@
-<div class="row list-item">
+<div class="row list-item" data-id="{{ $song->id }}">
 	<div class="span1"><div class="song-play-btn"></div></div>
 	<div class="span1"><div class="add-q-btn"><a href="#" rel="tooltip" title="Add to Playlist"></a></div></div>
 
@@ -13,31 +13,12 @@
 				@foreach(range(0, 1) as $r)
 					@if($artist = @$song->artists[$r])
 						<div class="artist-name">
-							<a href="#">{{ e($artist->name) }}</a>							
-							<div class="popup">
-								<img src="{{ URL::to_asset('img/arrow.png') }}" alt="arrow" class="arrow"/>
-								<img src="{{ $artist->profile_photo ? $artist->profile_photo->get_url('thumb') : '' }}" alt="artist"/>
-								
-								<div class="popup-detail">
-									<div class="popup-name">
-										<a href="{{ URL::to('dashboard/artists/profile/'.$artist->slug) }}">{{ e($artist->name) }}</a>
-									</div>
-
-									<div class="popup-facts">
-										<a class="pull-left" href="#">{{ count($artist->songs) }} Songs</a>
-										<a class="pull-left" href="#">{{ count($artist->videos) }} Videos</a>
-									</div>
-
-									<div class="socials">
-										<?=render('dashboard::common.partials.artist-fav-icon', [
-											'artist' => $artist, 'class' => 'pull-left'
-										])?>
-										<div class="icon facebook"><a href="#" rel="tooltip" title="Share on Facebook"></a></div>
-										<div class="icon twitter"><a href="#" rel="tooltip" title="Share on Twitter"></a></div>
-									</div>
-								</div>	
-
-							</div>
+							@if((int) $artist->active === 0)
+								<a>{{ e($artist->name) }}</a>
+							@else
+								<a href="#">{{ e($artist->name) }}</a>
+								{{ render('dashboard::common.partials.artist-popup', ['artist' => $artist]) }}
+							@endif
 						</div>
 					@endif
 				@endforeach
@@ -52,7 +33,11 @@
 						@foreach(range(2, count($song->artists) - 1) as $r)
 							@if($artist = $song->artists[$r])
 								<li>
-									<a href="{{ URL::to('dashboard/artists/profile/'.$artist->slug) }}">{{ e($artist->name) }}</a>
+									@if((int) $artist->active)
+										<a href="{{ URL::to('dashboard/artists/profile/'.$artist->slug) }}">{{ e($artist->name) }}</a>
+									@else
+										<a>{{ e($artist->name) }}</a>
+									@endif
 								</li>
 							@endif
 						@endforeach

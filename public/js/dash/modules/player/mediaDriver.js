@@ -9,9 +9,9 @@ define(
 
 		return {
 			play: function (item) {
-				if(item.type === 'song')
+				if(item.get('type') === 'song')
 					driver = audioDriver;
-				else if(item.type === 'video')
+				else if(item.get('type') === 'video')
 					driver = videoDriver;
 				else
 					return;
@@ -24,14 +24,14 @@ define(
 				if(! driver ) return;
 				
 				if(driver.isPlaying())
-					return true;
-				else if(driver.isPaused())
-					return false;
+					driver.pause();
+				else
+					driver.play();
 			},
 
 			getCurrentMedia: function () {
 				if(! driver ) return;
-				return driver.currentMedia;
+				return driver.getCurrentMedia();
 			},
 
 			isPlaying: function () {

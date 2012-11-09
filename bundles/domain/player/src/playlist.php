@@ -15,15 +15,17 @@ class Playlist
 	public static function instance()
 
 	{
-		if($this->_instance)
-			return $this->_instance;
-			
-		return $this->_instance = Session::get(static::SESSION_KEY, new static());
+		if(static::$_instance)
+			return static::$_instance;
+
+		return static::$_instance = Session::get(static::SESSION_KEY) ? 
+										unserialize(Session::get(static::SESSION_KEY))
+									  : new static;
 	}
 
 	public static function persist()
 	{
-		Session::put(static::SESSION_KEY, static::instance());
+		Session::put(static::SESSION_KEY, serialize(static::instance()));
 	}
 
 	/**Protecting the constructor to implement the singleton**/

@@ -1,4 +1,4 @@
-<div class="grid-item">
+<div class="grid-item" data-id="{{ $video->id }}">
 
 	<div class="video-thumb">
 		<div class="video-image">
@@ -16,29 +16,7 @@
 				<div class="artist-detail">
 					<div class="artist-name pull-left">
 						<a href="{{ URL::to('dashboard/artists/profile/'.$artist->slug) }}">{{ e($artist->name) }}</a>
-						<div class="popup">
-							<img src="{{ URL::to_asset('img/arrow.png') }}" alt="arrow" class="arrow"/>
-							<img src="{{ $artist->get_profile_photo_url('thumb') }}" alt="{{ $artist->name }}"/>
-							
-							<div class="popup-detail">
-								<div class="popup-name">
-									<a href="#">{{ e($artist->name) }}</a>
-								</div>
-
-								<div class="popup-facts">
-									<a class="pull-left" href="#">{{ count($artist->songs) }} Songs</a>
-									<a class="pull-left" href="#">{{ count($artist->videos) }} Videos</a>
-								</div>
-
-								<div class="socials">
-									<?=render('dashboard::common.partials.artist-fav-icon', [
-										'artist' => $artist, 'class' => 'pull-left'
-									])?>
-									<div class="icon facebook"><a href="#" rel="tooltip" title="Share on Facebook"></a></div>
-									<div class="icon twitter"><a href="#" rel="tooltip" title="Share on Twitter"></a></div>
-								</div>
-							</div>	
-						</div>
+						{{ render('dashboard::common.partials.artist-popup', ['artist' => $artist]) }}						
 					</div>
 
 					@if(($remaining = count($video->artists) - 1) > 0)

@@ -17,20 +17,20 @@ define(
 				vent.reactor.trigger(vent.interface.playBtnToggled.id);
 			});
 
-			dom.playlistToggleBtn().on('click', function () {
-				vent.reactor.trigger(vent.interface.playlistToggled.id);
+			dom.playlistWindowToggleBtn().on('click', function () {
+				vent.reactor.trigger(vent.interface.playlistWindowToggled.id);
 			});
 
-			dom.playlistCollapseBtn().on('click', function () {
-				vent.reactor.trigger(vent.interface.playlistToggled.id);
+			dom.playlistWindowCollapseBtn().on('click', function () {
+				vent.reactor.trigger(vent.interface.playlistWindowToggled.id);
 			});
 
-			dom.videoScreenToggleBtn().on('click', function () {
-				vent.reactor.trigger(vent.interface.videoScreenToggled.id);
+			dom.videoWindowToggleBtn().on('click', function () {
+				vent.reactor.trigger(vent.interface.videoWindowToggled.id);
 			});
 
-			dom.videoScreenCollapseBtn().on('click', function () {
-				vent.reactor.trigger(vent.interface.videoScreenToggled.id);
+			dom.videoWindowCollapseBtn().on('click', function () {
+				vent.reactor.trigger(vent.interface.videoWindowToggled.id);
 			});
 
 			dom.playlistClearBtn().on('click', function () {

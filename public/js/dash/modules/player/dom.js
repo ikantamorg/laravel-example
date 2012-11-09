@@ -36,12 +36,12 @@ define(
 			playlistWindow: null,
 			playlistScreen: null,
 			playlistHolder: null,
-			playlistCollapseBtn: null,
+			playlistWindowCollapseBtn: null,
 			playlistClearBtn: null,
 
 			videoWindow: null,
 			videoScreen: null,
-			videoCollapseBtn: null,
+			videoWindowCollapseBtn: null,
 			videoFullScreenBtn: null,
 
 			itemSourceIcon: null
@@ -190,20 +190,21 @@ define(
 				return elements.playlistHolder;
 			},
 
-			playlistCollapseBtn: function () {
-				if(elements.playlistCollapseBtn) return elements.playlistCollapseBtn;
-				setUIElement('playlistCollapseBtn', this.playlistWindow().find('.head .collapse'));
-				return elements.playlistCollapseBtn;
+			playlistWindowCollapseBtn: function () {
+				if(elements.playlistWindowCollapseBtn) return elements.playlistWindowCollapseBtn;
+				setUIElement('playlistWindowCollapseBtn', this.playlistWindow().find('.head .collapse'));
+				return elements.playlistWindowCollapseBtn;
 			},
 
 			playlistClearBtn: function () {
 				if(elements.playlistClearBtn) return elements.playlistClearBtn;
 				setUIElement('playlistClearBtn', this.playlistWindow().find('.head .clear'));
+				return elements.playlistClearBtn;
 			},
 
 			videoWindow: function () {
 				if(elements.videoWindow) return elements.videoWindow;
-				setUIElement('videoWindow', this.videoWindow().find('.frame.video'));
+				setUIElement('videoWindow', this.playerHolder().find('.frame.video'));
 				return elements.videoWindow;
 			},
 
@@ -213,15 +214,15 @@ define(
 				return elements.videoScreen;
 			},
 
-			videoCollapseBtn: function () {
-				if(elements.videoCollapseBtn) return elements.videoCollapseBtn;
-				setUIElement('videoCollapseBtn', this.videoWindow.find('.head .collapse'));
-				return elements.videoCollapseBtn;
+			videoWindowCollapseBtn: function () {
+				if(elements.videoWindowCollapseBtn) return elements.videoWindowCollapseBtn;
+				setUIElement('videoWindowCollapseBtn', this.videoWindow().find('.head .collapse'));
+				return elements.videoWindowCollapseBtn;
 			},
 
 			videoFullScreenBtn: function () {
 				if(elements.videoFullScreenBtn) return elements.videoFullScreenBtn;
-				setUIElement('videoFullScreenBtn', this.videoWindow.find('.head .collapse'));
+				setUIElement('videoFullScreenBtn', this.videoWindow().find('.head .collapse'));
 				return elements.videoFullScreenBtn;
 			},
 

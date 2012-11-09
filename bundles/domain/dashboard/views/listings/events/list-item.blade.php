@@ -1,4 +1,4 @@
-<div class="row list-item">
+<div class="row list-item" data-id="{{ $event->id }}">
 	<div class="span3">
 		<div class="event-img">
 			<img src="{{ $event->get_profile_photo_url('thumb') }}" alt="{{ $event->name }}"/>
@@ -22,31 +22,7 @@
 						<div class="artist-name">
 							@if((int) $artist->active === 1)
 								<a href="#">{{ e($artist->name) }}</a>
-								<div class="popup">
-									<img src="{{ URL::to_asset('img/arrow.png') }}" alt="arrow" class="arrow"/>
-									<img src="{{ $artist->get_profile_photo_url('thumb') }}" 
-										alt="{{ e($artist->name) }}"/>
-									<div class="popup-detail">
-										<div class="popup-name">
-											<a href="{{ URL::to('dashboard/artists/profile/'.$artist->slug) }}">
-												{{ e($artist->name) }}
-											</a>
-										</div>
-
-										<div class="popup-facts">
-											<a class="pull-left" href="#">{{ count($artist->songs) }} Songs</a>
-											<a class="pull-left" href="#">{{ count($artist->videos) }} Videos</a>
-										</div>
-
-										<div class="socials">
-											<?=render('dashboard::common.partials.artist-fav-icon', [
-												'artist' => $artist, 'class' => 'pull-left'
-											])?>
-											<div class="icon facebook"><a href="#" rel="tooltip" title="Share on Facebook"></a></div>
-											<div class="icon twitter"><a href="#" rel="tooltip" title="Share on Twitter"></a></div>
-										</div>
-									</div>	
-								</div>
+								{{ render('dashboard::common.partials.artist-popup', ['artist' => $artist]) }}
 							@else
 								<a>{{ e($artist->name) }}</a>
 							@endif
@@ -64,9 +40,13 @@
 							@if($artist = @$event->artists[$r])
 								<li>
 									<img src="{{ $artist->get_profile_photo_url('icon') }}" alt="{{ e($artist->name) }}"/>
-									<a href="{{ URL::to('dashboard/artists/profile/'.$artist->slug) }}">
-										{{ e($artist->name) }}
-									</a>
+									@if((int) $artist->active === 1)
+										<a href="{{ URL::to('dashboard/artists/profile/'.$artist->slug) }}">
+											{{ e($artist->name) }}
+										</a>
+									@else
+										<a>{{ e($artist->name) }}</a>
+									@endif
 								</li>
 							@endif
 						@endforeach

@@ -1,18 +1,18 @@
 <script type="text/html" id="player-playlist-video-tmpl">
-	<div class="row list-item">
+	<?php /*<div class="row list-item">*/ ?>
 		<div class="span1 play-video ">
-			<img src="<%=thumb%>" alt="name" class="video-thumb">
-			<div class="play-btn-video"></div>
+			<img src="<%=model.thumb%>" alt="name" class="video-thumb">
+			<div class="play-btn-video playBtn"></div>
 		</div>
 		<div class="span8">
 			<div class="row video-name">
 				<div class="span8">
-					<%-name%>		
+					<%-model.name%>		
 				</div>
 			</div>
 			<div class="row artist-name">
 				<div class="span8">
-					<%-_.map(artists, function (a) { return a.name}).join(', ')%>
+					<%-_.map(model.artists, function (a) { return a.name}).join(', ')%>
 				</div>
 			</div>
 		</div>
@@ -29,5 +29,5 @@
 			</div>
 		</div>
 		<div class="span1 close"></div>
-	</div>
+	<?php /*</div>*/ ?>
 </script>

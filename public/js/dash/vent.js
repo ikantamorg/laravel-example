@@ -1,11 +1,11 @@
 define(function () {
 	return {
 		interface: {
-			itemPlayed: {id: 'itemPlayedSuccess'},
-			itemQueued: {id: 'itemQueuedSuccess'},
+			itemPlayed: {id: 'itemPlayed'},
+			itemQueued: {id: 'itemQueued'},
 
 			itemFavoritedSuccess: {id: 'itemFavoritedSuccess'},
-			itemUnFavoritedSuccess: {id: 'itemUnFavoritedSuccess'},
+			itemUnfavoritedSuccess: {id: 'itemUnfavoritedSuccess'},
 		},
 
 		reactor: _.extend({}, Backbone.Events)

@@ -1,6 +1,6 @@
 <?php
 
-namespace Playlist;
+namespace Player\Playlist;
 
 class Item
 {
@@ -15,7 +15,7 @@ class Item
 	public function to_array()
 	{
 		$data = $this->data;
-		$data['model'] = $model->to_array();
+		$data['model'] = $data['model']->to_array();
 
 		return $data;
 	}
