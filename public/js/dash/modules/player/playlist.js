@@ -33,6 +33,13 @@ define(
 			addNewItem: function (type, id, callback, ctx) {
 				ajax.addItemToPlaylist(type, id, function (data) {
 					var item = new Item(data);
+
+					var itemExists = list.find(function (listItem) {
+						return listItem.get('type') === item.get('type') && listItem.get('model').id === item.get('model').id;
+					});
+
+					if(itemExists) return;
+
 					list.add(item);
 					ctx ? callback.call(ctx, {item: item}) : callback;
 				}, this);
