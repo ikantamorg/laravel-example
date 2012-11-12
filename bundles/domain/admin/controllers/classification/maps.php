@@ -67,9 +67,9 @@ class Admin_Classification_Maps_Controller extends App_Controller
 								foreach($tt->tags as $t) {
 									if($tag->id !== $t->id) {
 										if(! isset($options[$tt->name]) )
-											$options[$tt->name] = [$t->id => $t->name];
+											$options[$tt->name] = [$t->id => $t->name.', '.$tt->name];
 										
-										$options[$tt->name] = $options[$tt->name] + [$t->id => $t->name];
+										$options[$tt->name] = $options[$tt->name] + [$t->id => $t->name.', '.$tt->name];
 									}
 								}
 							}
