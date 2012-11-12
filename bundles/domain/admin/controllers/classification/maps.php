@@ -88,6 +88,7 @@ class Admin_Classification_Maps_Controller extends App_Controller
 	public function put_tag_maps($id)
 	{
 		$tag = Tag::find($id);
+
 		$tag->set_tag_maps(Input::get());
 
 		return Redirect::to(URL::to($this->base_uri))->with('flash.success', 'Tag Maps Made Successfuly');

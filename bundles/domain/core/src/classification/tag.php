@@ -162,19 +162,17 @@ class Tag extends Abstracts\Model
 		return array_values($ids);
 	}
 
-	protected function delete_removed_maps($tagable, $ids)
+	protected function delete_removed_maps($tagable, $mapped_ids)
 	{
-		if(empty($ids)) {
+		if(empty($mapped_ids)) {
 			if(DB::table('core_tag_map')->where_tagable_id($tagable->id)->count('id') > 0)
 				DB::table('core_tag_map')->where_tagable_id($tagable->id)->where_tag_a_id($this->id)
 										 ->or_where('tag_b_id', '=', $this->id)->delete();
-		} else { 
-			foreach($ids as $id) {
-				DB::table('core_tag_map')->where_tagable_id($tagable->id)
-										 ->where_tag_a_id($this->id)->where_tag_b_id($id)->delete();
-				DB::table('core_tag_map')->where_tagable_id($tagable->id)
-										 ->where_tag_b_id($this->id)->where_tag_a_id($id)->delete();
-			}
+		} else {
+			$q = function () use($tagable) { return DB::table('core_tag_map')->where_tagable_id($tagable->id); };
+			$q()->where_tag_a_id($this->id)->where_not_in('tag_b_id', $mapped_ids)->delete();
+			$q()->where_tag_b_id($this->id)->where_not_in('tag_a_id', $mapped_ids)->delete();
+
 		}
 	}
 
