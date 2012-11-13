@@ -61,19 +61,27 @@ class Admin_Classification_Maps_Controller extends App_Controller
 						'base_url' => URL::to($this->base_uri),
 						'tag' => $tag,
 						'tag_options' => function ($slug) use($tag) {
-							$tagable = Tagable::with(['tag_types', 'tag_types.tags'])->where_slug($slug)->first();
+							$tagable = Tagable::with(['tag_types'])->where_slug($slug)->first();
 							$options = [];
-							foreach($tagable->tag_types as $tt) {
-								foreach($tt->tags as $t) {
-									if($tag->id !== $t->id) {
-										if(! isset($options[$tt->name]) )
-											$options[$tt->name] = [$t->id => $t->name.', '.$tt->name];
-										
-										$options[$tt->name] = $options[$tt->name] + [$t->id => $t->name.', '.$tt->name];
-									}
-								}
+							$q = Tag::with('types')->select('core_tags.*')
+									->join('core_tag_tag_types', 'core_tag_tag_types.tag_id');
+
+							if($tag_type_ids = array_map(function ($tt) { return $tt->id; }, $tagable->tag_types)) {
+								$tags =	Tag::with('types')->select('core_tags.*')->distinct()
+										   ->join('core_tag_tag_type', 'core_tag_tag_type.tag_id', '=', 'core_tags.id')
+										   ->where_in('core_tag_tag_type.tag_type_id', $tag_type_ids)
+										   ->get();
+							} else {
+								$tags = [];
 							}
-						
+
+							$mapper = function ($tt) { return $tt->name; };
+							foreach($tags as $t) {
+								if($tag->id === $t->id)
+									continue;
+								$options[$t->id] = $t->name . ' | ' . implode(', ', array_map($mapper, $t->types));
+							}
+
 							return $options;
 						},
 						'tag_value' => function ($tags) {
