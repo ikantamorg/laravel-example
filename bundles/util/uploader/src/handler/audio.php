@@ -2,6 +2,7 @@
 
 namespace Uploader\Handler;
 
+use Input;
 use mp3file;
 
 class Audio extends Base
