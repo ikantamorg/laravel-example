@@ -8,7 +8,7 @@ use Core\Event\Model as Event;
 
 class Admin_Media_Songs_Controller extends Crud_Base_Controller
 {
-	public $fields = ['name', 'stream_url', 'soundcloud_url', 'owner_id', 'provider'];
+	public $fields = ['name', 'stream_url', 'soundcloud_url', 'owner_id', 'provider', 'duration'];
 	public $relations = ['artists', 'genres', 'events', 'classification_tags'];
 	public $view_base = 'admin::media.songs.';
 	public $base_uri = 'admin/media/songs/';
