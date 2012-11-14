@@ -41,6 +41,7 @@ define(
 
 			videoWindow: null,
 			videoScreen: null,
+			videoObj: null,
 			videoWindowCollapseBtn: null,
 			videoFullScreenBtn: null,
 
@@ -212,6 +213,12 @@ define(
 				if(elements.videoScreen) return elements.videoScreen;
 				setUIElement('videoScreen', this.videoWindow().find('.screen'));
 				return elements.videoScreen;
+			},
+
+			videoObj: function () {
+				if(elements.videoObj) return elements.videoObj;
+				setUIElement('videoObj', this.videoScreen().find('.video-box'));
+				return elements.videoObj;
 			},
 
 			videoWindowCollapseBtn: function () {

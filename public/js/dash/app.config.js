@@ -3,6 +3,7 @@ requirejs.config({
 });
 
 $(document).on('soundManager:loaded', function () {
+	
 	requirejs(['dash/app'], function (dash) {
 		
 		dash.start();

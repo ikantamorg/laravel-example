@@ -70,7 +70,15 @@
 					<div class="full-screen pull-right"><a rel="tooltip" title="View Full-screen"></a></div>
 				</div>
 				<div class="screen">
-					
+					<object
+						type="application/x-shockwave-flash"
+						class="video-box"
+						width="570" height="320"
+						data="http://www.youtube.com/apiplayer?enablejsapi=1&version=3"
+					>
+						<param name="allowScriptAccess" value="always">
+						<param name="allowFullScreen" value="true">
+					</object>
 				</div>
 			</div>
 

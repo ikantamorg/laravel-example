@@ -26,7 +26,7 @@ define(
 
 			findItem: function (type, id) {
 				return list.find(function (item) {
-					return item.get('type') === type && item.get('model').id == id
+					return item.getType() === type && item.getId() == id
 				});
 			},
 
@@ -35,7 +35,7 @@ define(
 					var item = new Item(data);
 
 					var itemExists = list.find(function (listItem) {
-						return listItem.get('type') === item.get('type') && listItem.get('model').id === item.get('model').id;
+						return listItem.getType() === item.getType() && listItem.getId() === item.getId();
 					});
 
 					if(itemExists) return;

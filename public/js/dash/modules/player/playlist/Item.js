@@ -1,5 +1,23 @@
 define(function () {
-	var Item = Backbone.Model.extend({});
+	var Item = Backbone.Model.extend({
+
+		getType: function () {
+			return this.get('type');
+		},
+
+		getName: function () {
+			return this.get('model').name;
+		},
+
+		getId: function () {
+			return this.get('model').id;
+		},
+
+		getArtists: function () {
+			return _.map(this.get('model').artists, function (a) { return a.name; });
+		}
+
+	});
 
 	return Item;
 });

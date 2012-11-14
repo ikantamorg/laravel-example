@@ -23,6 +23,7 @@ define(
 					mediaDriver.play(item); // plays the item
 
 					ui.loadItemToDisplay(item); //display the item in HUD
+					ui.trackProgressOfMedia(mediaDriver); //tracks the progress and shit of a media
 
 					vent.reactor.trigger(vent.interface.itemPlayedSuccess.id, item);
 				} else {

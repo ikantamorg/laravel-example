@@ -9,9 +9,9 @@ define(
 
 		return {
 			play: function (item) {
-				if(item.get('type') === 'song')
+				if(item.getType() === 'song')
 					driver = audioDriver;
-				else if(item.get('type') === 'video')
+				else if(item.getType() === 'video')
 					driver = videoDriver;
 				else
 					return;

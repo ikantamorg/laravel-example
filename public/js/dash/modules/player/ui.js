@@ -22,15 +22,17 @@ define(
 
 		var ui = {
 			loadItemToDisplay: function (item) {
-				if(item.get('type') === 'video' && dom.itemSourceIcon().is(':hidden'))
+				if(item.getType() === 'video' && dom.itemSourceIcon().is(':hidden'))
+					dom.itemSourceIcon().show();
+				else
 					dom.itemSourceIcon().hide();
 
-				dom.songNameDisplay().text(item.get('model').name);
+				dom.songNameDisplay().text(item.getName());
 				
-				dom.artistNameDisplay().text(_.map(item.get('model').artists, function (a) { return a.name; }).join(', '));
+				dom.artistNameDisplay().text(item.getArtists().join(', '));
 				
 				dom.nowPlayingFavoriteBtn().attr({
-					href: url('me/favorites/'+item.get('type')+'/'+item.get('model').id)
+					href: url('me/favorites/'+item.getType()+'/'+item.getId())
 				}).hide();
 			},
 
@@ -57,8 +59,8 @@ define(
 					dom.playlistWindow().animate({top: 12, height: 0}, options);
 					dom.playlistScreen().animate({height: 0}, options);
 				} else {
-					dom.playlistWindow().animate({top: -339, height: 350}, options);
-					dom.playlistScreen().animate({height: 315}, options);
+					dom.playlistWindow().animate({top: -344, height: 355}, options);
+					dom.playlistScreen().animate({height: 320}, options);
 				}
 
 				if(typeof(callback) === 'function') animeHelper.on('done', callback);
@@ -76,8 +78,8 @@ define(
 					dom.videoWindow().animate({top: 12, height: 0}, options);
 					dom.videoScreen().animate({height: 0}, options);
 				} else {
-					dom.videoWindow().animate({top: -339, height: 350}, options);
-					dom.videoScreen().animate({height: 315}, options);
+					dom.videoWindow().animate({top: -344, height: 355}, options);
+					dom.videoScreen().animate({height: 320}, options);
 				}
 
 				if(typeof(callback) === 'function') animeHelper.on('done', callback);
@@ -85,6 +87,10 @@ define(
 
 			toggleVideoFullScreen: function () {
 				
+			},
+
+			trackProgressOfMedia: function (mediaDriver) {
+
 			}
 		};
 
