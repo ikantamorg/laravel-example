@@ -1,0 +1,39 @@
+#main-nav {
+  position:fixed;
+  top:40px;
+  left:100px;
+}
+#content .table-holder {
+  width:100%;
+  overflow:auto;
+}
+
+#main-nav li.nav-header {
+	cursor: pointer;
+}
+
+#main-nav li.nav-header:hover {
+	background: rgba(0,0,0,0.2);
+	color: #404040;
+	-webkit-transition: all 0.2s linear;
+}
+
+#main-nav li.nav-header.active {
+	background: rgba(0,0,0,0.2);
+	color: #404040;
+	-webkit-transition: all 0.2s linear;
+}
+
+#main-nav li.nav-header.selected, #main-nav li.nav-header.active.selected {
+	background: rgba(0,0,0,0.3);
+	color: #000;
+	-webkit-transition: all 0.2s linear;
+}
+
+#main-nav ul ul{
+	display:none;
+}
+
+body {
+	padding-bottom: 30px;
+}
