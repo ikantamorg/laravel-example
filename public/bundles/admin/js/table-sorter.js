@@ -246,7 +246,7 @@ var FilterAppConstructor = function ($table, $controls, blackListedFields) {
 	var $table = $('table'),
 		$controls = $('#filter-form'),
 		blackListedFields = ['', 'Image'],
-		pagedResources = ['events', 'artists', 'register']
+		pagedResources = ['events', 'artists', 'register', 'photos']
 	;
 	
 	if($table.length === 0) {

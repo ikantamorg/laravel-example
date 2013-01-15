@@ -19,6 +19,15 @@ class Admin_Media_Photos_Controller extends Crud_Base_Controller
 		'photo' => ['image', 'resource']
 	];
 
+	public function search_aliases() {
+		return [
+			'all' => ['id', 'owner'],
+			'id' => Photo::$table . '.id',
+			'owner' => IndustryRegisterEntry::$table . '.name'
+		];
+	
+	}
+
 	public function resource($id = null)
 	{
 		if($this->_resource)
@@ -32,7 +41,20 @@ class Admin_Media_Photos_Controller extends Crud_Base_Controller
 		if($this->_listing)
 			return $this->_listing;
 
-		return $this->_listing = Photo::with(['industry_register_entry'])->get();
+		$q = Photo::with('industry_register_entry')
+					->left_join(
+						IndustryRegisterEntry::$table,
+						IndustryRegisterEntry::$table.'.id', '=', Photo::$table.'.owner_id'
+					)->select(Photo::$table.'.*');
+
+		if($field = $this->get_searched_field()) {
+			
+			$this->prepare_search_query($q, $field, Input::get($field));
+		}
+
+		$q->order_by('active', 'desc');
+
+		return $this->_listing = $q->paginate(50);
 	}
 
 	public function total_records()
@@ -136,7 +158,7 @@ class Admin_Media_Photos_Controller extends Crud_Base_Controller
 				$c->value = function ($r) { return HTML::image($r->get_url('icon'), $r->alt); };
 			});
 
-			$t->rows($this->listing());
+			$t->rows($this->listing()->results);
 		});
 
 		return $table;
