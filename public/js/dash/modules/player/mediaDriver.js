@@ -8,7 +8,7 @@ define(
 		var driver = null;
 
 		return {
-			play: function (item) {
+			load: function (item) {
 				if(item.getType() === 'song')
 					driver = audioDriver;
 				else if(item.getType() === 'video')
@@ -17,16 +17,18 @@ define(
 					return;
 
 				driver.setCurrentMedia(item);
+			},
+
+			play: function () {
+				if(! driver ) return;
 				driver.play();
 			},
 
 			togglePlayPause: function () {
-				if(! driver ) return;
-				
-				if(driver.isPlaying())
-					driver.pause();
+				if(this.isPlaying())
+					this.pause();
 				else
-					driver.play();
+					this.play();
 			},
 
 			getCurrentMedia: function () {

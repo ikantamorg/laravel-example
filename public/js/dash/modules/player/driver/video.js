@@ -14,15 +14,15 @@ define(
 				return currentMedia;
 			},
 			play: function () {
-				console.log('here');
 				var videoId = currentMedia.get('model').youtube_id;
 				videoObj.loadVideoById(videoId, 0, 'default');
+				videoObj.setVolume(100);
 			},
 			pause: function () {
 
 			},
 			isPlaying: function () {
-				
+				return false;
 			}
 		};
 	}

@@ -28,7 +28,7 @@ define(
 			];
 
 			_.each(playerToDashEvents, function (event) {
-				playerVent.reactor.on(playerVent.interface[event].id, function (itemType, itemId) {
+				playerVent.reactor.on(playerVent.interface[event].id, function (options) {
 					dashVent.reactor.trigger(dashVent.interface[event].id, options);
 				});
 			});

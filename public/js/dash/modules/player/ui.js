@@ -22,11 +22,11 @@ define(
 
 		var ui = {
 			loadItemToDisplay: function (item) {
-				if(item.getType() === 'video' && dom.itemSourceIcon().is(':hidden'))
-					dom.itemSourceIcon().show();
+				if(item.getType() === 'video')
+					dom.itemSourceIcon().is(':hidden') && dom.itemSourceIcon().show();
 				else
 					dom.itemSourceIcon().hide();
-
+								
 				dom.songNameDisplay().text(item.getName());
 				
 				dom.artistNameDisplay().text(item.getArtists().join(', '));
@@ -44,7 +44,13 @@ define(
 			},
 
 			togglePlayPauseBtn: function () {
-				dom.playToggleBtn().hasClass('pause') && dom.playToggleBtn().removeClass('pause');
+
+				console.log('here');
+
+				if(dom.playToggleBtn().hasClass('pause'))
+					dom.playToggleBtn().removeClass('pause');
+				else
+					dom.playToggleBtn().addClass('pause');
 			},
 
 			togglePlaylistWindow: function (callback) {
@@ -90,7 +96,7 @@ define(
 			},
 
 			trackProgressOfMedia: function (mediaDriver) {
-
+				
 			}
 		};
 
