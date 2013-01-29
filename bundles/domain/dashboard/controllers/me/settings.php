@@ -6,6 +6,11 @@ class Dashboard_Me_Settings_Controller extends Dashboard_Base_Controller
 
 	public function get_index()
 	{
-		return $this->layout->nest('body', 'dashboard::me.settings.index');
+		$body = View::make('dashboard::me.settings.index');
+
+		if(Request::ajax())
+			return $body;
+		else
+			$this->layout->body = $body;			
 	}
 }

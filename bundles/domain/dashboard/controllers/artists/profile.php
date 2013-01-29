@@ -9,9 +9,14 @@ class Dashboard_Artists_Profile_Controller extends Dashboard_Base_Controller
 		if(! $artist = $this->repo('artists')->find_by_slug($slug) )
 			return Response::error(404);
 
-		return $this->layout->nest('body', 'dashboard::profiles.artist.home', [
+		$body = View::make('dashboard::profiles.artist.home', [
 					'artist' => $artist
 				]);
+
+		if(Request::ajax())
+			return $body;
+		else
+			$this->layout->body = $body;
 	}
 
 	public function get_info($slug = null)
@@ -19,10 +24,15 @@ class Dashboard_Artists_Profile_Controller extends Dashboard_Base_Controller
 		if(! $artist = $this->repo('artists')->find_by_slug($slug) )
 			return Response::error(404);
 
-		return $this->layout->nest('body', 'dashboard::profiles.artist.layout', [
+		$body = View::make('dashboard::profiles.artist.layout', [
 					'artist' => $artist,
 					'page' => 'info'
 				]);
+
+		if(Request::ajax())
+			return $body;
+		else
+			$this->layout->body = $body;
 	}
 
 	public function get_songs($slug = null)
@@ -30,10 +40,15 @@ class Dashboard_Artists_Profile_Controller extends Dashboard_Base_Controller
 		if(! $artist = $this->repo('artists')->find_by_slug($slug) )
 			return Response::error(404);
 
-		return $this->layout->nest('body', 'dashboard::profiles.artist.layout', [
+		$body = View::make('dashboard::profiles.artist.layout', [
 					'artist' => $artist,
 					'page' => 'songs'
 				]);
+
+		if(Request::ajax())
+			return $body;
+		else
+			$this->layout->body = $body;
 	}
 
 	public function get_events($slug = null)
@@ -41,10 +56,15 @@ class Dashboard_Artists_Profile_Controller extends Dashboard_Base_Controller
 		if(! $artist = $this->repo('artists')->find_by_slug($slug) )
 			return Response::error(404);
 
-		return $this->layout->nest('body', 'dashboard::profiles.artist.layout', [
+		$body = View::make('dashboard::profiles.artist.layout', [
 					'artist' => $artist,
 					'page' => 'events'
 				]);
+
+		if(Request::ajax())
+			return $body;
+		else
+			$this->layout->body = $body;
 	}
 
 	public function get_videos($slug = null)
@@ -52,10 +72,15 @@ class Dashboard_Artists_Profile_Controller extends Dashboard_Base_Controller
 		if(! $artist = $this->repo('artists')->find_by_slug($slug) )
 			return Repsonse::error(404);
 
-		return $this->layout->nest('body', 'dashboard::profiles.artist.layout', [
+		$body = View::make('dashboard::profiles.artist.layout', [
 					'artist' => $artist,
 					'page' => 'videos'
 				]);
+
+		if(Request::ajax())
+			return $body;
+		else
+			$this->layout->body = $body;
 	}
 
 	public function get_pictures($slug = null)
@@ -63,9 +88,14 @@ class Dashboard_Artists_Profile_Controller extends Dashboard_Base_Controller
 		if(! $artist = $this->repo('artists')->find_by_slug($slug) )
 			return Response::error(404);
 
-		return $this->layout->nest('body', 'dashboard::profiles.artist.layout', [
+		$body = View::make('dashboard::profiles.artist.layout', [
 					'artist' => $artist,
 					'page' => 'pictures'
 				]);
+
+		if(Request::ajax())
+			return $body;
+		else
+			$this->layout->body = $body;
 	}
 }

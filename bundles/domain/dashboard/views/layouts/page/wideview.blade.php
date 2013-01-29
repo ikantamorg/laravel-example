@@ -2,7 +2,7 @@
 
 @section('content')
 
-<div class="span18 offset1">
+<div class="span18 offset1" id="bodyHolder">
 	{{ $body }}
 </div>
 

@@ -1,18 +1,17 @@
 define(
-	[
-		'./vent',
-		'./modules/linkHandler',
-		'./modules/player',
-		'./modules/triggers',
-	],
-	function (vent, linkHandler, player, triggers) {
+  [
+    './modules/linkHandler',
+    './modules/player',
+    './modules/router',
+    './modules/widgets/leftPane'
+  ],
+  function (linkHandler, player, router, leftPane) {
 
-		return {
-			start: function () {
-				linkHandler.init();
-				player.init();
-				triggers.init();
-			}
-		};
-	}
+    return {
+      start: function () {
+        linkHandler.init();
+        player.init();
+      }
+    };
+  }
 );

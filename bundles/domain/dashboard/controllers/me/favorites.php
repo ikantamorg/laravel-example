@@ -14,12 +14,17 @@ class Dashboard_Me_Favorites_Controller extends Dashboard_Base_Controller
 		if($this->appendage())
 			$listing->appends($this->appendage());
 
-		return $this->layout->nest('body', 'dashboard::me.favorites.songs', [
+		$body = View::make('dashboard::me.favorites.songs', [
 					'songs' => $listing->results,
 					'num_songs' => $count,
 					'prev_link' => $listing->previous(null, true, ['class' => 'pull-left']),
 					'next_link' => $listing->next(null, true, ['class' => 'pull-right'])
 				]);
+
+		if(Request::ajax())
+			return $body;
+		else
+			$this->layout->body = $body;
 	}
 
 	public function get_videos()
@@ -32,12 +37,17 @@ class Dashboard_Me_Favorites_Controller extends Dashboard_Base_Controller
 		if($this->appendage())
 			$listing->appends($this->appendage());
 
-		return $this->layout->nest('body', 'dashboard::me.favorites.videos', [
+		$body = View::make('dashboard::me.favorites.videos', [
 					'videos' => $listing->results,
 					'num_videos' => $count,
 					'prev_link' => $listing->previous(null, true, ['class' => 'pull-left']),
 					'next_link' => $listing->next(null, true, ['class' => 'pull-right'])
 				]);
+
+		if(Request::ajax())
+			return $body;
+		else
+			$this->layout->body = $body;
 	}
 
 	public function get_artists()
@@ -50,12 +60,17 @@ class Dashboard_Me_Favorites_Controller extends Dashboard_Base_Controller
 		if($this->appendage())
 			$listing->appends($this->appendage());
 
-		return $this->layout->nest('body', 'dashboard::me.favorites.artists', [
+		$body = View::make('dashboard::me.favorites.artists', [
 					'artists' => $listing->results,
 					'num_artists' => $count,
 					'prev_link' => $listing->previous(null, true, ['class' => 'pull-left']),
 					'next_link' => $listing->next(null, true, ['class' => 'pull-right'])
 				]);
+
+		if(Request::ajax())
+			return $body;
+		else
+			$this->layout->body = $body;
 	}
 
 	public function get_events()
@@ -68,12 +83,17 @@ class Dashboard_Me_Favorites_Controller extends Dashboard_Base_Controller
 		if($this->appendage())
 			$listing->appends($this->appendage());
 
-		return $this->layout->nest('body', 'dashboard::me.favorites.events', [
+		$body = View::make('dashboard::me.favorites.events', [
 					'events' => $listing->results,
 					'num_events' => $count,
 					'prev_link' => $listing->previous(null, true, ['class' => 'pull-left']),
 					'next_link' => $listing->next(null, true, ['class' => 'pull-right'])
 				]);
+
+		if(Request::ajax())
+			return $body;
+		else
+			$this->layout->body = $body;
 	}
 
 	/***Song actions***/

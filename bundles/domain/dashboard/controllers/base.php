@@ -1,7 +1,8 @@
 <?php
 
-abstract class Dashboard_Base_Controller extends Rest_Controller
+abstract class Dashboard_Base_Controller extends Controller
 {
+	public $restful = true;
 	public $per_page = 30;
 
 	protected $_appendage = [];

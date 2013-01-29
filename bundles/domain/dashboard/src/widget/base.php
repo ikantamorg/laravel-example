@@ -15,11 +15,14 @@ abstract class Base
 	protected $user;
 	protected $params;
 
-	public function __construct($uri = null, $user = null, $params = [])
+	//params is set here as null in order to check whether an empty array has been provided or not
+
+	public function __construct($uri = null, $user = null, $params = null)
 	{
 		$this->uri = $uri ? : URI::current();
+		$this->uri = starts_with($this->uri, '/') ? substr($this->uri, 1) : $this->uri;
 		$this->user = $user ? : Auth::user();
-		$this->params = $params ? : Input::get();
+		$this->params = $params === null ? Input::get() : $params;
 
 		$this->setup();
 	}
