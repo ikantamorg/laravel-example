@@ -15,3 +15,5 @@ Route::any('dashboard/artists/profile/(:any)/(:any?)', function ($slug, $action 
 Route::any('dashboard/events/profile/(:any)/(:any?)', function ($slug, $action = 'index') {
 	return Controller::resolve('dashboard', 'events.profile')->execute($action, [$slug]);
 });
+
+Route::get('dashboard/widgets/(:any)', ['uses' => 'dashboard::widgets@widget']);

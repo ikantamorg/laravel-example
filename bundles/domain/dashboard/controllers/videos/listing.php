@@ -14,11 +14,16 @@ class Dashboard_Videos_Listing_Controller extends Dashboard_Base_Controller
 		if($this->appendage())
 			$listing->appends($this->appendage());
 
-		return $this->layout->nest('body', 'dashboard::listings.videos', [
+		$body = View::make('dashboard::listings.videos', [
 					'videos' => $listing->results,
 					'num_videos' => $count,
 					'prev_link' => $listing->previous(null, true, ['class' => 'pull-left']),
 					'next_link' => $listing->next(null, true, ['class' => 'pull-right'])
 				]);
+
+		if(Request::ajax())
+			return $body;
+		else
+			$this->layout->body = $body;
 	}
 }

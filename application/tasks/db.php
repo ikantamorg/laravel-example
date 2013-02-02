@@ -38,4 +38,28 @@ class Db_Task
 		unlink($this->temp_file());
 		return @$metadata['Length'];
 	}
+
+	public function test_fluent()
+	{
+		$q = Core\Artist\Model::order_by('created_at')->select('name', 'created_at')->where('id', '>', 100);
+
+		var_dump($q->paginate()->results);
+	}
+
+	public function create_k_user()
+	{
+		$k = new Core\User\Model;
+
+		$k->username = 'kapil';
+		$k->email = 'kapv89@gmail.com';
+		$k->password = 'Muselize2011';
+		$k->repeated_password = 'Muselize2011';
+
+		$k->save();
+
+		$role = Core\User\Role::where_name('superadmin')->first();
+
+		if(! in_array($role->id, array_map(function($r) { return $r->id; }, $k->roles)) )
+			$k->roles()->attach($role->id);
+	}
 }

@@ -20,7 +20,8 @@ define(
 					item = playlist.findItem(options.type, options.id);
 
 				if( item ) {
-					mediaDriver.play(item); // plays the item
+					mediaDriver.load(item);
+					this.togglePlayPause();
 
 					ui.loadItemToDisplay(item); //display the item in HUD
 					ui.trackProgressOfMedia(mediaDriver); //tracks the progress and shit of a media
@@ -77,6 +78,7 @@ define(
 					ui.togglePlayPauseBtn();
 					vent.reactor.trigger(vent.interface.itemPausedSuccess.id, mediaDriver.getCurrentMedia());
 				} else {
+					console.log('played');
 					mediaDriver.togglePlayPause();
 					ui.togglePlayPauseBtn();
 					vent.reactor.trigger(vent.interface.itemPlayedSuccess.id, mediaDriver.getCurrentMedia());

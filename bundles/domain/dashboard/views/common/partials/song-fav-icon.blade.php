@@ -2,9 +2,7 @@
 	@if(! $is_favorited)
 		<a
 			href="{{ URL::to('dashboard/me/favorites/song/'. $song->id) }}"
-			data-method="POST"
-			data-stop-default="yes"
-			data-driver="httpVerbRequest"
+			data-driver="favoritingDriver"
 			rel="tooltip"
 			title="Add to favorites"
 			class="handledLink"
@@ -12,9 +10,7 @@
 	@else
 		<a
 			href="{{ URL::to('dashboard/me/favorites/song/'.$song->id) }}"
-			data-method="DELETE"
-			data-stop-default="yes"
-			data-driver="httpVerbRequest"
+			data-driver = "favoritingDriver"
 			rel="tooltip"
 			title="Remove from favorites"
 			class="handledLink"
