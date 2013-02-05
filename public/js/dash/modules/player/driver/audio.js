@@ -23,15 +23,15 @@ define(
 				return currentMedia;
 			},
 			play: function () {
-				
-				if(sound && sound.id !== item.get('model').slug) {
-					sound.stop();
-					sound.unload();
-				}
-				
+				item = this.getCurrentMedia();
 				sound = createSoundFromItem(item);
 				sound.play();
 			},
+
+      stop: function () {
+        sound.stop();
+        sound.unload();
+      },
 
 			resume: function () {
 				sound.paused && sound.resume();

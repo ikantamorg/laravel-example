@@ -16,7 +16,7 @@
 							@if((int) $artist->active === 0)
 								<a>{{ e($artist->name) }}</a>
 							@else
-								<a href="#">{{ e($artist->name) }}</a>
+								<a>{{ e($artist->name) }}</a>
 								{{ render('dashboard::common.partials.artist-popup', ['artist' => $artist]) }}
 							@endif
 						</div>
@@ -34,7 +34,7 @@
 							@if($artist = $song->artists[$r])
 								<li>
 									@if((int) $artist->active)
-										<a href="{{ URL::to('dashboard/artists/profile/'.$artist->slug) }}">{{ e($artist->name) }}</a>
+										<a href="{{ URL::to('dashboard/artists/profile/'.$artist->slug) }}" data-driver="pageChanger">{{ e($artist->name) }}</a>
 									@else
 										<a>{{ e($artist->name) }}</a>
 									@endif

@@ -9,6 +9,7 @@ define(
 
 		return {
 			load: function (item) {
+        driver && driver.stop();
 				if(item.getType() === 'song')
 					driver = audioDriver;
 				else if(item.getType() === 'video')

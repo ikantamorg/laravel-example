@@ -16,6 +16,7 @@ define(
 
       router.navigate(targetUri);
       leftPaneWidget.load();
+      $(window).scrollTop(0);
 
       ajax.fetchPage(targetUrl, function (html) {
         if(rightPaneWidget.pageHasRightPane(targetUri)) {

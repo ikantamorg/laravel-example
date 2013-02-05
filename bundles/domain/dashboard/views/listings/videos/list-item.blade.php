@@ -15,7 +15,7 @@
 			@if($video->artists and $artist = @$video->artists[0])
 				<div class="artist-detail">
 					<div class="artist-name pull-left">
-						<a href="{{ URL::to('dashboard/artists/profile/'.$artist->slug) }}">{{ e($artist->name) }}</a>
+						<a href="{{ URL::to('dashboard/artists/profile/'.$artist->slug) }}" data-driver="pageChanger">{{ e($artist->name) }}</a>
 						{{ render('dashboard::common.partials.artist-popup', ['artist' => $artist]) }}						
 					</div>
 
@@ -27,7 +27,7 @@
 								@foreach($video->artists as $a)
 									<li>
 										<img src="{{ $a->get_profile_photo_url('icon') }}" alt="{{ $a->name }}"/>
-										<a href="#">{{ e($a->name) }}</a>
+										<a href="{{ URL::to('dashboard/artists/profile/'.$artist->slug) }}" data-driver="pageChanger">{{ e($a->name) }}</a>
 									</li>
 								@endforeach
 							</ul>	
