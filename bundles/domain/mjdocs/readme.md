@@ -1,0 +1,1 @@
+This bundle depends on the core 'docs' bundle (for the markdown library in there specifically).
