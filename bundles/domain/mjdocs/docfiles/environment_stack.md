@@ -4,6 +4,7 @@
 - [Git setup](#git)
 - [Getting the code](#get_code)
 - [Vagrant](#vagrant)
+- [Your server](#your_server)
 
 <a name="intro"></a>
 ### The stack
@@ -88,6 +89,186 @@ Now execute:
 
 	vagrant_ssh
 
-This will boot you straight into your new VM, and you can use `sudo` without even having to type a password! Next, we set up a server.
+This will boot you straight into your new VM, and you can use `sudo` without even having to type a password!
 
-*TO BE CONTINUED*
+<a name="your_server"></a>
+###Your server
+You are inside your own virtual linux environment without having to give up your customized Windows environment. Have you finished gloating? Good, let's get started on the server.
+
+If you followed the instructions above, you are using the Ubunut Precise Pangolin long term support release. You do not, unfortunately, have access to the latest PHP or Redis from aptitude. Sure you could compile but we want to get started quickly.
+
+Let's pimp up aptitude. You'll be using nano to do this, please read up on how to edit, save and do other stuff in it. Then:
+	
+	sudo nano /etc/apt/sources.list
+
+Delete the contents of that file, and paste in the following:
+
+	###### Ubuntu Main Repos
+	deb http://in.archive.ubuntu.com/ubuntu/ precise main restricted universe multiverse
+	deb-src http://in.archive.ubuntu.com/ubuntu/ precise main restricted universe multiverse
+
+	###### Ubuntu Update Repos
+	deb http://in.archive.ubuntu.com/ubuntu/ precise-security main restricted universe multiverse
+	deb http://in.archive.ubuntu.com/ubuntu/ precise-updates main restricted universe multiverse
+	deb-src http://in.archive.ubuntu.com/ubuntu/ precise-security main restricted universe multiverse
+	deb-src http://in.archive.ubuntu.com/ubuntu/ precise-updates main restricted universe multiverse
+
+You now have the India mirrors of Ubuntu package updates. Now, tell aptitude to fetch stuff from these new places:
+
+	sudo aptitude update
+
+Wait till the process completes. Follow along with these steps to avoid further problems (and allow your VM to update programs easily later):
+
+	sudo aptitude upgrade
+	sudo aptitude install make
+	sudo /etc/init.d/vboxadd setup
+	exit
+
+You are now out of the server. Restart it to allow any pending actions to complete themselves:
+
+	# make sure you are the in the folder where Vagrantfile resides
+	vagrant reload
+	vagrant_ssh
+
+Now, we need a way to get PHP 5.4 and the latest Redis, because those versions are still not available from the official repositories. So:
+
+	sudo aptitude install python-software-properties
+	sudo add-apt-repository ppa:ondrej/php5
+	sudo add-apt-repository ppa:rwky/redis
+	sudo aptitude update
+	sudo aptitude upgrade
+
+Finally! We get to install the actual s/w we need:
+
+	sudo aptitude install nginx php5 php5-fpm mysql-client mysql-server redis-server php5-cli php5-mysql php5-gd
+
+That should get you everything you need. Just keep answering 'Y' and configure mysql when it asks you to.
+
+Remember how you mounted the code on your HDD in Windows into the Virtual Machine? You now need to configure a website in nginx that points to that directory. Instructions:
+
+	cd /etc/nginx/sites-available
+	sudo vim musejam.dev
+
+This will open a new file. Paste the following configuration in there:
+
+	server {
+	    server_name musejam.dev;
+	    root /mnt/mj-app/public;
+
+	    index index.php index.html;
+
+	    # serve static files directly
+	    location ~* \.(jpg|jpeg|gif|css|png|js|ico|html)$ {
+	        access_log off;
+	        expires max;
+	    }
+
+	    # removes trailing slashes (prevents SEO duplicate content issues)
+	    # We don't do that on this site due to existing urls
+	    if (!-d $request_filename)
+	    {
+	        rewrite ^/(.+)/$ /$1 permanent;
+	    }
+
+	    location /swf {
+	        autoindex on;
+	    }
+
+	    # enforce NO www
+	    if ($host ~* ^www\.(.*))
+	    {
+	        set $host_without_www $1;
+	        rewrite ^/(.*)$ $scheme://$host_without_www/$1 permanent;
+	    }
+
+	    # unless the request is for a valid file (image, js, css, etc.), send to bootstrap
+	    if (!-e $request_filename)
+	    {
+	        rewrite ^/(.*)$ /index.php/$1 last;
+	        break;
+	    }
+
+	    # catch all
+	    error_page 404 /index.php;
+
+	    location ~ \.php {
+	           fastcgi_split_path_info ^(.+\.php)(/.+)$;
+	           # NOTE: You should have "cgi.fix_pathinfo = 0;" in php.ini
+
+	           # With php5-fpm:
+	           fastcgi_pass unix:/var/run/php5-fpm.sock;
+	           fastcgi_index index.php;
+	           include fastcgi_params;
+	    }
+
+	    access_log /var/log/nginx/musejam.dev.access.log;
+	    error_log  /var/log/nginx/musejam.dev.error.log;
+	}
+
+Save the file and exit by hitting `Esc` key then `:x` (in case you didn't know). Then do:
+
+	cd ../sites-enabled
+	sudo ln -s ../sites-available/musejam.dev
+	sudo service nginx restart
+
+This should show you a message `Restarting nginx: nginx.`, which means it restarted successfully. Anything else indicates a problem and you should debug.
+
+Go visit `http://musejam.dev` in your browser. It should show an error page saying:
+
+	Unhandled Exception
+	Message: Redis database [default] is not defined..
+
+That's because we still need to configure Musejam itself. But congratulations! The environment setup is complete. We're almost there. Let's configure musejam:
+	
+First, we need a database:
+
+	sudo mysql -u root -p
+	# Enter the password you chose in the steps above when it prompts you
+	# In the mysql prompt, type:
+	CREATE DATABASE musejam_dev;
+	exit;
+
+Now, we need to tell Musejam how to find that database. The best part is you can use Windows OR the Linux VM to edit your config files. Create a directory called local/ in application/config. Then create a file called database.php with these contents (change the password as indicated by the comment):
+
+	<?php
+
+	return array(
+
+		'profile' => true,
+
+		'fetch' => PDO::FETCH_CLASS,
+
+		'default' => 'local',
+
+		'connections' => array(
+
+			'local' => array(
+				'driver'   => 'mysql',
+				'host'     => 'localhost',
+				'database' => 'musejam_dev',
+				'username' => 'root',
+				'password' => 'password', // CHANGE THIS TO THE RIGHT PASSWORD
+				'charset'  => 'utf8',
+				'prefix'   => '',
+			),
+
+		),
+
+		'redis' => array(
+
+			'default' => array(
+				'host'     => '127.0.0.1',
+				'port'     => 6379,
+				'database' => 0
+			),
+		),
+
+	);
+
+Musejam has a convenient installation script. Let's use it:
+
+	sudo ./setup.sh local
+
+`WARNING`: We assume that you are on the right branch when doing all this. You need to `git checkout` to the right branch with all the latest commits in order to get all the right migrations. We suggest you speak to your project manager to get this info.
+
+Navigate now to musejam.dev in your browser, and behold the glory of a properly installed Musejam app. Good luck with your dev adventures!
