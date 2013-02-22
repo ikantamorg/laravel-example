@@ -5,4 +5,4 @@
 	- [Git setup](/mjdocs/environment_stack#git)
 	- [Getting the code](/mjdocs/environment_stack#get_code)
 	- [Vagrant](/mjdocs/environment_stack#vagrant)
-	- [Your server](#your_server)
+	- [Your server](/mjdocs/environment_stack#your_server)
