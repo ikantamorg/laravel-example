@@ -21,6 +21,9 @@ define(
 			pause: function () {
 
 			},
+      stop: function () {
+        videoObj.stopVideo();
+      },
 			isPlaying: function () {
 				return false;
 			}

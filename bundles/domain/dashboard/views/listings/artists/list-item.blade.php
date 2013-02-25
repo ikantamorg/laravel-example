@@ -7,7 +7,7 @@
 	<div class="span7">
 		<div class="row artist-name">
 			<div class="span7">
-				<a href="{{ URL::to('dashboard/artists/profile/'.$artist->slug) }}">{{ $artist->name }}</a>
+				<a href="{{ URL::to('dashboard/artists/profile/'.$artist->slug) }}" data-driver="pageChanger">{{ $artist->name }}</a>
 			</div>
 		</div>
 		
@@ -23,7 +23,7 @@
 					<p class="song-name">{{ $song->name }}</p>
 				</div>
 				<div class="span2">
-					<a href="{{ URL::to('dashboard/artists/profile/'.$artist->slug.'/songs') }}" class="more">view more songs</a>
+					<a href="{{ URL::to('dashboard/artists/profile/'.$artist->slug.'/songs') }}" data-driver="pageChanger" class="more">view more songs</a>
 				</div>
 			</div>
 		@endforeach

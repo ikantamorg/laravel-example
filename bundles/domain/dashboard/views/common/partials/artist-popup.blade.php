@@ -4,14 +4,14 @@
 	
 	<div class="popup-detail">
 		<div class="popup-name">
-			<a href="{{ URL::to('dashboard/artists/profile/'.$artist->slug) }}">{{ e($artist->name) }}</a>
+			<a href="{{ URL::to('dashboard/artists/profile/'.$artist->slug) }}" data-driver="pageChanger">{{ e($artist->name) }}</a>
 		</div>
 
 		<div class="popup-facts">
-			<a class="pull-left" href="{{ URL::to('dashboard/artists/profile/'.$artist->slug.'/songs') }}">
+			<a class="pull-left" href="{{ URL::to('dashboard/artists/profile/'.$artist->slug.'/songs') }}" data-driver="pageChanger">
 				{{ count($artist->songs) }} Songs
 			</a>
-			<a class="pull-left" href="{{ URL::to('dashboard/artists/profile/'.$artist->slug.'/videos') }}">
+			<a class="pull-left" href="{{ URL::to('dashboard/artists/profile/'.$artist->slug.'/videos') }}" data-driver="pageChanger">
 				{{ count($artist->videos) }} Videos
 			</a>
 		</div>

@@ -7,7 +7,7 @@
 	<div class="span7">
 		<div class="row event-name">
 			<div class="span7">
-				<a href="{{ URL::to('dashboard/events/profile/'.$event->slug) }}">
+				<a href="{{ URL::to('dashboard/events/profile/'.$event->slug) }}" data-driver="pageChanger">
 					{{ e($event->name) }}
 				</a>
 			</div>
@@ -24,7 +24,7 @@
 								<a href="#">{{ e($artist->name) }}</a>
 								{{ render('dashboard::common.partials.artist-popup', ['artist' => $artist]) }}
 							@else
-								<a>{{ e($artist->name) }}</a>
+								<a href="{{ URL::to('dashboard/artists/profile/'.$artist->slug) }}" data-driver="pageChanger">{{ e($artist->name) }}</a>
 							@endif
 						</div>
 						
@@ -41,7 +41,7 @@
 								<li>
 									<img src="{{ $artist->get_profile_photo_url('icon') }}" alt="{{ e($artist->name) }}"/>
 									@if((int) $artist->active === 1)
-										<a href="{{ URL::to('dashboard/artists/profile/'.$artist->slug) }}">
+										<a href="{{ URL::to('dashboard/artists/profile/'.$artist->slug) }}" data-driver="pageChanger">
 											{{ e($artist->name) }}
 										</a>
 									@else

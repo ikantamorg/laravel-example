@@ -21,7 +21,7 @@ define(
 
 				if( item ) {
 					mediaDriver.load(item);
-					this.togglePlayPause();
+					mediaDriver.play();
 
 					ui.loadItemToDisplay(item); //display the item in HUD
 					ui.trackProgressOfMedia(mediaDriver); //tracks the progress and shit of a media

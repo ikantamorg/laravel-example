@@ -53,5 +53,6 @@ return [
 	'admin' => ['auto' => true, 'handles' => 'admin', 'location' => 'domain/admin'],
 	'repositories' => ['auto' => true, 'location' => 'domain/repositories'],
 	'dashboard' => ['auto' => true, 'location' => 'domain/dashboard', 'handles' => 'dashboard'],
-	'player' => ['auto' => true, 'location' => 'domain/player', 'handles' => 'player']
+	'player' => ['auto' => true, 'location' => 'domain/player', 'handles' => 'player'],
+	'mjdocs' => ['handles' => 'mjdocs', 'location' => 'domain/mjdocs']
 ];

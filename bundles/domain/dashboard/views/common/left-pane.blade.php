@@ -7,7 +7,7 @@
 				<a 
           class="heading"
           href="{{ URL::to_action('dashboard::artists.listing') }}"
-          data-driver="pageChanger" data-load-featured="true"
+          data-driver="pageChanger"
         >
           ARTISTS
         </a>
@@ -15,7 +15,7 @@
 					<a
             class="clear" 
             href="{{ URL::to_action('dashboard::artists.listing') }}"
-            data-driver="pageChanger" data-load-featured="true"
+            data-driver="pageChanger"
           >
             clear x
           </a>
@@ -28,7 +28,7 @@
 								<li>
 									<a
                     href="<?=URL::to('dashboard/artists/listing').'?'.$qs($t->slug)?>"
-                    data-driver="pageChanger" data-load-featured="true"
+                    data-driver="pageChanger"
                   >
 										{{ $t->name }}
 									</a>
@@ -43,7 +43,7 @@
 			<div class="span4">
 				<a class="heading"
           href="{{ URL::to_action('dashboard::events.listing') }}"
-          data-driver="pageChanger" data-load-featured="true"
+          data-driver="pageChanger"
         >
           EVENTS
         </a>
@@ -51,7 +51,7 @@
 					<a 
             class="clear" 
             href="{{ URL::to_action('dashboard::events.listing') }}"
-            data-driver="pageChanger" data-load-featured="true"
+            data-driver="pageChanger"
           >
               clear x
           </a>
@@ -65,7 +65,7 @@
 									<a
                     href="<?=URL::to('dashboard/events/listing').'?'
 													. (in_array('timespan', $params) ? $qs($t->slug) : $qs($t->slug, 'timespan')) ?>"
-                    data-driver="pageChanger" data-load-featured="true"
+                    data-driver="pageChanger"
 									>
 										{{ $t->name }}
 									</a>
@@ -82,7 +82,7 @@
 				<a
           class="heading"
           href="{{ URL::to_action('dashboard::songs.listing') }}"
-          data-driver="pageChanger" data-load-featured="true"
+          data-driver="pageChanger"
         >
           SONGS
         </a>
@@ -90,7 +90,7 @@
 					<a
             class="clear" 
             href="{{ URL::to_action('dashboard::songs.listing') }}"
-            data-driver="pageChanger" data-load-featured="true"
+            data-driver="pageChanger"
           >
             clear x
           </a>
@@ -103,7 +103,7 @@
 								<li>
 									<a 
                     href="<?=URL::to('dashboard/songs/listing').'?'.$qs($t->slug)?>"
-                    data-driver="pageChanger" data-load-featured="true"
+                    data-driver="pageChanger"
                   >
 										{{ $t->name }}
 									</a>
@@ -120,7 +120,7 @@
 				<a 
           class="heading" 
           href="{{ URL::to_action('dashboard::videos.listing') }}"
-          data-driver="pageChanger" data-load-featured="true"
+          data-driver="pageChanger"
         >
           VIDEOS
         </a>
@@ -128,7 +128,7 @@
 					<a 
             class="clear" 
             href="{{ URL::to_action('dashboard::videos.listing') }}"
-            data-driver="pageChanger" data-load-featured="true"
+            data-driver="pageChanger"
           >
             clear x
           </a>
@@ -141,7 +141,7 @@
 								<li>
 									<a 
                     href="<?=URL::to('dashboard/videos/listing').'?'.$qs($t->slug)?>"
-                    data-driver="pageChanger" data-load-featured="true"
+                    data-driver="pageChanger"
                   >
 										{{ $t->name }}
 									</a>
@@ -153,7 +153,7 @@
 			</div>	
 		</div>
 
-		<?=Dashboard::widget('favorites_menu')?>
+		<?=Dashboard::widget('favorites_menu', [$uri, $user, $params])?>
 	</div>
 </div>
 
@@ -186,5 +186,16 @@ $(function () {
               
   });
   */
+});
+
+$(function () {
+  $('#content .left-pane .favorite-tag .fav').click(function () {
+    var $el = $(this);
+
+    if($el.hasClass('selected'))
+      $el.removeClass('selected')
+    else
+      $el.siblings('.selected').removeClass('selected').end().addClass('selected')
+  });
 });
 </script>
