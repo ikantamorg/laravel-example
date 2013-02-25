@@ -69,6 +69,8 @@ class Events extends Base
 			$q = $q->where('start_time', '>', $this->today_datetime())->order_by('start_time', 'asc');
 		}
 
+		$q = $q->order_by(Model::$table.'.rating', 'desc');
+
 		return $q;
 	}
 
