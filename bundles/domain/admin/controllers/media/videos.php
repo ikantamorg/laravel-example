@@ -8,7 +8,7 @@ use Core\Classification\Genre as Genre;
 
 class Admin_Media_Videos_Controller extends Crud_Base_Controller
 {
-	public $fields = ['name', 'duration', 'youtube_id', 'youtube_url', 'provider', 'owner_id', 'thumb'];
+	public $fields = ['name', 'duration', 'youtube_id', 'youtube_url', 'provider', 'owner_id', 'thumb', 'rating'];
 	public $relations = ['events', 'artists', 'genres', 'type', 'classification_tags'];
 	public $view_base = 'admin::media.videos.';
 	public $base_uri = 'admin/media/videos/';
@@ -41,7 +41,9 @@ class Admin_Media_Videos_Controller extends Crud_Base_Controller
 		if($this->_listing)
 			return $this->_listing;
 
-		return $this->_listing = Video::with(['genres', 'industry_register_entry', 'artists', 'type'])->get();
+		return $this->_listing = Video::with(['genres', 'industry_register_entry', 'artists', 'type'])
+										->order_by('rating', 'desc')
+										->get();
 	}
 
 	public function total_records()
@@ -67,6 +69,11 @@ class Admin_Media_Videos_Controller extends Crud_Base_Controller
 				$fs->control('text', 'Youtube URL', function ($c) {
 					$c->name = 'youtube_url';
 					$c->value = Input::old('youtube_url', @$this->resource()->youtube_url);
+				});
+
+				$fs->control('text', 'Rating', function ($c) {
+					$c->name = 'rating';
+					$c->value = Input::old('rating', @$this->resource()->rating);
 				});
 				
 				$fs->control('text', 'Name', function ($c) {
@@ -156,6 +163,7 @@ class Admin_Media_Videos_Controller extends Crud_Base_Controller
 		$table = Hybrid\Table::make(function ($t) {
 			$t->column('id');
 			$t->column('name');
+			$t->column('rating');
 			$t->column('duration', function ($c) {
 				$c->value = function ($r) {
 					return @$r->duration . ' seconds';

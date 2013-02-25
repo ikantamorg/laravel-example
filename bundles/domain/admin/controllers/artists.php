@@ -18,6 +18,7 @@ class Admin_Artists_Controller extends Crud_Base_Controller
 		'website_url',
 		'soundcloud_url',
 		'reverbnation_url',
+		'rating'
 	];
 
 	public $relations = [
@@ -89,7 +90,7 @@ class Admin_Artists_Controller extends Crud_Base_Controller
 			$q = Artist::with(['type', 'current_city']);
 		}
 
-		$q = $q->order_by('active', 'desc');
+		$q = $q->order_by('active', 'desc')->order_by('rating', 'desc');
 
 		return $this->_listing = $q->paginate(50);
 	}
@@ -118,6 +119,12 @@ class Admin_Artists_Controller extends Crud_Base_Controller
 					$c->name = 'name';
 					$c->value = Input::old('name', @$this->resource()->name);
 				});
+
+				$fs->control('text', 'Rating', function ($c) {
+					$c->name = 'rating';
+					$c->value = Input::old('rating', @$this->resource()->rating);
+				});
+
 				$fs->control('textarea', 'Bio', function ($c) {
 					$c->name = 'bio';
 					$c->value = Input::old('bio', @$this->resource()->bio);
@@ -274,6 +281,7 @@ class Admin_Artists_Controller extends Crud_Base_Controller
 		$table = Hybrid\Table::make(function ($t) {
 			$t->column('id');
 			$t->column('name');
+			$t->column('rating');
 			$t->column('press_contact');
 
 			$t->column('Type', function ($c) {
