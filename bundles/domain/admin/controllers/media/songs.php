@@ -8,7 +8,7 @@ use Core\Event\Model as Event;
 
 class Admin_Media_Songs_Controller extends Crud_Base_Controller
 {
-	public $fields = ['name', 'stream_url', 'soundcloud_url', 'owner_id', 'provider', 'duration'];
+	public $fields = ['name', 'stream_url', 'soundcloud_url', 'owner_id', 'provider', 'duration', 'rating'];
 	public $relations = ['artists', 'genres', 'events', 'classification_tags'];
 	public $view_base = 'admin::media.songs.';
 	public $base_uri = 'admin/media/songs/';
@@ -32,7 +32,9 @@ class Admin_Media_Songs_Controller extends Crud_Base_Controller
 		if($this->_listing)
 			return $this->_listing;
 
-		return $this->_listing = Song::with(['artists'])->where('provider', '<>', 'soundcloud')->order_by('active', 'desc')->get();
+		return $this->_listing = Song::with(['artists'])
+									 ->where('provider', '<>', 'soundcloud')
+									 ->order_by('active', 'desc')->order_by('rating', 'desc')->get();
 	}
 
 	public function total_records()
@@ -80,6 +82,11 @@ class Admin_Media_Songs_Controller extends Crud_Base_Controller
 						$options[$ir->type][$ir->id] = $ir->name;
 					$c->options = $options;
 					$c->value = Input::old('owner_id', @$this->resource()->owner_id);
+				});
+
+				$fs->control('text', 'Rating', function ($c) {
+					$c->name = 'rating';
+					$c->value = Input::old('rating', @$this->resource()->rating);
 				});
 
 				$fs->control('select', 'Artists', function ($c) {
@@ -144,6 +151,7 @@ class Admin_Media_Songs_Controller extends Crud_Base_Controller
 		$table = Hybrid\Table::make(function($t) {
 			$t->column('id');
 			$t->column('name');
+			$t->column('rating');
 			$t->column('artists', function ($c) {
 				$c->value = function ($r) {
 					return implode(', ', array_map(function ($a) { return $a->name; }, (array) $r->artists));

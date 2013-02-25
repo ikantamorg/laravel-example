@@ -21,7 +21,8 @@ class Admin_Events_Controller extends Crud_Base_Controller
 		'source',
 		'contact_numbers',
 		'contact_emails',
-		'is_timed'
+		'is_timed', 
+		'rating'
 	];
 
 	public $relations = [
@@ -100,7 +101,7 @@ class Admin_Events_Controller extends Crud_Base_Controller
 			$q = Event::with(['venues', 'venues.city', 'type']);
 		}
 
-		return $this->_listing = $q->order_by('start_time', 'desc')->paginate(50);
+		return $this->_listing = $q->order_by('start_time', 'desc')->order_by('rating', 'desc')->paginate(50);
 	}
 
 	public function total_records()
@@ -126,6 +127,11 @@ class Admin_Events_Controller extends Crud_Base_Controller
 				$fs->control('text', 'Name', function ($c) {
 					$c->name = 'name';
 					$c->value = Input::old('name', @$this->resource()->name);
+				});
+
+				$fs->control('text', 'Rating', function ($c) {
+					$c->name = 'rating';
+					$c->value = Input::old('rating', @$this->resource()->rating);
 				});
 
 				$fs->control('select', 'Type', function ($c) {
@@ -325,6 +331,7 @@ class Admin_Events_Controller extends Crud_Base_Controller
 		$table = Hybrid\Table::make(function ($t) {
 			$t->column('id');
 			$t->column('name');
+			$t->column('rating');
 			$t->column('Start_Time', function ($c) {
 				$c->value = function($r) {
 					return @$r->start_date.' '.@$r->start_time;
