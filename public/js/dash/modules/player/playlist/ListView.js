@@ -14,8 +14,8 @@ define(['./List', './ItemView'], function (List, ItemView) {
 
 		render: function () {
 			this.$el.html('');
-			this.itemViews = [];
 			_.each(this.itemViews, function (view) { view.off(); });
+      this.itemViews = [];
 			
 			this.list.each(function (item) {
 				this.itemViews.push(new ItemView({item: item}));
