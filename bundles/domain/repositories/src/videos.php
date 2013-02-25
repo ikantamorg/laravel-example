@@ -32,6 +32,8 @@ class Videos extends Base
 		if(array_key_exists('favorited_by_user', $params))
 			$q = $this->add_favorited_by_user_constraint($q, $params['favorited_by_user']);
 
+		$q = $q->order_by(Model::$table.'.rating', 'desc');
+
 		return $q;
 	}
 
