@@ -70,7 +70,9 @@
 					<div class="full-screen pull-right"><a rel="tooltip" title="View Full-screen"></a></div>
 				</div>
 				<div class="screen">
-					<object
+          <div class="video-box" width="570" height="320">
+          </div>
+         <!--object
 						type="application/x-shockwave-flash"
 						class="video-box"
 						width="570" height="320"
@@ -78,7 +80,7 @@
 					>
 						<param name="allowScriptAccess" value="always">
 						<param name="allowFullScreen" value="true">
-					</object>
+					</object-->
 				</div>
 			</div>
 

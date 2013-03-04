@@ -21,10 +21,8 @@ define(
 
 				if( item ) {
 					mediaDriver.load(item);
-					mediaDriver.play();
-
-					ui.loadItemToDisplay(item); //display the item in HUD
-					ui.trackProgressOfMedia(mediaDriver); //tracks the progress and shit of a media
+					ui.loadMedia(mediaDriver.getCurrentMedia()); // load the mediaDriver into the ui
+          mediaDriver.play();
 
 					vent.reactor.trigger(vent.interface.itemPlayedSuccess.id, item);
 				} else {
@@ -75,12 +73,10 @@ define(
 			togglePlayPause: function () {
 				if(mediaDriver.isPlaying()) {
 					mediaDriver.togglePlayPause();
-					ui.togglePlayPauseBtn();
 					vent.reactor.trigger(vent.interface.itemPausedSuccess.id, mediaDriver.getCurrentMedia());
 				} else {
 					console.log('played');
 					mediaDriver.togglePlayPause();
-					ui.togglePlayPauseBtn();
 					vent.reactor.trigger(vent.interface.itemPlayedSuccess.id, mediaDriver.getCurrentMedia());
 				}
 			},

@@ -16,6 +16,7 @@
 		{{ Asset::container('common')->scripts() }}
 
 		{{ Asset::container('dashboard')->scripts() }}
+    <script src="http://www.youtube.com/iframe_api"></script>
 	</head>
 
 	

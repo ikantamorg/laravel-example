@@ -215,11 +215,11 @@ define(
 				return elements.videoScreen;
 			},
 
-			videoObj: function () {
-				if(elements.videoObj) return elements.videoObj;
-				setUIElement('videoObj', this.videoScreen().find('.video-box'));
-				return elements.videoObj;
-			},
+      videoObj: function () {
+        if(elements.videObj) return elements.videoObj;
+        setUIElement('videoObj', this.videoScreen().find('.video-box'));
+        return elements.videoObj;
+      },
 
 			videoWindowCollapseBtn: function () {
 				if(elements.videoWindowCollapseBtn) return elements.videoWindowCollapseBtn;

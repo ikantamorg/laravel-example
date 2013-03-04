@@ -7,7 +7,6 @@ define(
 			$('#content').on('click', '.songs-list .song-play-btn, .artists-list .play-button', function () {
 				var $listItem = $(this).parent().parent();
 				var songId = parseInt($listItem.data('id'));
-        console.log('here');
 				dashVent.reactor.trigger(dashVent.interface.itemPlayed.id, {type:'song', id: songId});
 			});
 

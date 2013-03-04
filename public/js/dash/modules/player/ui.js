@@ -21,7 +21,7 @@ define(
 		domEventBinder.run();
 
 		var ui = {
-			loadItemToDisplay: function (item) {
+			loadMedia: function (item) {
 				if(item.getType() === 'video')
 					dom.itemSourceIcon().is(':hidden') && dom.itemSourceIcon().show();
 				else
