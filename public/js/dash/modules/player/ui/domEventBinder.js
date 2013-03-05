@@ -40,6 +40,7 @@ define(
 			dom.videoFullScreenBtn().on('click', function () {
 				vent.reactor.trigger(vent.interface.videoFullScreenToggled.id);
 			});
+
 		};
 
 		return {

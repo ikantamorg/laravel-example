@@ -22,7 +22,8 @@ class Admin_Events_Controller extends Crud_Base_Controller
 		'contact_numbers',
 		'contact_emails',
 		'is_timed', 
-		'rating'
+		'rating',
+		'active'
 	];
 
 	public $relations = [
@@ -59,6 +60,7 @@ class Admin_Events_Controller extends Crud_Base_Controller
 
 	public function before_create()
 	{
+		$this->relations[] = 'creator';
 		Input::merge(['creator' => Auth::user()->id]);
 		Input::merge(['contact_emails' => explode("\n", Input::get('contact_emails'))]);
 		Input::merge(['contact_numbers' => explode("\n", Input::get('contact_numbers'))]);
@@ -92,13 +94,14 @@ class Admin_Events_Controller extends Crud_Base_Controller
 
 		if($field = $this->get_searched_field()) {
 			
-			$q = Event::with(['venues', 'venues.city', 'type'])->left_join('core_event_venue', 'core_events.id', '=', 'core_event_venue.event_id');
+			$q = Event::with(['venues', 'venues.city', 'type', 'classification_tags', 'creator'])
+					  ->left_join('core_event_venue', 'core_events.id', '=', 'core_event_venue.event_id');
 			$q->left_join('core_event_types', 'core_events.type_id', '=', 'core_event_types.id');
 			$q->left_join('core_venues', 'core_venues.id', '=', 'core_event_venue.venue_id')->select('core_events.*');
 
 			$this->prepare_search_query($q, $field, Input::get($field));
 		} else {
-			$q = Event::with(['venues', 'venues.city', 'type']);
+			$q = Event::with(['venues', 'venues.city', 'type', 'classification_tags', 'creator']);
 		}
 
 		return $this->_listing = $q->order_by('start_time', 'desc')->order_by('rating', 'desc')->paginate(50);
@@ -269,6 +272,12 @@ class Admin_Events_Controller extends Crud_Base_Controller
 
 					$c->value = Input::old('videos', array_map(function ($v) { return $v->id; }, (array) @$this->resource()->videos));
 				});
+
+				$fs->control('input:checkbox', 'Active', function ($c) {
+					$c->name = 'active';
+					$c->value = 1;
+					$c->attr = ['checked' => Input::old('active', @$this->resource()->active)];
+				});
 				
 			});
 
@@ -330,29 +339,37 @@ class Admin_Events_Controller extends Crud_Base_Controller
 	{
 		$table = Hybrid\Table::make(function ($t) {
 			$t->column('id');
+			$t->column('profile_photo', function ($c) {
+				$c->value = function ($r) {
+					return '<img src="'.@$r->get_profile_photo_url('icon').'">';
+				};
+			});
+			
 			$t->column('name');
+			
+			$t->column('venue', function ($c) {
+				$c->value = function ($r) {
+					return @$r->venue->name . ', ' . @$r->venue->city->name;
+				};
+			});
+			
 			$t->column('rating');
+
+			$t->column('classification_tags', function ($c) {
+				$c->value = function ($r) {
+					return implode(', ', array_map(function ($t) { return $t->slug; }, @$r->classification_tags));
+				};
+			});
+
 			$t->column('Start_Time', function ($c) {
 				$c->value = function($r) {
 					return @$r->start_date.' '.@$r->start_time;
 				};
 			});
 
-			$t->column('End_Time', function ($c) {
+			$t->column('creator', function ($c) {
 				$c->value = function ($r) {
-					return @$r->end_date.' '.@$r->end_time;
-				};
-			});
-
-			$t->column('venue', function ($c) {
-				$c->value = function ($r) {
-					return @$r->venue->name . ', ' . @$r->venue->city->name;
-				};
-			});
-
-			$t->column('type', function ($c) {
-				$c->value = function ($r) {
-					return @$r->type->name;
+					return @$r->creator->username;
 				};
 			});
 
@@ -363,11 +380,6 @@ class Admin_Events_Controller extends Crud_Base_Controller
 			$t->column('', function ($c) {
 				$c->value = function ($r) { return HTML::link(URL::to('admin/event/'.$r->id.'/organizers'), 'Organizers'); };
 			});
-
-			//$t->column('source');
-			$t->column('website_url');
-			$t->column('facebook_url');
-			//$t->column('soundcloud_url');
 
 			$t->rows($this->listing()->results);
 		});

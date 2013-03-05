@@ -15,7 +15,11 @@ define(function () {
 
 		getArtists: function () {
 			return _.map(this.get('model').artists, function (a) { return a.name; });
-		}
+		},
+
+    getDuration: function () {
+      return parseFloat(this.get('model').duration);
+    }
 
 	});
 

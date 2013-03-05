@@ -27,15 +27,34 @@ define(
         videoScreen.show();
 			},
 			pause: function () {
-
+        YTPlayer.getPlayerState() === 2 || YTPlayer.pauseVideo();
 			},
+
+      resume: function () {
+        YTPlayer.getPlayerState() === 2 && YTPlayer.playVideo();
+      },
+
       stop: function () {
         YTPlayer.stopVideo();
         videoScreen.hide();        
       },
 			isPlaying: function () {
-				return false;
-			}
+				return YTPlayer.getPlayerState() === 1;
+			},
+
+      duration: function () {
+        if(! currentMedia) return 0;
+        return currentMedia.getDuration();
+      },
+
+      streamed: function () {
+        return YTPlayer.getVideoLoadedFraction();
+      },
+
+      played: function () {
+        if(! currentMedia ) return 0;
+        return YTPlayer.getCurrentTime()/currentMedia.getDuration();
+      }
 		};
 
 	}

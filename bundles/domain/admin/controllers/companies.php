@@ -17,6 +17,7 @@ class Admin_Companies_Controller extends Crud_Base_Controller
 		'manages_artists',
 		'manages_venues',
 		'manages_events',
+		'active'
 	];
 
 	public $relations = [
@@ -35,6 +36,7 @@ class Admin_Companies_Controller extends Crud_Base_Controller
 
 	public function before_create()
 	{
+		$this->relations[] = 'creator';
 		Input::merge(['creator' => Auth::user()->id]);
 		Input::merge(['contact_emails' => explode("\n", Input::get('contact_emails'))]);
 		Input::merge(['contact_numbers' => explode("\n", Input::get('contact_numbers'))]);
@@ -284,6 +286,12 @@ class Admin_Companies_Controller extends Crud_Base_Controller
 						$c->value = array_map(function ($v) { return $v->id; }, (array) @$this->resource()->venues);
 						$c->attr = ['multiple' => 'multiple'];
 					});
+
+				$fs->control('input:checkbox', 'Active', function ($c) {
+					$c->name = 'active';
+					$c->value = 1;
+					$c->attr = ['checked' => Input::old('active', @$this->resource()->active)];
+				});
 			});
 
 			if($this->resource()->exists) {

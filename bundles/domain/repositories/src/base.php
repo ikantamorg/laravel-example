@@ -55,7 +55,9 @@ abstract class Base
 			   ->join('core_tags', $junction.'.tag_id', '=', 'core_tags.id')
 			   ->where_in('core_tags.slug', $tags)
 			   ->group_by("{$junction}.{$singular}_id")
-			   ->having(DB::raw("count(`{$junction}`.`tag_id`)"), '>=', count($tags));
+			   ->having(DB::raw("count(`{$junction}`.`tag_id`)"), '>=', count($tags))
+			   //->order_by(DB::raw("sum(`{$junction}`.`weight`)"));
+		;
 		
 		return $q;
 	}

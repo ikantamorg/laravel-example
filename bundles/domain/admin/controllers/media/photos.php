@@ -28,6 +28,12 @@ class Admin_Media_Photos_Controller extends Crud_Base_Controller
 	
 	}
 
+	public function before_create()
+	{
+		$this->relations[] = 'creator';
+		Input::merge(['creator' => Auth::user()->id]);
+	}
+
 	public function resource($id = null)
 	{
 		if($this->_resource)

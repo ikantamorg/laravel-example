@@ -18,7 +18,8 @@ class Admin_Artists_Controller extends Crud_Base_Controller
 		'website_url',
 		'soundcloud_url',
 		'reverbnation_url',
-		'rating'
+		'rating',
+		'active'
 	];
 
 	public $relations = [
@@ -30,7 +31,7 @@ class Admin_Artists_Controller extends Crud_Base_Controller
 		'featured_songs',
 		'classification_tags',
 		'featured_videos',
-		'cover_photo'
+		'cover_photo',
 	];
 
 	public $view_base = 'admin::artists.';
@@ -55,6 +56,7 @@ class Admin_Artists_Controller extends Crud_Base_Controller
 
 	public function before_create()
 	{
+		$this->relations[] = 'creator';
 		Input::merge(['creator' => Auth::user()->id]);
 		Input::merge(['contact_emails' => explode("\n", Input::get('contact_emails'))]);
 		Input::merge(['contact_numbers' => explode("\n", Input::get('contact_numbers'))]);
@@ -82,12 +84,13 @@ class Admin_Artists_Controller extends Crud_Base_Controller
 			return $this->_listing;
 
 		if( $field = $this->get_searched_field() ) {
-			$q = Artist::with(['type', 'current_city'])->left_join('core_artist_types', 'core_artists.type_id', '=', 'core_artist_types.id');
+			$q = Artist::with(['type', 'current_city', 'classification_tags', 'genres', 'creator'])
+						->left_join('core_artist_types', 'core_artists.type_id', '=', 'core_artist_types.id');
 			$q->left_join('core_cities', 'core_artists.current_city_id', '=', 'core_cities.id')->select('core_artists.*');
 
 			$this->prepare_search_query($q, $field, Input::get($field));	
 		} else {
-			$q = Artist::with(['type', 'current_city']);
+			$q = Artist::with(['type', 'current_city', 'classification_tags', 'genres', 'creator']);
 		}
 
 		$q = $q->order_by('active', 'desc')->order_by('rating', 'desc');
@@ -190,6 +193,12 @@ class Admin_Artists_Controller extends Crud_Base_Controller
 					$c->attr = ['multiple' => 'multiple'];
 					$c->value = Input::old('genres', array_map(function ($g) { return $g->id; }, (array)@$this->resource()->genres));
 				});
+
+				$fs->control('input:checkbox', 'Active', function ($c) {
+					$c->name = 'active';
+					$c->value = 1;
+					$c->attr = ['checked' => Input::old('active', @$this->resource()->active)];
+				});
 			});
 	
 			$f->fieldset('Classification Tags', function ($fs) {
@@ -280,25 +289,35 @@ class Admin_Artists_Controller extends Crud_Base_Controller
 	{
 		$table = Hybrid\Table::make(function ($t) {
 			$t->column('id');
-			$t->column('name');
-			$t->column('rating');
-			$t->column('press_contact');
-
-			$t->column('Type', function ($c) {
+			$t->column('profile_photo', function ($c) {
 				$c->value = function ($r) {
-					return @$r->type->name;
+					return '<img src="'.@$r->get_profile_photo_url('icon').'">';
 				};
 			});
-
+			$t->column('name');
+			$t->column('rating');
+			
 			$t->column('Current_City', function ($c) {
 				$c->value = function ($r) {
 					return @$r->current_city->name;
 				};
 			});
 
-			$t->column('', function ($c) {
+			$t->column('classification_tags', function ($c) {
 				$c->value = function ($r) {
-					return HTML::link(URL::to($this->base_uri.'show/'.$r->id), 'Show');
+					return implode(', ', array_map(function ($t) { return $t->slug; }, @$r->classification_tags));
+				};
+			});
+
+			$t->column('genres', function ($c) {
+				$c->value = function ($r) {
+					return implode(', ', array_map(function ($t) { return $t->name; }, @$r->genres));
+				};
+			});
+
+			$t->column('creator', function ($c) {
+				$c->value = function ($r) {
+					return @$r->creator->username;
 				};
 			});
 

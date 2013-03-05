@@ -20,7 +20,7 @@ define(
 					item = playlist.findItem(options.type, options.id);
 
 				if( item ) {
-					mediaDriver.load(item);
+          mediaDriver.load(item);
 					ui.loadMedia(mediaDriver.getCurrentMedia()); // load the mediaDriver into the ui
           mediaDriver.play();
 
@@ -73,10 +73,11 @@ define(
 			togglePlayPause: function () {
 				if(mediaDriver.isPlaying()) {
 					mediaDriver.togglePlayPause();
+          ui.togglePlayPauseBtn();
 					vent.reactor.trigger(vent.interface.itemPausedSuccess.id, mediaDriver.getCurrentMedia());
 				} else {
-					console.log('played');
 					mediaDriver.togglePlayPause();
+          ui.togglePlayPauseBtn();
 					vent.reactor.trigger(vent.interface.itemPlayedSuccess.id, mediaDriver.getCurrentMedia());
 				}
 			},

@@ -6,6 +6,17 @@ define(
 	function (audioDriver, videoDriver) {
 
 		var driver = null;
+    
+    var provideProgressInfo = function () {
+      if(! driver || ! driver.getCurrentMedia()) return;
+      driver.getCurrentMedia().trigger('progress', {
+        streamed: driver.streamed(),
+        played: driver.played(),
+        duration: driver.duration()
+      });
+    };
+
+    var timer = setInterval(provideProgressInfo, 1000);
 
 		return {
 			load: function (item) {
@@ -23,13 +34,19 @@ define(
 			play: function () {
 				if(! driver ) return;
 				driver.play();
+        this.getCurrentMedia().trigger('played');
 			},
 
-			togglePlayPause: function () {
-				if(this.isPlaying())
-					this.pause();
-				else
-					this.play();
+      togglePlayPause: function () {
+        if(! driver ) return;
+
+				if(this.isPlaying()) {
+					driver.pause();
+          this.getCurrentMedia().trigger('paused');
+        } else {
+          driver.resume();
+          this.getCurrentMedia().trigger('resumed');
+        }
 			},
 
 			getCurrentMedia: function () {
@@ -39,7 +56,15 @@ define(
 
 			isPlaying: function () {
 				return driver && driver.isPlaying();
-			}
+			},
+
+      getPlayed: function () {
+        return driver.played();
+      },
+
+      getStreamed: function () {
+        return driver.streamed();
+      }
 		};
 	}
 );

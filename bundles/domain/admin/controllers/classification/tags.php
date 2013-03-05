@@ -4,7 +4,7 @@ use Core\Classification\Tag;
 
 class Admin_Classification_Tags_Controller extends Crud_Base_Controller
 {
-	public $fields = ['name'];
+	public $fields = ['name', 'active'];
 	public $view_base = 'admin::classification.tags.';
 	public $base_uri = 'admin/classification/tags/';
 
@@ -25,6 +25,12 @@ class Admin_Classification_Tags_Controller extends Crud_Base_Controller
 				$fs->control('text', 'Name', function ($c) use($tag) {
 					$c->name = 'name';
 					$c->value = Input::old('name', @$tag->name);
+				});
+
+				$fs->control('input:checkbox', 'Active', function ($c) {
+					$c->name = 'active';
+					$c->value = 1;
+					$c->attr = ['checked' => Input::old('active', @$this->resource()->active)];
 				});
 			});
 		});

@@ -8,7 +8,7 @@ use Core\Classification\Genre as Genre;
 
 class Admin_Media_Videos_Controller extends Crud_Base_Controller
 {
-	public $fields = ['name', 'duration', 'youtube_id', 'youtube_url', 'provider', 'owner_id', 'thumb', 'rating'];
+	public $fields = ['name', 'duration', 'youtube_id', 'youtube_url', 'provider', 'owner_id', 'thumb', 'rating', 'active'];
 	public $relations = ['events', 'artists', 'genres', 'type', 'classification_tags'];
 	public $view_base = 'admin::media.videos.';
 	public $base_uri = 'admin/media/videos/';
@@ -27,6 +27,12 @@ class Admin_Media_Videos_Controller extends Crud_Base_Controller
 	}
 
 	/************************/
+
+	public function before_create()
+	{
+		$this->relations[] = 'creator';
+		Input::merge(['creator' => Auth::user()->id]);
+	}
 
 	public function resource($id = null)
 	{
@@ -140,6 +146,12 @@ class Admin_Media_Videos_Controller extends Crud_Base_Controller
 						$c->value = Input::old($field, @$this->resource()->{$field});
 					});
 				}
+
+				$fs->control('input:checkbox', 'Active', function ($c) {
+					$c->name = 'active';
+					$c->value = 1;
+					$c->attr = ['checked' => Input::old('active', @$this->resource()->active)];
+				});
 			});
 
 			$f->fieldset('Classification Tags', function ($fs) {

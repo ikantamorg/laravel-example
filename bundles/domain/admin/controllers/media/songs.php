@@ -8,7 +8,7 @@ use Core\Event\Model as Event;
 
 class Admin_Media_Songs_Controller extends Crud_Base_Controller
 {
-	public $fields = ['name', 'stream_url', 'soundcloud_url', 'owner_id', 'provider', 'duration', 'rating'];
+	public $fields = ['name', 'stream_url', 'soundcloud_url', 'owner_id', 'provider', 'duration', 'rating', 'active'];
 	public $relations = ['artists', 'genres', 'events', 'classification_tags'];
 	public $view_base = 'admin::media.songs.';
 	public $base_uri = 'admin/media/songs/';
@@ -56,6 +56,8 @@ class Admin_Media_Songs_Controller extends Crud_Base_Controller
 	/**HOOKS**/
 	public function before_create()
 	{
+		$this->relations[] = 'creator';
+		Input::merge(['creator' => Auth::user()->id]);
 		Input::merge(['provider' => 'users']);
 	}
 
@@ -127,6 +129,12 @@ class Admin_Media_Songs_Controller extends Crud_Base_Controller
 
 				$fs->control('input:file', 'Audio File', function ($c) {
 					$c->name = 'audio';
+				});
+
+				$fs->control('input:checkbox', 'Active', function ($c) {
+					$c->name = 'active';
+					$c->value = 1;
+					$c->attr = ['checked' => Input::old('active', @$this->resource()->active)];
 				});
 			});
 

@@ -18,10 +18,29 @@ define(
 			return helper;
 		};
 
+    var timeObjectFactory = function (timeInSeconds) {
+      return {
+        min : Math.floor(timeInSeconds / 60),
+        sec: Math.round(timeInSeconds - Math.floor(timeInSeconds / 60) * 60)
+      }
+    }
+
 		domEventBinder.run();
 
 		var ui = {
+      media: null,
+
 			loadMedia: function (item) {
+        if(this.media) {
+          this.media.off('progress', this.trackProgressOfMedia, this);
+          this.media.off('played', this.setPlayingState, this);
+        }
+
+        this.media = item;
+
+        this.media.on('progress', this.trackProgressOfMedia, this);
+        this.media.on('played', this.setPlayingState, this);
+
 				if(item.getType() === 'video')
 					dom.itemSourceIcon().is(':hidden') && dom.itemSourceIcon().show();
 				else
@@ -36,6 +55,12 @@ define(
 				}).hide();
 			},
 
+      setPlayingState: function () {
+        if(! dom.playToggleBtn().hasClass('pause')) {
+          dom.playToggleBtn().addClass('pause');
+        }
+      },
+
 			cleanUpDisplay: function () {
 				dom.itemSourceIcon().hide();
 				dom.songNameDisplay().text('');
@@ -44,8 +69,6 @@ define(
 			},
 
 			togglePlayPauseBtn: function () {
-
-				console.log('here');
 
 				if(dom.playToggleBtn().hasClass('pause'))
 					dom.playToggleBtn().removeClass('pause');
@@ -95,8 +118,22 @@ define(
 				
 			},
 
-			trackProgressOfMedia: function (mediaDriver) {
-				
+			trackProgressOfMedia: function (data) {
+		    if(! this.media	) return;
+
+        dom.streamingBar().width(100 * data.streamed + '%');
+        dom.progressBar().width(100 * data.played + '%');
+        dom.progressHandle().css('left', 100 * data.played + '%');
+
+        var timeDone = timeObjectFactory(data.played * data.duration);
+        var totalTime = timeObjectFactory(data.duration)
+      
+
+        //console.log(timeDone, totalTime);
+
+        dom.timeDoneDisplay().text(timeDone.min + ':' + timeDone.sec);
+        dom.timeLeftDisplay().text(totalTime.min + ':' + totalTime.sec);
+
 			}
 		};
 
