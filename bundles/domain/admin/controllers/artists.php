@@ -69,6 +69,42 @@ class Admin_Artists_Controller extends Crud_Base_Controller
 		Input::merge(['contact_numbers' => explode("\n", Input::get('contact_numbers'))]);
 	}
 
+    public function after_persist(){
+
+        // update pivot
+        $pivot = Input::get('pivot');
+        if(!empty($this->resource()->id) && !empty($pivot)){
+            $this->update_pivot($pivot);
+        }
+
+    }
+
+    /**
+     * Update relation's pivot data
+     *
+     * @param $pivot
+     *
+     * @throws Exception
+     */
+    protected function update_pivot($pivot){
+
+        try{
+            foreach($pivot as $relation => $_data) {
+
+                foreach($this->resource()->$relation()->get() as $_r){
+                    if( !empty($_data[$_r->id]) ){
+                        $_r->pivot->fill($_data[$_r->id]);
+                        $_r->pivot->save();
+                    }
+                }
+            }
+        } catch(Exception $e){
+            throw $e;
+        }
+
+
+    }
+
 	/***********/
 
 	public function resource($id = null)
@@ -116,7 +152,10 @@ class Admin_Artists_Controller extends Crud_Base_Controller
 
 	public function form()
 	{
-		$form = Hybrid\Form::make(function ($f) {
+
+        $this->resource()->getOrderedVideos();
+
+        $form = Hybrid\Form::make(function ($f) {
 			$f->fieldset('Artist', function ($fs) {
 				$fs->control('text', 'Name', function ($c) {
 					$c->name = 'name';
@@ -240,7 +279,39 @@ class Admin_Artists_Controller extends Crud_Base_Controller
 					}
 				});
 			}
-		
+
+            if($this->resource()->exists) {
+                $f->fieldset('Videos', function ($fs) {
+
+                    $fs->attr([
+                        'class' => 'draggable videos-list',
+                        'data-target' => 'div.control-group'
+                    ]);
+
+                    if(@$this->resource()->videos) {
+                        Asset::container('admin-common')
+                            ->add('admin-videos-style', 'css/admin.videos.css')
+                            ->add('jquery.ui.custom', 'js/lib/jquery-ui-1.8.18.custom.min.js','jquery')
+                            ->add('jquery.ui.sortable', 'js/lib/jquery.ui.sortable.min.js','jquery')
+                            ->add('video-sorting', 'bundles/admin/js/videos-sorting.js','jquery');
+
+                        foreach($this->resource()->videos as $_video) {
+                            $fs->control('', '', function ($c) use ($_video) {
+                                $c->name = 'pivot[videos]['.$_video->id.'][weight]';
+                                $c->value = $_video->pivot->weight;
+
+                                $c->field = function ($row) use ($c, $_video){
+                                    $out = '';
+                                    $out .= '<input type="hidden" name="'.$c->name.'" value="'.$c->value.'" data-vid="'.$_video->id.'">';
+                                    $out .= View::make('admin::artists.videos.edit')->with('video', $_video);
+                                    return $out;
+                                };
+                            });
+                        }
+                    }
+                });
+            }
+
 			if($this->resource()->exists) {
 				$f->fieldset('Profile Photo', function ($fs) {
 					$photos = [];
