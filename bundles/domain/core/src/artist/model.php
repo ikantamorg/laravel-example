@@ -227,7 +227,22 @@ class Model extends Abstracts\IndustryPlayerModel
 											->select(Video::$table.'.*')
 											->where(Video::$table.'.active', '=', 1)
 											->where(static::$table.'.id', '=', $this->id)
+                                            ->order_by('core_artist_video.weight', 'DESC')
 											->distinct()
 											->get();
 	}
+
+
+    /**
+     * Get ordered by weight videos
+     *
+     * @return mixed
+     */
+    public function getOrderedVideos(){
+        $key = 'videos';
+        return $this->relationships[$key] = $this->$key()
+            ->with('weight')
+            ->order_by('weight', 'DESC')->order_by('id', 'DESC')->get();
+    }
+
 }
